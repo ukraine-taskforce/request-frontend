@@ -1,5 +1,5 @@
-export interface ButtonProps {}
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const Button: React.FunctionComponent<ButtonProps> = ({ children }) => {
-  return <button>{children}</button>
-}
+export const Button: React.FunctionComponent<ButtonProps> = (props) => {
+  return <button {...props} />;
+};

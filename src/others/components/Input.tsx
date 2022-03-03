@@ -1,5 +1,5 @@
-export interface InputProps {}
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-export const Button: React.FunctionComponent<InputProps> = ({}) => {
-  return <input />
-}
+export const Input: React.FunctionComponent<InputProps> = ({}) => {
+  return <input />;
+};
