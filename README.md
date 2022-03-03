@@ -2,7 +2,6 @@
 
 Run the command `yarn` to install all the depencenies
 
-
 ## Available Scripts
 
 In the project directory, you can run:
