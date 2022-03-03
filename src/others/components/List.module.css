@@ -1,0 +1,20 @@
+ol.list {
+  list-style: none;
+  counter-reset: my-awesome-counter;
+}
+
+ol.list li {
+  counter-increment: my-awesome-counter;
+}
+
+ol.list li::before {
+  content: counter(my-awesome-counter);
+  color: white;
+  background-color: black;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+}
