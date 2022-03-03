@@ -6,14 +6,29 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 import { Home } from './pages/home'
+import { Captcha } from './pages/captcha'
+import { Locator } from './pages/locator'
+import { People } from './pages/people'
+import { Review } from './pages/review'
+import { Success } from './pages/success'
+import { Supplies } from './pages/supplies'
+import { DataContextProvider } from './others/contexts/data';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+    <DataContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/captcha" element={<Captcha />} />
+          <Route path="/locator" element={<Locator />} />
+          <Route path="/people" element={<People />} />
+          <Route path="/review" element={<Review />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/supplies" element={<Supplies />} />
+        </Routes>
+      </BrowserRouter>
+    </DataContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
