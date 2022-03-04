@@ -12,6 +12,7 @@
     "@types/react-dom": "^17.0.13",
     "husky": "^7.0.4",
     "i18next": "^21.6.13",
+    "jest-watch-typeahead": "0.6.5",
     "lint-staged": "^12.3.4",
     "prettier": "^2.5.1",
     "react": "^17.0.2",
