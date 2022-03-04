@@ -1,0 +1,24 @@
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.counter {
+  color: white;
+  background-color: #159BFF;
+  border-radius: 50%;
+  font-size: 20px;
+  padding: 7px;
+}
+
+.nextArrow {
+  margin-right: 16px;
+}
