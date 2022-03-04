@@ -3,25 +3,29 @@
   color: white;
   border: none;
   margin: 0;
-  padding: 16px 28px;
+  padding: 10px;
   border-radius: 28px;
+  min-height: 60px;
   width: auto;
   overflow: visible;
   text-align: center;
   transition: opacity ease-in-out 0.3s;
   cursor: pointer;
   position: relative;
+  display: flex;
 }
 
 .button:disabled {
   opacity: 0.5;
 }
 
+.label {
+  flex-grow: 1;
+  margin: auto;
+}
+
 .leadingIcon,
 .trailingIcon {
-  position: absolute;
-  top: 0;
-  bottom: 0;
   display: flex;
 }
 
@@ -33,8 +37,8 @@
   right: 18px;
 }
 
-.leadingIcon > img,
-.trailingIcon > img {
+.leadingIcon > *,
+.trailingIcon > * {
   width: 24px;
   height: 24px;
   margin: auto 0;

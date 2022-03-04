@@ -5,6 +5,7 @@ export interface FormData {
   children: number;
   infants: number;
   location?: number;
+  supplies: number[]
 }
 
 export interface FormContextValue {
@@ -13,10 +14,11 @@ export interface FormContextValue {
   clearStore: () => void;
 }
 
-const defaultValue = {
+const defaultValue: FormData = {
   adults: 0,
   children: 0,
   infants: 0,
+  supplies: []
 };
 
 const FormContext = React.createContext<FormContextValue>({

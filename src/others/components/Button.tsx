@@ -11,7 +11,7 @@ export const Button: React.FunctionComponent<ButtonProps> = ({ fullWidth, childr
   return (
     <button className={styles.button} style={{ width: fullWidth ? "100%" : "auto" }} {...props}>
       {Boolean(leadingIcon) && <span className={styles.leadingIcon}>{leadingIcon}</span>}
-      {children}
+      <span className={styles.label}>{children}</span>
       {Boolean(trailingIcon) && <span className={styles.trailingIcon}>{trailingIcon}</span>}
     </button>
   );
