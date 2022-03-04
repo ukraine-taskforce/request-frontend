@@ -1,18 +1,26 @@
 import React from "react";
 
 export interface FormData {
-  children?: number;
+  adults: number;
+  children: number;
+  infants: number;
 }
 
 export interface FormContextValue {
   currentValue: FormData;
-  udpateKeyValue: (key: keyof FormData, value: any) => void;
+  updateValue: (values: { [x: string]: any }) => void;
   clearStore: () => void;
 }
 
+const defaultValue = {
+  adults: 0,
+  children: 0,
+  infants: 0,
+};
+
 const FormContext = React.createContext<FormContextValue>({
-  currentValue: {},
-  udpateKeyValue: () => {},
+  currentValue: defaultValue,
+  updateValue: () => {},
   clearStore: () => {},
 });
 
@@ -21,27 +29,27 @@ export function useFormValue() {
 }
 
 export const FormContextProvider: React.FunctionComponent = ({ children }) => {
-  const [currentValue, setCurrentValue] = React.useState<FormData>({});
+  const [currentValue, setCurrentValue] = React.useState<FormData>(defaultValue);
 
-  const udpateKeyValue = React.useCallback(
-    (key: keyof FormData, value: any) => {
+  const updateValue = React.useCallback(
+    (values: { [x: string]: any }) => {
       setCurrentValue({
         ...currentValue,
-        [key]: value,
+        ...values,
       });
     },
     [currentValue, setCurrentValue]
   );
 
   const clearStore = React.useCallback(() => {
-    setCurrentValue({});
+    setCurrentValue(defaultValue);
   }, [setCurrentValue]);
 
   return (
     <FormContext.Provider
       value={{
         currentValue,
-        udpateKeyValue,
+        updateValue,
         clearStore,
       }}
     >

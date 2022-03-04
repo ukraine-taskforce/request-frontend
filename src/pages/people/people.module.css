@@ -1,0 +1,18 @@
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.extend {
+  flex-grow: 1;
+}
+
+.card {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  width: 40px;
+  height: 40px;
+}
