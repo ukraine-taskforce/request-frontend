@@ -4,10 +4,14 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "../../others/components/Button";
 import { Card } from "../../others/components/Card";
-import { LanguageSelector } from "../../others/components/LanguageSelector";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
-import { FormData, useFormValue } from "../../others/contexts/form";
+import { useFormValue } from "../../others/contexts/form";
+import { Header } from "../../others/components/Header";
+
+import minusIcon from "../../medias/images/UGT_Asset_UI_Quantities_Minus.svg";
+import plusIcon from "../../medias/images/UGT_Asset_UI_Quantities_Plus.svg";
+import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
 
 import styles from "./people.module.css";
 
@@ -37,20 +41,21 @@ export function People() {
 
   return (
     <React.Fragment>
-      <LanguageSelector />
+      <Header hasBackButton />
       <h1>{t("people_how_many")}?</h1>
+      <Spacer size={24} />
       <div className={styles.flex}>
         {PEOPLE_TYPES.map((category) => {
           const value = currentValue[category.key];
 
           return (
             <React.Fragment>
-              <Card key={category.key}>
+              <Card key={category.key} className={styles.card}>
                 <div>
-                  <Text>{t(category.key)}</Text>
-                  <Text>{t(category.explanation_key)}</Text>
+                  <Text className={styles.cardTitle}>{t(category.key)}</Text>
+                  <Text className={styles.cardSubtitle}>{t(category.explanation_key)}</Text>
                 </div>
-                <div>
+                <div className={styles.cardRight}>
                   <img
                     className={styles.button}
                     onClick={() => {
@@ -58,10 +63,10 @@ export function People() {
                       updateValue({ [category.key]: value - 1 });
                     }}
                     style={{ opacity: value <= 0 ? 0.5 : 1 }}
-                    src=""
-                    alt="minus"
+                    src={minusIcon}
+                    alt="-"
                   />
-                  <span>{value}</span>
+                  <span className={styles.cardValue}>{value}</span>
                   <img
                     className={styles.button}
                     onClick={() => {
@@ -69,8 +74,8 @@ export function People() {
                       updateValue({ [category.key]: value + 1 });
                     }}
                     style={{ opacity: value >= 10 ? 0.5 : 1 }}
-                    src=""
-                    alt="plus"
+                    src={plusIcon}
+                    alt="+"
                   />
                 </div>
               </Card>
@@ -78,8 +83,12 @@ export function People() {
             </React.Fragment>
           );
         })}
-        <span className={styles.extend} />
-        <Button disabled={!currentValue.adults && !currentValue.children && !currentValue.infants} onClick={handleSubmit}>
+        <Spacer size={100} />
+        <Button
+          disabled={!currentValue.adults && !currentValue.children && !currentValue.infants}
+          onClick={handleSubmit}
+          icon={<img src={nextIcon} alt="" />}
+        >
           {t("people_next")}
         </Button>
       </div>

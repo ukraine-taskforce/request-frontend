@@ -9,10 +9,12 @@
   "locator_results": "results",
   "locator_search_your": "Search your city",
   "people_how_many": "How many people are in your direct group",
+  "people_next": "Next",
   "adults": "Adults",
-  "adults_explantation": "Age 13 or above",
+  "adults_details": "Age 13 or above",
   "children": "Children",
-  "children_explantation": "Ages 2-12",
+  "children_details": "Ages 2-12",
   "infants": "Infants",
-  "infants_explantation": "Under 2"
+  "infants_details": "Under 2",
+  "back": "Back"
 }
