@@ -16,7 +16,7 @@ export function Review() {
     } catch (error) {
       // Maybe display an error message
     }
-  }, [mutate, currentValue]);
+  }, [mutate, clearStore, currentValue]);
 
   return (
     <React.Fragment>
