@@ -1,3 +1,11 @@
 :root {
+  /* COLORS */
+  --color-black: #000;
+  --color-white: #fff;
+  --color-focus: #159BFF;
+  /* general */
+  --color-global-bg: #ecf0f3;
+
+  /* OTHER */
   --header-height: 40px;
 }

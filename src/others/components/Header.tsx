@@ -13,18 +13,24 @@ export interface HeaderProps {
   hasBackButton?: boolean;
   hasAbout?: boolean;
   hasShare?: boolean;
+  handleAbout?: () => void;
 }
 
 export interface HeaderProps {}
 
-export const Header: React.FunctionComponent<HeaderProps> = ({ hasBackButton = false, hasAbout = false, hasShare = false }) => {
+export const Header: React.FunctionComponent<HeaderProps> = ({
+  hasBackButton = false,
+  hasAbout = false,
+  hasShare = false,
+  handleAbout,
+}) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
     <nav className={styles.wrapper}>
       {hasAbout && (
-        <div className={styles.headerCard}>
+        <div className={styles.headerCard} onClick={handleAbout}>
           <Text>About us</Text>
         </div>
       )}

@@ -12,15 +12,18 @@ import { Text } from "../../others/components/Text";
 import styles from "./home.module.css";
 import ugtLogo from "../../medias/images/UGT_Asset_Brand.svg";
 import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
+import shareIcon from "../../medias/images/UGT_Asset_UI_Share_Icon.svg";
 import { Header } from "../../others/components/Header";
+import { Modal } from "../../others/components/Modal";
 
 export function Home() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [displayModal, setDisplayModal] = React.useState(false);
 
   return (
     <React.Fragment>
-      <Header hasAbout hasShare />
+      <Header hasAbout handleAbout={() => setDisplayModal(true)} hasShare />
       <Spacer size={40} />
       <img className={styles.ugtLogo} src={ugtLogo} alt="UGT Logo" />
       <h1>{t("home_how_does_works")}</h1>
@@ -42,6 +45,25 @@ export function Home() {
           {t("home_i_understand")}
         </Button>
       </Card>
+      <Modal show={displayModal} handleClose={() => setDisplayModal(false)}>
+        <div style={{display: "flex"}}>
+          <Spacer flex={1}/>
+          <img className={styles.ugtLogo} src={ugtLogo} alt="UGT Logo" />
+          <Spacer flex={1}/>
+        </div>
+        <h1 style={{textAlign: "center"}}>{t("about_head")}</h1>
+        <Text alignment="center">{t("about_detailed")}</Text>
+        <Spacer size={22} />
+        {/* TODO Share Action */}
+        <Button
+          fullWidth
+          focus
+          onClick={() => undefined}
+          trailingIcon={<img style={{height: "15px"}} src={shareIcon} alt={t("share")} />}
+        >
+          {t("about_share")}
+        </Button>
+      </Modal>
     </React.Fragment>
   );
 }
