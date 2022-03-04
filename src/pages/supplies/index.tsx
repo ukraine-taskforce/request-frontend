@@ -1,11 +1,77 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
+import { Button } from "../../others/components/Button";
+import { Card } from "../../others/components/Card";
+import { Spacer } from "../../others/components/Spacer";
+import { useFormValue } from "../../others/contexts/form";
+import { Header } from "../../others/components/Header";
+import { Text } from "../../others/components/Text";
+import { useSuppliesQuery } from "../../others/contexts/api";
+
+import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
+
+import styles from "./supplies.module.css";
+import { Checkmark } from "../../others/components/Checkmark";
 
 export function Supplies() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { currentValue, updateValue } = useFormValue();
+  const { data: supplies } = useSuppliesQuery();
+
+  const handleSubmit = React.useCallback(() => {
+    navigate("/review");
+  }, [navigate]);
+
+  const toggleSupply = React.useCallback(
+    (supplyId: number) => {
+      const array = currentValue.supplies;
+      const index = array.indexOf(supplyId);
+
+      if (index === -1) {
+        array.push(supplyId);
+      } else {
+        array.splice(index, 1);
+      }
+
+      updateValue({ supplies: array });
+    },
+    [currentValue, updateValue]
+  );
+
+  if (!supplies) {
+    // Handle loading state ?
+    return null;
+  }
+
   return (
     <React.Fragment>
-      <h1>Supplies</h1>
-      <Link to="/review">Next page</Link>
+      <Header hasBackButton />
+      <h1>{t("supplies_what_is_needed")}?</h1>
+      <Spacer size={24} />
+      <div className={styles.flex}>
+        {supplies.map((supply) => (
+          <React.Fragment>
+            <Card key={supply.name} className={styles.card} onClick={() => toggleSupply(supply.id)}>
+              <Text variant="bold">{supply.name}</Text>
+              <Checkmark checked={currentValue.supplies.includes(supply.id)} />
+            </Card>
+            <Spacer size={6} />
+          </React.Fragment>
+        ))}
+        <Spacer size={100} />
+        <Button
+          onClick={handleSubmit}
+          leadingIcon={<span className={styles.counter}>{currentValue.supplies.length}</span>}
+          trailingIcon={<img src={nextIcon} className={styles.nextArrow} alt="" />}
+          disabled={currentValue.supplies.length <= 0}
+          fullWidth
+        >
+          {t("supplies_next")}
+        </Button>
+      </div>
     </React.Fragment>
   );
 }
