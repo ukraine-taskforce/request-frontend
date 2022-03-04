@@ -25,7 +25,7 @@ export function Home() {
       <Card>
         <Text alignment="center">{t("home_acknowledgement")}</Text>
         <Spacer />
-        <Button fullWidth onClick={() => navigate("/captcha")}>{t("home_i_understand")}</Button>
+        <Button fullWidth onClick={() => navigate("/locator")}>{t("home_i_understand")}</Button>
       </Card>
     </React.Fragment>
   );

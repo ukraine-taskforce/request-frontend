@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { QueryClientProvider } from "react-query";
 
 import "./index.css";
 import "./others/contexts/i18n";
@@ -12,22 +13,25 @@ import { People } from "./pages/people";
 import { Review } from "./pages/review";
 import { Success } from "./pages/success";
 import { Supplies } from "./pages/supplies";
-import { DataContextProvider } from "./others/contexts/data";
+import { FormContextProvider } from "./others/contexts/form";
+import { queryClient } from "./others/contexts/api";
 
 ReactDOM.render(
   <React.StrictMode>
-    <DataContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/locator" element={<Locator />} />
-          <Route path="/people" element={<People />} />
-          <Route path="/review" element={<Review />} />
-          <Route path="/success" element={<Success />} />
-          <Route path="/supplies" element={<Supplies />} />
-        </Routes>
-      </BrowserRouter>
-    </DataContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <FormContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/locator" element={<Locator />} />
+            <Route path="/people" element={<People />} />
+            <Route path="/review" element={<Review />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="/supplies" element={<Supplies />} />
+          </Routes>
+        </BrowserRouter>
+      </FormContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
