@@ -1,0 +1,16 @@
+.checkmark {
+  border: 2px solid #bdc0c2;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.checked {
+  border-color: #159bff;
+}
+
+.img {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
