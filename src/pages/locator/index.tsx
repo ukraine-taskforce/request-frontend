@@ -6,7 +6,6 @@ import loopIcon from "../../medias/images/UGT_Asset_UI_Search.svg";
 
 import { Card } from "../../others/components/Card";
 import { Input } from "../../others/components/Input";
-import { LanguageSelector } from "../../others/components/LanguageSelector";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { useLocationsQuery, Location } from "../../others/contexts/api";
