@@ -11,7 +11,7 @@ import { FormData, useFormValue } from "../../others/contexts/form";
 
 import styles from "./people.module.css";
 
-const PEOPLE_TYPES: { key: keyof FormData; explanation_key: string }[] = [
+const PEOPLE_TYPES: { key: "adults" | "children" | "infants"; explanation_key: string }[] = [
   {
     key: "adults",
     explanation_key: "adults_details",

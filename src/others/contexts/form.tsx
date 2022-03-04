@@ -4,6 +4,7 @@ export interface FormData {
   adults: number;
   children: number;
   infants: number;
+  location?: number;
 }
 
 export interface FormContextValue {

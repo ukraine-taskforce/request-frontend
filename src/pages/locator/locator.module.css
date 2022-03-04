@@ -1,0 +1,9 @@
+.wrapper {
+  margin-bottom: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.wrapper:hover {
+  border: solid 3px inset lightgray;
+}
