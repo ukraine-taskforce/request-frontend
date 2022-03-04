@@ -17,15 +17,24 @@
   opacity: 0.5;
 }
 
-.icon {
+.leadingIcon,
+.trailingIcon {
   position: absolute;
-  right: 18px;
   top: 0;
   bottom: 0;
   display: flex;
 }
 
-.icon > img {
+.leadingIcon {
+  left: 18px;
+}
+
+.trailingIcon {
+  right: 18px;
+}
+
+.leadingIcon > img,
+.trailingIcon > img {
   width: 24px;
   height: 24px;
   margin: auto 0;
