@@ -1,15 +1,42 @@
 .wrapper {
   display: flex;
+  height: var(--header-height);
   justify-content: space-between;
+  align-items: stretch;
 }
 
-.backButton {
+/* .backButton {
   cursor: pointer;
-}
+} */
 
 .backIcon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   margin-right: 6px;
   vertical-align: bottom;
+}
+
+.shareIcon{
+  height: 15px;
+}
+
+.headerItem {
+  cursor: pointer;
+  padding: 10px 0px;
+}
+
+.headerCard {
+  cursor: pointer;
+  border-radius: 28px;
+  padding: 10px 15px;
+  background-color: white;
+}
+
+/* for better alignment */
+.headerCard p {
+  line-height: 1em;
+}
+
+.headerCard:not(:last-child) {
+  margin-inline-end: 10px;
 }
