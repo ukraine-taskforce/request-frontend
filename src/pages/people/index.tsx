@@ -8,9 +8,8 @@ import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { useFormValue } from "../../others/contexts/form";
 import { Header } from "../../others/components/Header";
+import { NumberInput } from "../../others/components/NumberInput";
 
-import minusIcon from "../../medias/images/UGT_Asset_UI_Quantities_Minus.svg";
-import plusIcon from "../../medias/images/UGT_Asset_UI_Quantities_Plus.svg";
 import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
 
 import styles from "./people.module.css";
@@ -49,33 +48,19 @@ export function People() {
           const value = currentValue[category.key];
 
           return (
-            <React.Fragment>
-              <Card key={category.key} className={styles.card}>
+            <React.Fragment key={category.key}>
+              <Card className={styles.card}>
                 <div>
                   <Text className={styles.cardTitle}>{t(category.key)}</Text>
                   <Text className={styles.cardSubtitle}>{t(category.explanation_key)}</Text>
                 </div>
                 <div className={styles.cardRight}>
-                  <img
-                    className={styles.button}
-                    onClick={() => {
-                      if (value <= 0) return;
-                      updateValue({ [category.key]: value - 1 });
-                    }}
-                    style={{ opacity: value <= 0 ? 0.5 : 1 }}
-                    src={minusIcon}
-                    alt="-"
-                  />
-                  <span className={styles.cardValue}>{value}</span>
-                  <img
-                    className={styles.button}
-                    onClick={() => {
-                      if (value >= 10) return;
-                      updateValue({ [category.key]: value + 1 });
-                    }}
-                    style={{ opacity: value >= 10 ? 0.5 : 1 }}
-                    src={plusIcon}
-                    alt="+"
+                  <NumberInput
+                    value={value} 
+                    label={t(category.key)} 
+                    minVal={0}
+                    maxVal={10}
+                    onChange={(newValue) => updateValue({ [category.key]: newValue })}
                   />
                 </div>
               </Card>
