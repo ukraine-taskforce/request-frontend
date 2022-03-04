@@ -3,14 +3,16 @@ import styles from "./Button.module.css";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
-  icon?: React.ReactChild;
+  leadingIcon?: React.ReactChild;
+  trailingIcon?: React.ReactChild;
 }
 
-export const Button: React.FunctionComponent<ButtonProps> = ({ fullWidth, children, icon, ...props }) => {
+export const Button: React.FunctionComponent<ButtonProps> = ({ fullWidth, children, leadingIcon, trailingIcon, ...props }) => {
   return (
     <button className={styles.button} style={{ width: fullWidth ? "100%" : "auto" }} {...props}>
+      {Boolean(leadingIcon) && <span className={styles.leadingIcon}>{leadingIcon}</span>}
       {children}
-      {Boolean(icon) && <span className={styles.icon}>{icon}</span>}
+      {Boolean(trailingIcon) && <span className={styles.trailingIcon}>{trailingIcon}</span>}
     </button>
   );
 };
