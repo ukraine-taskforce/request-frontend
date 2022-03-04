@@ -7,10 +7,15 @@ import { Button } from "../../others/components/Button";
 
 export function Review() {
   const { mutate, isLoading } = useSubmitMutation();
-  const { currentValue } = useFormValue();
+  const { currentValue, clearStore } = useFormValue();
 
   const handleSumbit = React.useCallback(async () => {
-    await mutate(currentValue);
+    try {
+      await mutate(currentValue);
+      clearStore();
+    } catch (error) {
+      // Maybe display an error message
+    }
   }, [mutate, currentValue]);
 
   return (
