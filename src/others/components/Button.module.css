@@ -8,9 +8,34 @@
   width: auto;
   overflow: visible;
   text-align: center;
-  transition: opacity ease-in-out .3s;
+  transition: opacity ease-in-out 0.3s;
+  cursor: pointer;
+  position: relative;
 }
 
 .button:disabled {
-  opacity: 0.8;
+  opacity: 0.5;
+}
+
+.leadingIcon,
+.trailingIcon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+}
+
+.leadingIcon {
+  left: 18px;
+}
+
+.trailingIcon {
+  right: 18px;
+}
+
+.leadingIcon > img,
+.trailingIcon > img {
+  width: 24px;
+  height: 24px;
+  margin: auto 0;
 }

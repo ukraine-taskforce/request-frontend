@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.backButton {
+  cursor: pointer;
+}
+
+.backIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
+  vertical-align: bottom;
+}

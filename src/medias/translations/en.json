@@ -7,5 +7,14 @@
   "home_i_understand": "I understand",
   "locator_where_are_you": "Where are you located",
   "locator_results": "results",
-  "locator_search_your": "Search your city"
+  "locator_search_your": "Search your city",
+  "people_how_many": "How many people are in your direct group",
+  "people_next": "Next",
+  "adults": "Adults",
+  "adults_details": "Age 13 or above",
+  "children": "Children",
+  "children_details": "Ages 2-12",
+  "infants": "Infants",
+  "infants_details": "Under 2",
+  "back": "Back"
 }

@@ -19,15 +19,15 @@ export function Locator() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data: cities } = useLocationsQuery();
-  const { udpateKeyValue } = useFormValue();
+  const { updateValue } = useFormValue();
   const [inputValue, setInputValue] = React.useState("");
 
   const handleLocationSelection = React.useCallback(
     (location: Location) => {
-      udpateKeyValue("location", location.id);
+      updateValue({ location: location.id });
       navigate("/people");
     },
-    [navigate, udpateKeyValue]
+    [navigate, updateValue]
   );
 
   const searchResults = React.useMemo(() => {
