@@ -28,7 +28,7 @@ export const NumberInput: React.FunctionComponent<NumberInputProps> = ({ value, 
       <input 
         className={styles.input} 
         type="number"
-        value={value == minVal ? "" : value} 
+        value={value <= minVal ? "" : value} 
         placeholder="0"
         aria-label={label}
         onChange={(event) => 
