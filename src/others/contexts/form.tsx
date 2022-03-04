@@ -2,6 +2,7 @@ import React from "react";
 
 export interface FormData {
   children?: number;
+  location?: number;
 }
 
 export interface FormContextValue {
