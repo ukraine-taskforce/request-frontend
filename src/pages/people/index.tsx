@@ -56,8 +56,8 @@ export function People() {
                 </div>
                 <div className={styles.cardRight}>
                   <NumberInput
-                    value={value} 
-                    label={t(category.key)} 
+                    value={value}
+                    label={t(category.key)}
                     minVal={0}
                     maxVal={10}
                     onChange={(newValue) => updateValue({ [category.key]: newValue })}
