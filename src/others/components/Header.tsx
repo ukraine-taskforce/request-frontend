@@ -31,7 +31,7 @@ export const Header: React.FunctionComponent<HeaderProps> = ({
     <nav className={styles.wrapper}>
       {hasAbout && (
         <div className={styles.headerCard} onClick={handleAbout}>
-          <Text>About us</Text>
+          <Text>{t("about_button")}</Text>
         </div>
       )}
       <div>
