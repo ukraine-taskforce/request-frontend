@@ -59,6 +59,7 @@ export function Locator() {
         placeholder={t("locator_search_your")}
         icon={<img src={loopIcon} alt="" />}
         label={t("locator_search_your")}
+        autoFocus
       />
       <Spacer size={12} />
       {Boolean(searchResults?.length) && (
