@@ -5,7 +5,7 @@
 }
 
 .nextArrow > path, .nextArrow > g {
-  fill: white;
+  fill: var(--color-white);
 }
 
 .logo {
