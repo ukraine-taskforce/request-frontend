@@ -19,8 +19,8 @@ ol.list li > p {
 ol.list li::before {
   --line-height: 1.5em;
   content: counter(my-awesome-counter);
-  color: white;
-  background-color: black;
+  color: var(--color-white);
+  background-color: var(--color-black);
   border-radius: 50%;
   height: var(--line-height);
   flex: 0 0 var(--line-height);

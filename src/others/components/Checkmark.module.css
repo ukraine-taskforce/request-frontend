@@ -1,16 +1,16 @@
 .checkmark {
-  border: 2px solid #bdc0c2;
+  border: 2px solid var(--color-gray);
   border-radius: 50%;
   width: 20px;
   height: 20px;
 }
 
 .checked {
-  border-color: #159bff;
+  border-color: var(--color-focus);
 }
 
 .img {
   width: 20px;
   height: 20px;
-  fill: white;
+  fill: var(--color-white);
 }

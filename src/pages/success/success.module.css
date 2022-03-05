@@ -4,8 +4,9 @@
   align-items: center;
 }
 
-.nextArrow > path, .nextArrow > g {
-  fill: white;
+.nextArrow > path,
+.nextArrow > g {
+  fill: var(--color-white);
 }
 
 .logo {

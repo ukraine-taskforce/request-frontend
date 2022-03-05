@@ -12,8 +12,8 @@
 }
 
 .counter {
-  color: white;
-  background-color: #159BFF;
+  color: var(--color-white);
+  background-color: var(--color-focus);
   border-radius: 50%;
   font-size: 20px;
   padding: 7px;

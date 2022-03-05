@@ -50,7 +50,7 @@ export function Locator() {
 
   return (
     <React.Fragment>
-      <Header hasBackButton/>
+      <Header backLink="/" />
       <h1>{t("locator_where_are_you")}?</h1>
       <Spacer size={24} />
       <Input

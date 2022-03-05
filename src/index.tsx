@@ -15,6 +15,7 @@ import { Success } from "./pages/success";
 import { Supplies } from "./pages/supplies";
 import { FormContextProvider } from "./others/contexts/form";
 import { queryClient } from "./others/contexts/api";
+import { NotFound } from "./pages/notFound";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -28,6 +29,7 @@ ReactDOM.render(
             <Route path="/review" element={<Review />} />
             <Route path="/success" element={<Success />} />
             <Route path="/supplies" element={<Supplies />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </FormContextProvider>
