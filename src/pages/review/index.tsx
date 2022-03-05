@@ -28,14 +28,14 @@ export function Review() {
 
   const getCityName = (cityId?: number) => {
     if (cities !== undefined && cityId !== undefined) {
-      return cities.find((city) => city.id == cityId)?.name || "";
+      return cities.find((city) => city.id === cityId)?.name || "";
     }
     return "";
   }
   
   const getSupplyName = (supplyId?: number) => {
     if (supplies !== undefined && supplyId !== undefined) {
-      return supplies.find((supply) => supply.id == supplyId)?.name || "";
+      return supplies.find((supply) => supply.id === supplyId)?.name || "";
     }
     return "";
   }
@@ -48,7 +48,7 @@ export function Review() {
     } catch (error) {
       // Maybe display an error message
     }
-  }, [mutate, clearStore, currentValue]);
+  }, [mutate, clearStore, currentValue, navigate]);
 
   return (
     <React.Fragment>
@@ -72,6 +72,7 @@ export function Review() {
                   </React.Fragment>
                 );
               }
+              return <></>
             })}
         </Card>
         <Spacer size={8} />
