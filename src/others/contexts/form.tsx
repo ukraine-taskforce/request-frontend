@@ -1,4 +1,5 @@
 import React from "react";
+import { ID } from "./api";
 
 export interface FormData {
   people: {
@@ -6,8 +7,8 @@ export interface FormData {
     children: number;
     infants: number;
   }
-  location?: number;
-  supplies: number[]
+  location?: ID;
+  supplies: ID[]
 }
 
 export interface FormContextValue {

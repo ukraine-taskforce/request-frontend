@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { useSubmitMutation } from "../../others/contexts/api";
+import { ID, useSubmitMutation } from "../../others/contexts/api";
 import { useFormValue, PEOPLE_TYPES } from "../../others/contexts/form";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 import { Button } from "../../others/components/Button";
@@ -31,14 +31,14 @@ export function Review() {
     }
   }, [location, supplyIds, navigate]);
 
-  const getCityName = (cityId?: number) => {
+  const getCityName = (cityId?: ID) => {
     if (cities !== undefined && cityId !== undefined) {
       return cities.find((city) => city.id === cityId)?.name || "";
     }
     return "";
   };
 
-  const getSupplyName = (supplyId: number) => {
+  const getSupplyName = (supplyId: ID) => {
     if (supplies !== undefined) {
       return supplies.find((supply) => supply.id === supplyId)?.name || "";
     }

@@ -10,7 +10,7 @@ import { Loader } from "../../others/components/Loader";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { useFormValue } from "../../others/contexts/form";
-import { useSuppliesQuery } from "../../others/contexts/api";
+import { ID, useSuppliesQuery } from "../../others/contexts/api";
 
 import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
 
@@ -27,7 +27,7 @@ export function Supplies() {
   }, [navigate]);
 
   const toggleSupply = React.useCallback(
-    (supplyId: number) => {
+    (supplyId: ID) => {
       const array = currentValue.supplies;
       const index = array.indexOf(supplyId);
 
