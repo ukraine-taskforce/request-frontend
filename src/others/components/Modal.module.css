@@ -10,6 +10,7 @@
 .modalInner {
   position: fixed;
   width: 90%;
+  max-width: var(--global-width-limit);
   height: auto;
   top: 50%;
   left: 50%;
