@@ -29,7 +29,7 @@ export function Review() {
     if (location === undefined || supplyIds.length === 0) {
       navigate("/");
     }
-  })
+  }, [location, supplyIds, navigate]);
 
   const getCityName = (cityId?: number) => {
     if (cities !== undefined && cityId !== undefined) {
