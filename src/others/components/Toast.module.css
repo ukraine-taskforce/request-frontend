@@ -6,7 +6,7 @@
   padding: 24px;
   background: var(--color-error);
   border-radius: 0 0 12px 12px;
-  color: var(--color-darkError);
+  color: var(--color-dark-error);
   transition: margin .3s ease-in-out;
 }
 
