@@ -6,7 +6,6 @@ import loopIcon from "../../medias/images/UGT_Asset_UI_Search.svg";
 
 import { Card } from "../../others/components/Card";
 import { Input } from "../../others/components/Input";
-import { LanguageSelector } from "../../others/components/LanguageSelector";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { useLocationsQuery, Location } from "../../others/contexts/api";
@@ -14,6 +13,7 @@ import { useFormValue } from "../../others/contexts/form";
 
 import styles from "./locator.module.css";
 import { fuzzySearch } from "./search";
+import { Header } from "../../others/components/Header";
 
 export function Locator() {
   const { t } = useTranslation();
@@ -45,7 +45,7 @@ export function Locator() {
 
   return (
     <React.Fragment>
-      <LanguageSelector />
+      <Header hasBackButton/>
       <h1>{t("locator_where_are_you")}?</h1>
       <Spacer size={24} />
       <Input
