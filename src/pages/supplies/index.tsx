@@ -70,7 +70,7 @@ export function Supplies() {
         <Button
           onClick={handleSubmit}
           leadingIcon={<span className={styles.counter}>{currentValue.supplies.length}</span>}
-          trailingIcon={<img src={nextIcon} className={styles.nextArrow} alt="" />}
+          trailingIcon={<img src={nextIcon} alt="" />}
           disabled={currentValue.supplies.length <= 0}
           fullWidth
         >

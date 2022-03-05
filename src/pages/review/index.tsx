@@ -98,7 +98,7 @@ export function Review() {
       <Button
         onClick={handleSumbit}
         disabled={isLoading}
-        trailingIcon={<img src={nextIcon} className={styles.nextArrow} alt="" />}
+        trailingIcon={<img src={nextIcon} alt="" />}
         fullWidth
       >
         {t("review_submit_request")}

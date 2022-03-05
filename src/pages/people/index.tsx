@@ -57,7 +57,7 @@ export function People() {
         <Button
           disabled={!currentValue.people.adults && !currentValue.people.children && !currentValue.people.infants}
           onClick={handleSubmit}
-          trailingIcon={<img src={nextIcon} alt="" className={styles.nextArrow} />}
+          trailingIcon={<img src={nextIcon} alt="" />}
         >
           {t("people_next")}
         </Button>
