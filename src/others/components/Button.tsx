@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Button.module.css";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "normal" | "highlight";
+  variant?: "normal" | "highlight" | "white";
   fullWidth?: boolean;
   focus?: boolean;
   leadingIcon?: React.ReactChild;
@@ -20,8 +20,8 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={`${styles.button} ${variant === "highlight" ? styles.highlight : ""}`}
-      style={{ width: fullWidth ? "100%" : "auto", backgroundColor: focus ? "var(--color-focus)" : "black" }}
+      className={`${styles.button} ${variant !== "normal" ? styles[variant] : ""}`}
+      style={{ width: fullWidth ? "100%" : "auto"}}
       {...props}
     >
       {Boolean(leadingIcon) && <span className={styles.leadingIcon}>{leadingIcon}</span>}

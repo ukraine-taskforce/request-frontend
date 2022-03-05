@@ -21,17 +21,16 @@ export function Success() {
 
   return (
     <div className={styles.wrapper}>
-      <Spacer size={60} />
+      <Spacer size={40} />
       <img className={styles.logo} src={confirmationIcon} alt="success"/>
       <h1>{t("success_received")}</h1>
-      <Spacer size={72} />
+      <Spacer size={30} />
       <Card>
         <List>
           <li><Text>{t("success_aggregate")}</Text></li>
           <li><Text>{t("success_insight")}</Text></li>
           <li><Text>{t("success_delivery")}</Text></li>
         </List>
-        <Spacer size={18} />
         <Button
           onClick={handleShare}
           trailingIcon={<img src={shareIcon} alt="" className={styles.nextArrow} />}
