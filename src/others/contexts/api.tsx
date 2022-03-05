@@ -24,7 +24,13 @@ export function useLocationsQuery() {
 
   return useQuery<Location[]>(`locationQuery${i18n.language}`, async () => {
     try {
-      const result = await fetch(`${API_DOMAIN}/live/api/v1/requests/locations?locale=${i18n.language}`).then((res) => res.json());
+      const result = await fetch(`${API_DOMAIN}/live/api/v1/requests/locations?locale=${i18n.language}`)
+        .then((res) => {
+          if (!res.ok) throw new Error(res.statusText);
+
+          return res;
+        })
+        .then((res) => res.json());
 
       console.log(result);
 
@@ -54,7 +60,13 @@ export function useSuppliesQuery() {
 
   return useQuery<Supply[]>(`suppliesQuery${i18n.language}`, async () => {
     try {
-      const result = await fetch(`${API_DOMAIN}/live/api/v1/requests/supplies?locale=${i18n.language}`).then((res) => res.json());
+      const result = await fetch(`${API_DOMAIN}/live/api/v1/requests/supplies?locale=${i18n.language}`)
+        .then((res) => {
+          if (!res.ok) throw new Error(res.statusText);
+
+          return res;
+        })
+        .then((res) => res.json());
 
       return result.supplies;
     } catch (error) {
@@ -84,7 +96,13 @@ export function useSubmitMutation() {
           ...formData,
           recaptchaToken,
         }),
-      }).then((res) => res.json());
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error(res.statusText);
+
+          return res;
+        })
+        .then((res) => res.json());
 
       return result;
     } catch (error) {
