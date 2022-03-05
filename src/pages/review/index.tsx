@@ -14,11 +14,12 @@ import { Text } from "../../others/components/Text";
 import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
 
 import styles from "./review.module.css";
+import { Toast } from "../../others/components/Toast";
 
 export function Review() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { mutate, isLoading } = useSubmitMutation();
+  const { mutate, isLoading, error } = useSubmitMutation();
   const { currentValue } = useFormValue();
   const { supplies: supplyIds, location } = currentValue;
   // These calls read from cache.
@@ -102,6 +103,9 @@ export function Review() {
       >
         {t("review_submit_request")}
       </Button>
+      <Toast display={!isLoading && Boolean(error)}>
+        <Text>{t('review_error')}</Text>
+      </Toast>
     </React.Fragment>
   );
 }
