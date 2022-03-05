@@ -2,13 +2,24 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   background-color: #ecf0f3;
   color: black;
   padding: 24px;
+}
+
+@media (min-width: 800px) {
+  body {
+    padding: 48px 24px;
+  }
+}
+
+#root {
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 h1 {
@@ -18,11 +29,11 @@ h1 {
 
 p {
   margin: 0;
-  line-height: 1.5em
+  line-height: 1.5em;
 }
 
-.grecaptcha-badge { 
+.grecaptcha-badge {
   visibility: hidden;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
