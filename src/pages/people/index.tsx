@@ -68,7 +68,7 @@ export function People() {
             </React.Fragment>
           );
         })}
-        <Spacer size={100} />
+        <Spacer size={30} />
         <Button
           disabled={!currentValue.people.adults && !currentValue.people.children && !currentValue.people.infants}
           onClick={handleSubmit}
