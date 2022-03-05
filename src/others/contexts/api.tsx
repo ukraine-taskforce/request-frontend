@@ -32,8 +32,6 @@ export function useLocationsQuery() {
         })
         .then((res) => res.json());
 
-      console.log(result);
-
       return result.locations;
     } catch (error) {
       if (process.env.NODE_ENV !== "production") {

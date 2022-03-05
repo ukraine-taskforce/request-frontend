@@ -19,7 +19,7 @@ export function Review() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { mutate, isLoading } = useSubmitMutation();
-  const { currentValue, clearStore } = useFormValue();
+  const { currentValue } = useFormValue();
   const { supplies: supplyIds, location } = currentValue;
   // These calls read from cache.
   const { data: cities } = useLocationsQuery();
@@ -27,7 +27,7 @@ export function Review() {
 
   React.useEffect(() => {
     if (location === undefined || supplyIds.length === 0) {
-      navigate("/");
+      navigate("/", { replace: true });
     }
   }, [location, supplyIds, navigate]);
 
@@ -36,24 +36,23 @@ export function Review() {
       return cities.find((city) => city.id === cityId)?.name || "";
     }
     return "";
-  }
+  };
 
   const getSupplyName = (supplyId: number) => {
     if (supplies !== undefined) {
       return supplies.find((supply) => supply.id === supplyId)?.name || "";
     }
     return "";
-  }
+  };
 
   const handleSumbit = React.useCallback(async () => {
     try {
       await mutate(currentValue);
-      clearStore();
       navigate("/success");
     } catch (error) {
       // Maybe display an error message
     }
-  }, [mutate, clearStore, currentValue, navigate]);
+  }, [mutate, currentValue, navigate]);
 
   return (
     <React.Fragment>
@@ -68,17 +67,19 @@ export function Review() {
         <Spacer size={8} />
         <Card className={styles.card}>
           <Text className={styles.cardTitle}>{t("review_who")}</Text>
-            {PEOPLE_TYPES.map(({key}) => {
-              let amount = currentValue.people[key];
-              if (amount > 0) {
-                return (
-                  <React.Fragment key={key}>
-                    <Text className={styles.cardContent}>{amount} {t(key)}</Text>
-                  </React.Fragment>
-                );
-              }
-              return <React.Fragment key={key} />
-            })}
+          {PEOPLE_TYPES.map(({ key }) => {
+            let amount = currentValue.people[key];
+            if (amount > 0) {
+              return (
+                <React.Fragment key={key}>
+                  <Text className={styles.cardContent}>
+                    {amount} {t(key)}
+                  </Text>
+                </React.Fragment>
+              );
+            }
+            return <React.Fragment key={key} />;
+          })}
         </Card>
         <Spacer size={8} />
         <Card className={styles.card}>
@@ -97,7 +98,8 @@ export function Review() {
         onClick={handleSumbit}
         disabled={isLoading}
         trailingIcon={<img src={nextIcon} className={styles.nextArrow} alt="" />}
-        fullWidth>
+        fullWidth
+      >
         {t("review_submit_request")}
       </Button>
     </React.Fragment>

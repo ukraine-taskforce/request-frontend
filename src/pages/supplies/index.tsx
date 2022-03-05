@@ -58,8 +58,8 @@ export function Supplies() {
       <Spacer size={24} />
       <div className={styles.flex}>
         {supplies.map((supply) => (
-          <React.Fragment>
-            <Card key={supply.name} className={styles.card} onClick={() => toggleSupply(supply.id)}>
+          <React.Fragment key={supply.name}>
+            <Card className={styles.card} onClick={() => toggleSupply(supply.id)}>
               <Text variant="bold">{supply.name}</Text>
               <Checkmark checked={currentValue.supplies.includes(supply.id)} />
             </Card>

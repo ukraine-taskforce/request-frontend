@@ -6,6 +6,7 @@ import { Card } from "../../others/components/Card";
 import { List } from "../../others/components/List";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
+import { useFormValue } from "../../others/contexts/form";
 
 import confirmationIcon from "../../medias/images/UGT_Asset_UI_Confirmation.svg";
 import shareIcon from "../../medias/images/UGT_Asset_UI_Share_Icon_W.svg";
@@ -14,6 +15,11 @@ import styles from "./success.module.css";
 
 export function Success() {
   const { t } = useTranslation();
+  const { clearStore } = useFormValue();
+
+  React.useEffect(() => {
+    clearStore();
+  }, [clearStore])
 
   const handleShare = React.useCallback(() => {
     // when it is ready
