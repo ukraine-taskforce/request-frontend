@@ -53,11 +53,12 @@ export function People() {
             </React.Fragment>
           );
         })}
-        <Spacer size={30} />
+        <Spacer size={30} flex={2}/>
         <Button
           disabled={!currentValue.people.adults && !currentValue.people.children && !currentValue.people.infants}
           onClick={handleSubmit}
           trailingIcon={<img src={nextIcon} alt="" />}
+          floats
         >
           {t("people_next")}
         </Button>

@@ -16,6 +16,15 @@
   align-items: center;
 }
 
+.buttonDefault {
+  position: relative;
+}
+
+.buttonFloat {
+  position: sticky;
+  bottom: 24px;
+}
+
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;

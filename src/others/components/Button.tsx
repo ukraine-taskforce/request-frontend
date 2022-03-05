@@ -6,6 +6,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: "normal" | "highlight" | "white";
   fullWidth?: boolean;
   focus?: boolean;
+  floats?: boolean;
   leadingIcon?: React.ReactChild;
   trailingIcon?: React.ReactChild;
 }
@@ -16,16 +17,16 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
   children,
   leadingIcon,
   trailingIcon,
+  floats,
   className,
   variant = "normal",
   ...props
 }) => {
+  const btnClasses =
+    `${className ?? ""} ${styles.button} ${floats ? styles.buttonFloat : styles.buttonDefault}` +
+    `${variant !== "normal" ? styles[variant] : ""}`;
   return (
-    <button
-      className={`${className} ${styles.button} ${variant !== "normal" ? styles[variant] : ""}`}
-      style={{ width: fullWidth ? "100%" : "auto" }}
-      {...props}
-    >
+    <button className={btnClasses} style={{ width: fullWidth ? "100%" : "auto" }} {...props}>
       <span className={styles.label}>{children}</span>
       <div className={styles.iconsContainer}>
         {Boolean(leadingIcon) && <span className={styles.leadingIcon}>{leadingIcon}</span>}

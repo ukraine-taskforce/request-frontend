@@ -8,6 +8,6 @@ export const Spacer: React.FunctionComponent<SpacerProps> = ({ flex, size = 8, h
   if (flex == null) {
     return <div style={{ display: "flex", [horizontal ? "width" : "height"]: `${size}px` }} />;
   } else {
-    return <div style={{ display: "flex", flex: `${flex}` }} />;
+    return <div style={{ display: "flex", flex: `${flex} ${size ?? 0}px` }} />;
   }
 };
