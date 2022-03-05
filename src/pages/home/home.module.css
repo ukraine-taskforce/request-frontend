@@ -2,3 +2,10 @@
   width: 70px;
   height: 70px;
 }
+
+/* TODO this is used in multiple views, maybe outsource */
+.nextArrow {
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
+}
