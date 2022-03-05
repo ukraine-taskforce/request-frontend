@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { useSubmitMutation } from "../../others/contexts/api";
-import { useFormValue } from "../../others/contexts/form";
+import { useFormValue, PEOPLE_TYPES } from "../../others/contexts/form";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 import { Button } from "../../others/components/Button";
 import { Header } from "../../others/components/Header";
@@ -24,7 +24,6 @@ export function Review() {
   // These calls read from cache.
   const { data: cities } = useLocationsQuery();
   const { data: supplies } = useSuppliesQuery();
-  const PEOPLE_TYPES: ("adults" | "children" | "infants")[] = ["adults", "children", "infants"];
 
   const getCityName = (cityId?: number) => {
     if (cities !== undefined && cityId !== undefined) {
@@ -63,12 +62,12 @@ export function Review() {
         <Spacer size={8} />
         <Card className={styles.card}>
           <Text className={styles.cardTitle}>{t("review_who")}</Text>
-            {PEOPLE_TYPES.map((category) => {
-              let amount = currentValue[category];
+            {PEOPLE_TYPES.map(({key}) => {
+              let amount = currentValue[key];
               if (amount > 0) {
                 return (
-                  <React.Fragment key={category}>
-                    <Text className={styles.cardContent}>{amount} {t(category)}</Text>
+                  <React.Fragment key={key}>
+                    <Text className={styles.cardContent}>{amount} {t(key)}</Text>
                   </React.Fragment>
                 );
               }

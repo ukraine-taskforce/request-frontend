@@ -14,6 +14,21 @@ export interface FormContextValue {
   clearStore: () => void;
 }
 
+export const PEOPLE_TYPES: { key: "adults" | "children" | "infants"; explanation_key: string }[] = [
+  {
+    key: "adults",
+    explanation_key: "adults_details",
+  },
+  {
+    key: "children",
+    explanation_key: "children_details",
+  },
+  {
+    key: "infants",
+    explanation_key: "infants_details",
+  },
+];
+
 const defaultValue: FormData = {
   adults: 0,
   children: 0,
