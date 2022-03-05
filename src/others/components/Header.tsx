@@ -12,7 +12,7 @@ import React from "react";
 import { isShareSupported, share } from "../helpers/share";
 
 export interface HeaderProps {
-  hasBackButton?: boolean;
+  backLink?: string;
   hasAbout?: boolean;
   hasShare?: boolean;
   handleAbout?: () => void;
@@ -21,7 +21,7 @@ export interface HeaderProps {
 export interface HeaderProps {}
 
 export const Header: React.FunctionComponent<HeaderProps> = ({
-  hasBackButton = false,
+  backLink,
   hasAbout = false,
   hasShare = false,
   handleAbout,
@@ -40,8 +40,8 @@ export const Header: React.FunctionComponent<HeaderProps> = ({
           <Text>{t("about_button")}</Text>
         </div>
       )}
-      {hasBackButton && (
-        <div className={styles.headerItem} onClick={() => navigate(-1)}>
+      {Boolean(backLink) && (
+        <div className={styles.headerItem} onClick={() => backLink && navigate(backLink)}>
           <img src={backIcon} alt={t("back")} className={styles.backIcon} />
           {t("back")}
         </div>

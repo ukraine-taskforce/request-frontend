@@ -56,7 +56,7 @@ export function Review() {
 
   return (
     <React.Fragment>
-      <Header hasBackButton />
+      <Header backLink="/supplies" />
       <h1>{t("review_request")}</h1>
       <Spacer size={24} />
       <div className={styles.flex}>

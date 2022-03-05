@@ -25,7 +25,7 @@ export function People() {
 
   return (
     <React.Fragment>
-      <Header hasBackButton />
+      <Header backLink="/locator" />
       <h1>{t("people_how_many")}?</h1>
       <Spacer size={24} />
       <div className={styles.flex}>

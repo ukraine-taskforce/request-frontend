@@ -53,7 +53,7 @@ export function Supplies() {
 
   return (
     <React.Fragment>
-      <Header hasBackButton />
+      <Header backLink="/people" />
       <h1>{t("supplies_what_is_needed")}?</h1>
       <Spacer size={24} />
       <div className={styles.flex}>
