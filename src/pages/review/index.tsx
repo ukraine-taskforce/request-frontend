@@ -25,6 +25,12 @@ export function Review() {
   const { data: cities } = useLocationsQuery();
   const { data: supplies } = useSuppliesQuery();
 
+  React.useEffect(() => {
+    if (location === undefined || supplyIds.length === 0) {
+      navigate("/");
+    }
+  })
+
   const getCityName = (cityId?: number) => {
     if (cities !== undefined && cityId !== undefined) {
       return cities.find((city) => city.id === cityId)?.name || "";
@@ -32,8 +38,8 @@ export function Review() {
     return "";
   }
   
-  const getSupplyName = (supplyId?: number) => {
-    if (supplies !== undefined && supplyId !== undefined) {
+  const getSupplyName = (supplyId: number) => {
+    if (supplies !== undefined) {
       return supplies.find((supply) => supply.id === supplyId)?.name || "";
     }
     return "";
@@ -71,7 +77,7 @@ export function Review() {
                   </React.Fragment>
                 );
               }
-              return <></>
+              return <React.Fragment key={key} />
             })}
         </Card>
         <Spacer size={8} />
