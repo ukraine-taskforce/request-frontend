@@ -64,15 +64,16 @@ export function Home() {
         <h1 style={{ textAlign: "center" }}>{t("about_head")}</h1>
         <Text alignment="center">{t("about_detailed")}</Text>
         <Spacer size={22} />
-        <Button
-          fullWidth
-          variant="highlight"
-          onClick={handleShare}
-          className={!isShareSupported() ? "hide" : ""}
-          trailingIcon={<img style={{ height: "15px" }} src={shareIcon} alt={t("share")} />}
-        >
-          {t("about_share")}
-        </Button>
+        {isShareSupported() && (
+          <Button
+            fullWidth
+            variant="highlight"
+            onClick={handleShare}
+            trailingIcon={<img style={{ height: "15px" }} src={shareIcon} alt={t("share")} />}
+          >
+            {t("about_share")}
+          </Button>
+        )}
       </Modal>
     </React.Fragment>
   );

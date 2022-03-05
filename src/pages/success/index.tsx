@@ -44,15 +44,16 @@ export function Success() {
             <Text>{t("success_delivery")}</Text>
           </li>
         </List>
-        <Button
-          onClick={handleShare}
-          trailingIcon={<img src={shareIcon} alt="" className={styles.nextArrow} />}
-          fullWidth
-          variant="highlight"
-          className={!isShareSupported() ? "hide" : ""}
-        >
-          {t("success_share")}
-        </Button>
+        {isShareSupported() && (
+          <Button
+            onClick={handleShare}
+            trailingIcon={<img src={shareIcon} alt="" className={styles.nextArrow} />}
+            fullWidth
+            variant="highlight"
+          >
+            {t("success_share")}
+          </Button>
+        )}
       </Card>
     </div>
   );

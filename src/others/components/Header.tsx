@@ -20,12 +20,7 @@ export interface HeaderProps {
 
 export interface HeaderProps {}
 
-export const Header: React.FunctionComponent<HeaderProps> = ({
-  backLink,
-  hasAbout = false,
-  hasShare = false,
-  handleAbout,
-}) => {
+export const Header: React.FunctionComponent<HeaderProps> = ({ backLink, hasAbout = false, hasShare = false, handleAbout }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -50,8 +45,8 @@ export const Header: React.FunctionComponent<HeaderProps> = ({
       <div className={styles.headerCard}>
         <LanguageSelector />
       </div>
-      {hasShare && (
-        <div className={`${styles.headerCard} ${!isShareSupported() ? "hide" : ""}`} onClick={handleShare}>
+      {hasShare && isShareSupported() && (
+        <div className={styles.headerCard} onClick={handleShare}>
           <img className={styles.shareIcon} src={shareIcon} alt={t("share")} />
         </div>
       )}
