@@ -37,7 +37,7 @@ export function Review() {
     }
     return "";
   }
-  
+
   const getSupplyName = (supplyId: number) => {
     if (supplies !== undefined) {
       return supplies.find((supply) => supply.id === supplyId)?.name || "";
@@ -69,7 +69,7 @@ export function Review() {
         <Card className={styles.card}>
           <Text className={styles.cardTitle}>{t("review_who")}</Text>
             {PEOPLE_TYPES.map(({key}) => {
-              let amount = currentValue[key];
+              let amount = currentValue.people[key];
               if (amount > 0) {
                 return (
                   <React.Fragment key={key}>
@@ -93,9 +93,9 @@ export function Review() {
         </Card>
         <Spacer size={12} />
       </div>
-      <Button 
-        onClick={handleSumbit} 
-        disabled={isLoading} 
+      <Button
+        onClick={handleSumbit}
+        disabled={isLoading}
         trailingIcon={<img src={nextIcon} className={styles.nextArrow} alt="" />}
         fullWidth>
         {t("review_submit_request")}
