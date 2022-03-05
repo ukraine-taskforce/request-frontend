@@ -9,6 +9,7 @@ import { List } from "../../others/components/List";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
+import { isShareSupported, share } from "../../others/helpers/share";
 
 import styles from "./home.module.css";
 import ugtLogo from "../../medias/images/UGT_Asset_Brand.svg";
@@ -25,6 +26,10 @@ export function Home() {
   // For caching purposes
   useSuppliesQuery();
   useLocationsQuery();
+
+  const handleShare = React.useCallback(() => {
+    share(t("ugt"));
+  }, [t]);
 
   return (
     <React.Fragment>
@@ -51,20 +56,20 @@ export function Home() {
         </Button>
       </Card>
       <Modal show={displayModal} handleClose={() => setDisplayModal(false)}>
-        <div style={{display: "flex"}}>
-          <Spacer flex={1}/>
+        <div style={{ display: "flex" }}>
+          <Spacer flex={1} />
           <img className={styles.ugtLogo} src={ugtLogo} alt="UGT Logo" />
-          <Spacer flex={1}/>
+          <Spacer flex={1} />
         </div>
-        <h1 style={{textAlign: "center"}}>{t("about_head")}</h1>
+        <h1 style={{ textAlign: "center" }}>{t("about_head")}</h1>
         <Text alignment="center">{t("about_detailed")}</Text>
         <Spacer size={22} />
-        {/* TODO Share Action */}
         <Button
           fullWidth
           variant="highlight"
-          onClick={() => undefined}
-          trailingIcon={<img style={{height: "15px"}} src={shareIcon} alt={t("share")} />}
+          onClick={handleShare}
+          className={!isShareSupported() ? "hide" : ""}
+          trailingIcon={<img style={{ height: "15px" }} src={shareIcon} alt={t("share")} />}
         >
           {t("about_share")}
         </Button>

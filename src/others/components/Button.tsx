@@ -15,12 +15,13 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
   children,
   leadingIcon,
   trailingIcon,
+  className,
   variant = "normal",
   ...props
 }) => {
   return (
     <button
-      className={`${styles.button} ${variant !== "normal" ? styles[variant] : ""}`}
+      className={`${className} ${styles.button} ${variant !== "normal" ? styles[variant] : ""}`}
       style={{ width: fullWidth ? "100%" : "auto"}}
       {...props}
     >
