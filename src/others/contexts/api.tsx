@@ -1,9 +1,18 @@
+import { useTranslation } from "react-i18next";
 import { QueryClient, useMutation, useQuery } from "react-query";
 
 import { FormData } from "./form";
 import { generateCaptchaToken } from "./recaptcha";
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 3, //3 Minutes
+    },
+  },
+});
+
+export const API_DOMAIN = process.env.REACT_APP_API_DOMAIN || "127.0.0.1";
 
 export interface Location {
   id: number;
@@ -11,16 +20,33 @@ export interface Location {
 }
 
 export function useLocationsQuery() {
-  return useQuery<Location[]>("locationsQuery", () => {
-    // Normal behavior when backend will be available
-    // fetch("/api/locations").then((res) => res.json())
+  const { i18n } = useTranslation();
 
-    return [
-      { id: 1, name: "Kyiv" },
-      { id: 2, name: "Kyinka" },
-      { id: 3, name: "Kyrnasivka" },
-      { id: 4, name: "Kyrylivka" },
-    ];
+  return useQuery<Location[]>(`locationQuery${i18n.language}`, async () => {
+    try {
+      const result = await fetch(`${API_DOMAIN}/live/api/v1/requests/locations?locale=${i18n.language}`)
+        .then((res) => {
+          if (!res.ok) throw new Error(res.statusText);
+
+          return res;
+        })
+        .then((res) => res.json());
+
+      console.log(result);
+
+      return result.locations;
+    } catch (error) {
+      if (process.env.NODE_ENV !== "production") {
+        return [
+          { id: 1, name: "Kyiv" },
+          { id: 2, name: "Kyinka" },
+          { id: 3, name: "Kyrnasivka" },
+          { id: 4, name: "Kyrylivka" },
+        ];
+      }
+
+      throw error;
+    }
   });
 }
 
@@ -30,36 +56,61 @@ export interface Supply {
 }
 
 export function useSuppliesQuery() {
-  return useQuery<Supply[]>("suppliesQuery", () => {
-    // Normal behavior when backend will be available
-    // fetch("/api/supplies").then((res) => res.json())
+  const { i18n } = useTranslation();
 
-    return [
-      { id: 1, name: "Food" },
-      { id: 2, name: "Water" },
-      { id: 3, name: "Baby Food" },
-      { id: 4, name: "Medical Kits / Supplies" },
-    ];
+  return useQuery<Supply[]>(`suppliesQuery${i18n.language}`, async () => {
+    try {
+      const result = await fetch(`${API_DOMAIN}/live/api/v1/requests/supplies?locale=${i18n.language}`)
+        .then((res) => {
+          if (!res.ok) throw new Error(res.statusText);
+
+          return res;
+        })
+        .then((res) => res.json());
+
+      return result.supplies;
+    } catch (error) {
+      if (process.env.NODE_ENV !== "production") {
+        return [
+          { id: 1, name: "Food" },
+          { id: 2, name: "Water" },
+          { id: 3, name: "Baby Food" },
+          { id: 4, name: "Medical Kits / Supplies" },
+        ];
+      }
+
+      throw error;
+    }
   });
 }
 
 export function useSubmitMutation() {
-  return useMutation("locationQuery", async (formData: FormData) => {
-    // Normal behavior when backend will be available
-    // await fetch("/api/locations", {method: 'POST', body: formData})
+  const { i18n } = useTranslation();
 
+  return useMutation("submitMutation", async (formData: FormData) => {
     try {
-      let captchaToken = await generateCaptchaToken("submit");
-      // Add this to request body instead once the API is ready.
-      console.log(captchaToken);
-    } catch (ex) {
-      // Captcha failed for some reason, ignore and leave it empty in the request.
+      const recaptchaToken = await generateCaptchaToken("submit");
+      const result = await fetch(`${API_DOMAIN}/live/api/v1/requests?locale=${i18n.language}`, {
+        method: "POST",
+        body: JSON.stringify({
+          ...formData,
+          recaptchaToken,
+        }),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error(res.statusText);
+
+          return res;
+        })
+        .then((res) => res.json());
+
+      return result;
+    } catch (error) {
+      if (process.env.NODE_ENV !== "production") {
+        return null;
+      }
+
+      throw error;
     }
-
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1000)
-    })
-
-    return null;
   });
 }

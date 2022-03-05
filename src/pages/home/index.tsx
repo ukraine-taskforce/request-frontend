@@ -8,6 +8,7 @@ import { Card } from "../../others/components/Card";
 import { List } from "../../others/components/List";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
+import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 
 import styles from "./home.module.css";
 import ugtLogo from "../../medias/images/UGT_Asset_Brand.svg";
@@ -20,6 +21,10 @@ export function Home() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [displayModal, setDisplayModal] = React.useState(false);
+
+  // For caching purposes
+  useSuppliesQuery();
+  useLocationsQuery();
 
   return (
     <React.Fragment>
