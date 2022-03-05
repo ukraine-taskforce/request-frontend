@@ -6,28 +6,13 @@ import { Button } from "../../others/components/Button";
 import { Card } from "../../others/components/Card";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
-import { useFormValue } from "../../others/contexts/form";
+import { useFormValue, PEOPLE_TYPES } from "../../others/contexts/form";
 import { Header } from "../../others/components/Header";
 import { NumberInput } from "../../others/components/NumberInput";
 
 import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
 
 import styles from "./people.module.css";
-
-const PEOPLE_TYPES: { key: "adults" | "children" | "infants"; explanation_key: string }[] = [
-  {
-    key: "adults",
-    explanation_key: "adults_details",
-  },
-  {
-    key: "children",
-    explanation_key: "children_details",
-  },
-  {
-    key: "infants",
-    explanation_key: "infants_details",
-  },
-];
 
 export function People() {
   const { t } = useTranslation();
