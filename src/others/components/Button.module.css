@@ -18,6 +18,7 @@
 
 .button:disabled {
   opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .label {
@@ -43,4 +44,12 @@
   width: 24px;
   height: 24px;
   margin: auto 0;
+}
+
+.highlight {
+  background-color: var(--color-focus);
+}
+
+.white {
+  background-color: var(--color-white);
 }

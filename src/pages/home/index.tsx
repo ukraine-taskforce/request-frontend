@@ -13,7 +13,7 @@ import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 import styles from "./home.module.css";
 import ugtLogo from "../../medias/images/UGT_Asset_Brand.svg";
 import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
-import shareIcon from "../../medias/images/UGT_Asset_UI_Share_Icon.svg";
+import shareIcon from "../../medias/images/UGT_Asset_UI_Share_Icon_W.svg";
 import { Header } from "../../others/components/Header";
 import { Modal } from "../../others/components/Modal";
 
@@ -62,7 +62,7 @@ export function Home() {
         {/* TODO Share Action */}
         <Button
           fullWidth
-          focus
+          variant="highlight"
           onClick={() => undefined}
           trailingIcon={<img style={{height: "15px"}} src={shareIcon} alt={t("share")} />}
         >

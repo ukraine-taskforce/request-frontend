@@ -1,0 +1,28 @@
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  display: block;
+  justify-content: space-between;
+  padding: 10px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.cardTitle {
+  font-size: 14px;
+  margin: 6px 0px;
+}
+
+.cardContent {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 8px 0px;
+}
+
+.nextArrow {
+  margin-right: 16px;
+}
+  
