@@ -4,16 +4,17 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "../../others/components/Button";
 import { Card } from "../../others/components/Card";
-import { Spacer } from "../../others/components/Spacer";
-import { useFormValue } from "../../others/contexts/form";
+import { Checkmark } from "../../others/components/Checkmark";
 import { Header } from "../../others/components/Header";
+import { Loader } from "../../others/components/Loader";
+import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
+import { useFormValue } from "../../others/contexts/form";
 import { useSuppliesQuery } from "../../others/contexts/api";
 
 import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
 
 import styles from "./supplies.module.css";
-import { Checkmark } from "../../others/components/Checkmark";
 
 export function Supplies() {
   const { t } = useTranslation();
@@ -42,8 +43,12 @@ export function Supplies() {
   );
 
   if (!supplies) {
-    // Handle loading state ?
-    return null;
+    return (
+      <React.Fragment>
+        <Spacer size={40} />
+        <Loader />
+      </React.Fragment>
+    );
   }
 
   return (

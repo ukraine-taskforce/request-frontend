@@ -6,6 +6,7 @@ import loopIcon from "../../medias/images/UGT_Asset_UI_Search.svg";
 
 import { Card } from "../../others/components/Card";
 import { Input } from "../../others/components/Input";
+import { Loader } from "../../others/components/Loader";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { useLocationsQuery, Location } from "../../others/contexts/api";
@@ -39,8 +40,12 @@ export function Locator() {
   }, [cities, inputValue]);
 
   if (!cities) {
-    // Handle loading state ?
-    return null;
+    return (
+      <React.Fragment>
+        <Spacer size={40} />
+        <Loader />
+      </React.Fragment>
+    );
   }
 
   return (

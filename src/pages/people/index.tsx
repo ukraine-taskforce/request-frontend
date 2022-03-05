@@ -45,7 +45,7 @@ export function People() {
       <Spacer size={24} />
       <div className={styles.flex}>
         {PEOPLE_TYPES.map((category) => {
-          const value = currentValue[category.key];
+          const value = currentValue.people[category.key];
 
           return (
             <React.Fragment key={category.key}>
@@ -60,7 +60,7 @@ export function People() {
                     label={t(category.key)}
                     minVal={0}
                     maxVal={10}
-                    onChange={(newValue) => updateValue({ [category.key]: newValue })}
+                    onChange={(newValue) => updateValue({ people: { [category.key]: newValue } })}
                   />
                 </div>
               </Card>
@@ -70,7 +70,7 @@ export function People() {
         })}
         <Spacer size={30} />
         <Button
-          disabled={!currentValue.adults && !currentValue.children && !currentValue.infants}
+          disabled={!currentValue.people.adults && !currentValue.people.children && !currentValue.people.infants}
           onClick={handleSubmit}
           trailingIcon={<img src={nextIcon} alt="" className={styles.nextArrow} />}
         >
