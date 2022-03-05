@@ -22,7 +22,7 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
   return (
     <button
       className={`${className} ${styles.button} ${variant !== "normal" ? styles[variant] : ""}`}
-      style={{ width: fullWidth ? "100%" : "auto"}}
+      style={{ width: fullWidth ? "100%" : "auto" }}
       {...props}
     >
       {Boolean(leadingIcon) && <span className={styles.leadingIcon}>{leadingIcon}</span>}

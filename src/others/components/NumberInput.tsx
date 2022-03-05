@@ -25,18 +25,13 @@ export const NumberInput: React.FunctionComponent<NumberInputProps> = ({ value, 
         src={minusIcon}
         alt="-"
       />
-      <input 
-        className={styles.input} 
+      <input
+        className={styles.input}
         type="number"
-        value={value <= minVal ? "" : value} 
+        value={value <= minVal ? "" : value}
         placeholder="0"
         aria-label={label}
-        onChange={(event) => 
-          onChange(
-            Math.min(maxVal, 
-              Math.max(minVal, 
-                parseInt(event.target.value) || 0
-          )))}
+        onChange={(event) => onChange(Math.min(maxVal, Math.max(minVal, parseInt(event.target.value) || 0)))}
       />
       <img
         className={styles.button}

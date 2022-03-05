@@ -4,7 +4,8 @@
   align-items: center;
 }
 
-.nextArrow > path, .nextArrow > g {
+.nextArrow > path,
+.nextArrow > g {
   fill: var(--color-white);
 }
 

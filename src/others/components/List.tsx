@@ -1,4 +1,4 @@
-import styles from './List.module.css'; 
+import styles from "./List.module.css";
 
 export interface ListProps {
   ordered?: boolean;
