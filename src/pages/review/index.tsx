@@ -93,7 +93,6 @@ export function Review() {
             );
           })}
         </Card>
-        <Spacer size={12} />
         <Spacer size={30} flex={2} />
         <Button onClick={handleSubmit} disabled={isLoading} trailingIcon={<img src={nextIcon} alt="" />} fullWidth floats>
           {t("review_submit_request")}
