@@ -46,7 +46,7 @@ export function People() {
       <Spacer size={24} />
       <div className={styles.flex}>
         {PEOPLE_TYPES.map((category) => {
-          const value = currentValue[category.key];
+          const value = currentValue.people[category.key];
 
           return (
             <React.Fragment>
@@ -60,7 +60,7 @@ export function People() {
                     className={styles.button}
                     onClick={() => {
                       if (value <= 0) return;
-                      updateValue({ [category.key]: value - 1 });
+                      updateValue({ people: { [category.key]: value - 1 } });
                     }}
                     style={{ opacity: value <= 0 ? 0.5 : 1 }}
                     src={minusIcon}
@@ -71,7 +71,7 @@ export function People() {
                     className={styles.button}
                     onClick={() => {
                       if (value >= 10) return;
-                      updateValue({ [category.key]: value + 1 });
+                      updateValue({ people: { [category.key]: value + 1 } });
                     }}
                     style={{ opacity: value >= 10 ? 0.5 : 1 }}
                     src={plusIcon}
@@ -85,7 +85,7 @@ export function People() {
         })}
         <Spacer size={100} />
         <Button
-          disabled={!currentValue.adults && !currentValue.children && !currentValue.infants}
+          disabled={!currentValue.people.adults && !currentValue.people.children && !currentValue.people.infants}
           onClick={handleSubmit}
           trailingIcon={<img src={nextIcon} alt="" className={styles.nextArrow} />}
         >

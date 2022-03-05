@@ -1,9 +1,11 @@
 import React from "react";
 
 export interface FormData {
-  adults: number;
-  children: number;
-  infants: number;
+  people: {
+    adults: number;
+    children: number;
+    infants: number;
+  }
   location?: number;
   supplies: number[]
 }
@@ -15,9 +17,11 @@ export interface FormContextValue {
 }
 
 const defaultValue: FormData = {
-  adults: 0,
-  children: 0,
-  infants: 0,
+  people: {
+    adults: 0,
+    children: 0,
+    infants: 0,
+  },
   supplies: []
 };
 
@@ -39,6 +43,10 @@ export const FormContextProvider: React.FunctionComponent = ({ children }) => {
       setCurrentValue({
         ...currentValue,
         ...values,
+        people: {
+          ...currentValue.people,
+          ...values.people,
+        },
       });
     },
     [currentValue, setCurrentValue]
