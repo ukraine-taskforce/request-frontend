@@ -24,9 +24,7 @@ export function useLocationsQuery() {
 
   return useQuery<Location[]>(`locationQuery${i18n.language}`, async () => {
     try {
-      const result = await fetch(
-        `https://bcyfkzavd0.execute-api.eu-west-1.amazonaws.com/live/api/v1/requests/locations?locale=${i18n.language}`
-      ).then((res) => res.json());
+      const result = await fetch(`${API_DOMAIN}/live/api/v1/requests/locations?locale=${i18n.language}`).then((res) => res.json());
 
       console.log(result);
 
