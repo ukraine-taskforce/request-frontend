@@ -18,5 +18,10 @@
   "children_details": "Ages 2-12",
   "infants": "Infants",
   "infants_details": "Under 2",
+  "review_request": "Review Request",
+  "review_submit_request": "Submit Request",
+  "review_where": "Where",
+  "review_who": "Who",
+  "review_needs": "Needs",
   "back": "Back"
 }

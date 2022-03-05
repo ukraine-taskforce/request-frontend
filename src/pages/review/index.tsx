@@ -1,18 +1,50 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { useSubmitMutation } from "../../others/contexts/api";
 import { useFormValue } from "../../others/contexts/form";
+import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 import { Button } from "../../others/components/Button";
+import { Header } from "../../others/components/Header";
+import { Spacer } from "../../others/components/Spacer";
+import { Card } from "../../others/components/Card";
+import { Text } from "../../others/components/Text";
+
+import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
+
+import styles from "./review.module.css";
 
 export function Review() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const { mutate, isLoading } = useSubmitMutation();
   const { currentValue, clearStore } = useFormValue();
+  const { supplies: supplyIds, location } = currentValue;
+  // These calls read from cache.
+  const { data: cities } = useLocationsQuery();
+  const { data: supplies } = useSuppliesQuery();
+  const PEOPLE_TYPES: ("adults" | "children" | "infants")[] = ["adults", "children", "infants"];
+
+  const getCityName = (cityId?: number) => {
+    if (cities !== undefined && cityId !== undefined) {
+      return cities.find((city) => city.id == cityId)?.name || "";
+    }
+    return "";
+  }
+  
+  const getSupplyName = (supplyId?: number) => {
+    if (supplies !== undefined && supplyId !== undefined) {
+      return supplies.find((supply) => supply.id == supplyId)?.name || "";
+    }
+    return "";
+  }
 
   const handleSumbit = React.useCallback(async () => {
     try {
       await mutate(currentValue);
       clearStore();
+      navigate("/success");
     } catch (error) {
       // Maybe display an error message
     }
@@ -20,10 +52,47 @@ export function Review() {
 
   return (
     <React.Fragment>
-      <h1>Review</h1>
-      <Link to="/success">Next page</Link>
-      <Button onClick={handleSumbit} disabled={isLoading}>
-        Submit
+      <Header hasBackButton />
+      <h1>{t("review_request")}</h1>
+      <Spacer size={24} />
+      <div className={styles.flex}>
+        <Card className={styles.card}>
+          <Text className={styles.cardTitle}>{t("review_where")}</Text>
+          <Text className={styles.cardContent}>{getCityName(location)}</Text>
+        </Card>
+        <Spacer size={8} />
+        <Card className={styles.card}>
+          <Text className={styles.cardTitle}>{t("review_who")}</Text>
+            {PEOPLE_TYPES.map((category) => {
+              let amount = currentValue[category];
+              if (amount > 0) {
+                return (
+                  <React.Fragment key={category}>
+                    <Text className={styles.cardContent}>{amount} {t(category)}</Text>
+                  </React.Fragment>
+                );
+              }
+            })}
+        </Card>
+        <Spacer size={8} />
+        <Card className={styles.card}>
+          <Text className={styles.cardTitle}>{t("review_needs")}</Text>
+          {supplyIds.map((supplyId) => {
+            return (
+              <Text key={supplyId.toString()} className={styles.cardContent}>
+                {getSupplyName(supplyId)}
+              </Text>
+            );
+          })}
+        </Card>
+        <Spacer size={12} />
+      </div>
+      <Button 
+        onClick={handleSumbit} 
+        disabled={isLoading} 
+        trailingIcon={<img src={nextIcon} className={styles.nextArrow} alt="" />}
+        fullWidth>
+        {t("review_submit_request")}
       </Button>
     </React.Fragment>
   );
