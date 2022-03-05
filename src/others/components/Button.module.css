@@ -39,6 +39,17 @@
   right: 18px;
 }
 
+.iconsContainer{
+  --side-margin: 16px;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 2*var(--side-margin));
+  height: 100%;
+  margin: 0px 16px;
+}
+
 .leadingIcon > *,
 .trailingIcon > * {
   width: 24px;
