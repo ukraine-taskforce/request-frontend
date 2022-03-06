@@ -23,11 +23,9 @@ export interface HeaderCardProps extends React.AllHTMLAttributes<HTMLDivElement>
 // in same file as tightly bound
 export const HeaderCard: React.FunctionComponent<HeaderCardProps> = ({ children, className, ...props }) => {
   return (
-    <React.Fragment>
-      <div {...props} className={`${styles.headerCard} ${className ?? ""}`}>
-        {children}
-      </div>
-    </React.Fragment>
+    <div {...props} className={`${styles.headerCard} ${className ?? ""}`}>
+      {children}
+    </div>
   );
 };
 
