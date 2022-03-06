@@ -23,8 +23,11 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
   ...props
 }) => {
   const btnClasses =
-    `${className ?? ""} ${styles.button} ${floats ? styles.buttonFloat : styles.buttonDefault} ` +
+    `${styles.button} ` +
+    `${className ?? ""} ` +
+    `${floats ? styles.buttonFloat : styles.buttonDefault} ` +
     `${variant !== "normal" ? styles[variant] : ""}`;
+
   return (
     <button className={btnClasses} style={{ width: fullWidth ? "100%" : "auto" }} {...props}>
       <span className={styles.label}>{children}</span>
