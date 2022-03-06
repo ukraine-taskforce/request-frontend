@@ -14,11 +14,12 @@ export const LanguageSelector: React.FunctionComponent<LanguageSelectorProps> = 
   const { i18n } = useTranslation();
 
   const nextLang = i18n.language === "en" ? "uk" : "en";
+  const currentLang = i18n.language === "en" ? "en" : "uk";
 
   return (
     <div onClick={() => i18n.changeLanguage(nextLang)}>
-      <img className={styles.flagIcon} src={flagMap[nextLang]} alt="" />
-      {nextLang.toUpperCase()}
+      <img className={styles.flagIcon} src={flagMap[currentLang]} alt="" />
+      {currentLang.toUpperCase()}
     </div>
   );
 };
