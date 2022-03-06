@@ -5,7 +5,7 @@ import ENFlag from "../../medias/images/UGT_Asset_FlagSelector_ENG.svg";
 import styles from "./LanguageSelector.module.css";
 import { AvailableLang, availableLangs } from "../contexts/i18n";
 import { HeaderCard } from "./Header";
-import dropdownIcon from "../../medias/images/UGT_Asset_UI_Dropdown.svg"
+import dropdownIcon from "../../medias/images/UGT_Asset_UI_Dropdown.svg";
 
 export interface LanguageSelectorProps {}
 
