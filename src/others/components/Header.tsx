@@ -8,7 +8,7 @@ import { Text } from "./Text";
 import backIcon from "../../medias/images/UGT_Asset_UI_Back.svg";
 import shareIcon from "../../medias/images/UGT_Asset_UI_Share_Icon.svg";
 import { Spacer } from "./Spacer";
-import React from "react";
+import React, { Children } from "react";
 import { isShareSupported, share } from "../helpers/share";
 
 export interface HeaderProps {
@@ -18,7 +18,18 @@ export interface HeaderProps {
   handleAbout?: () => void;
 }
 
-export interface HeaderProps {}
+export interface HeaderCardProps extends React.AllHTMLAttributes<HTMLDivElement> {}
+
+// in same file as tightly bound
+export const HeaderCard: React.FunctionComponent<HeaderCardProps> = ({ children, className, ...props }) => {
+  return (
+    <React.Fragment>
+      <div {...props} className={`${styles.headerCard} ${className ?? ""}`}>
+        {children}
+      </div>
+    </React.Fragment>
+  );
+};
 
 export const Header: React.FunctionComponent<HeaderProps> = ({ backLink, hasAbout = false, hasShare = false, handleAbout }) => {
   const { t } = useTranslation();
@@ -31,9 +42,9 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ backLink, hasAbou
   return (
     <nav className={styles.wrapper}>
       {hasAbout && (
-        <div className={styles.headerCard} onClick={handleAbout}>
+        <HeaderCard onClick={handleAbout}>
           <Text>{t("about_button")}</Text>
-        </div>
+        </HeaderCard>
       )}
       {Boolean(backLink) && (
         <div className={styles.headerItem} onClick={() => backLink && navigate(backLink)}>
@@ -42,13 +53,11 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ backLink, hasAbou
         </div>
       )}
       <Spacer flex={1} />
-      <div className={styles.headerCard}>
-        <LanguageSelector />
-      </div>
+      <LanguageSelector />
       {hasShare && isShareSupported() && (
-        <div className={styles.headerCard} onClick={handleShare}>
+        <HeaderCard onClick={handleShare}>
           <img className={styles.shareIcon} src={shareIcon} alt={t("share")} />
-        </div>
+        </HeaderCard>
       )}
     </nav>
   );
