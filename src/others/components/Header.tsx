@@ -8,7 +8,7 @@ import { Text } from "./Text";
 import backIcon from "../../medias/images/UGT_Asset_UI_Back.svg";
 import shareIcon from "../../medias/images/UGT_Asset_UI_Share_Icon.svg";
 import { Spacer } from "./Spacer";
-import React, { Children } from "react";
+import React from "react";
 import { isShareSupported, share } from "../helpers/share";
 
 export interface HeaderProps {
