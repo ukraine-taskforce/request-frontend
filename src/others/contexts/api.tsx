@@ -12,7 +12,7 @@ export const queryClient = new QueryClient({
   },
 });
 
-export const API_DOMAIN = process.env.REACT_APP_API_DOMAIN || "127.0.0.1";
+export const API_DOMAIN = process.env.REACT_APP_API_DOMAIN || "http://127.0.0.1";
 
 export type ID = string | number;
 
