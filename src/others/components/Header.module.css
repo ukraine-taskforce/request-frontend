@@ -23,7 +23,7 @@
 
 .headerCard {
   cursor: pointer;
-  border-radius: 28px;
+  border-radius: 20px;
   padding: 10px 15px;
   background-color: var(--color-white);
 }
@@ -33,6 +33,6 @@
   line-height: 1em;
 }
 
-.headerCard:not(:last-child) {
+.wrapper > *:not(:last-child) {
   margin-inline-end: 10px;
 }
