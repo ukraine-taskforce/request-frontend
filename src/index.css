@@ -18,7 +18,7 @@ body {
 }
 
 #root {
-  max-width: 600px;
+  max-width: var(--global-width-limit);
   margin: 0 auto;
 }
 

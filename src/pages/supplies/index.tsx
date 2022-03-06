@@ -66,13 +66,14 @@ export function Supplies() {
             <Spacer size={6} />
           </React.Fragment>
         ))}
-        <Spacer size={100} />
+        <Spacer size={30} flex={2} />
         <Button
           onClick={handleSubmit}
           leadingIcon={<span className={styles.counter}>{currentValue.supplies.length}</span>}
-          trailingIcon={<img src={nextIcon} className={styles.nextArrow} alt="" />}
+          trailingIcon={<img src={nextIcon} alt="" />}
           disabled={currentValue.supplies.length <= 0}
           fullWidth
+          floats
         >
           {t("supplies_next")}
         </Button>

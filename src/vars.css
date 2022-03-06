@@ -11,4 +11,5 @@
 
   /* OTHER */
   --header-height: 40px;
+  --global-width-limit: 600px;
 }

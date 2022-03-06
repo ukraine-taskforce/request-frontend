@@ -16,6 +16,15 @@
   align-items: center;
 }
 
+.buttonDefault {
+  position: relative;
+}
+
+.buttonFloat {
+  position: sticky;
+  bottom: 24px;
+}
+
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -37,6 +46,17 @@
 
 .trailingIcon {
   right: 18px;
+}
+
+.iconsContainer{
+  --side-margin: 16px;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 2*var(--side-margin));
+  height: 100%;
+  margin: 0px 16px;
 }
 
 .leadingIcon > *,

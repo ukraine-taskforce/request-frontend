@@ -46,7 +46,7 @@ export function Review() {
     return "";
   };
 
-  const handleSumbit = React.useCallback(async () => {
+  const handleSubmit = React.useCallback(async () => {
     try {
       await mutate(currentValue);
       navigate("/success");
@@ -93,18 +93,13 @@ export function Review() {
             );
           })}
         </Card>
-        <Spacer size={12} />
+        <Spacer size={30} flex={2} />
+        <Button onClick={handleSubmit} disabled={isLoading} trailingIcon={<img src={nextIcon} alt="" />} fullWidth floats>
+          {t("review_submit_request")}
+        </Button>
       </div>
-      <Button
-        onClick={handleSumbit}
-        disabled={isLoading}
-        trailingIcon={<img src={nextIcon} className={styles.nextArrow} alt="" />}
-        fullWidth
-      >
-        {t("review_submit_request")}
-      </Button>
       <Toast display={!isLoading && Boolean(error)}>
-        <Text>{t('review_error')}</Text>
+        <Text>{t("review_error")}</Text>
       </Toast>
     </React.Fragment>
   );

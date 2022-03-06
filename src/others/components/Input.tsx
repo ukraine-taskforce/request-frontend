@@ -8,10 +8,11 @@ export interface InputProps {
   value: string;
   label: string;
   placeholder: string;
+  autoFocus?: boolean;
   onChange: (value: string) => void;
 }
 
-export const Input: React.FunctionComponent<InputProps> = ({ icon, value, placeholder, label, onChange }) => {
+export const Input: React.FunctionComponent<InputProps> = ({ icon, value, placeholder, autoFocus, label, onChange }) => {
   return (
     <div className={styles.wrapper}>
       {Boolean(icon) && <span className={styles.icon}>{icon}</span>}
@@ -21,6 +22,7 @@ export const Input: React.FunctionComponent<InputProps> = ({ icon, value, placeh
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
         aria-label={label}
+        autoFocus={autoFocus ?? false}
       />
       {value.length > 0 && <img className={styles.clear} onClick={() => onChange("")} src={crossIcon} alt="clear value" />}
     </div>
