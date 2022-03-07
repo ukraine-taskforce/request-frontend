@@ -4,6 +4,7 @@ import { Card } from "./Card";
 import styles from "./Modal.module.css";
 
 import { ImgClose } from "../../medias/images/UGT_Asset_UI_Close";
+import React from "react";
 
 export interface ModalProps {
   handleClose: () => void;
@@ -13,9 +14,15 @@ export interface ModalProps {
 export const Modal: React.FunctionComponent<ModalProps> = ({ handleClose, show, children }) => {
   const { t } = useTranslation();
 
+  const handleOutsideClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      handleClose();
+    }
+  };
+
   const modalOuter = (show ? styles.displayBlock : styles.displayNone) + " " + styles.modal;
   return (
-    <div className={modalOuter}>
+    <div className={modalOuter} onClick={handleOutsideClick}>
       <section className={styles.modalInner}>
         <Card>
           {children}
