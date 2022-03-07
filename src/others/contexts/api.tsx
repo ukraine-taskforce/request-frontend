@@ -90,7 +90,7 @@ export function useSubmitMutation() {
   return useMutation("submitMutation", async (formData: FormData) => {
     try {
       const recaptchaToken = await generateCaptchaToken("submit");
-      const result = await fetch(`${API_DOMAIN}/requests?locale=${i18n.language}`, {
+      const result = await fetch(`${API_DOMAIN}?locale=${i18n.language}`, {
         method: "POST",
         body: JSON.stringify({
           ...formData,
