@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Input.module.css";
 
-import crossIcon from "../../medias/images/UGT_Asset_UI_Close.svg";
+import { ImgClose } from "../../medias/images/UGT_Asset_UI_Close";
 
 export interface InputProps {
   icon?: React.ReactChild;
@@ -24,7 +24,7 @@ export const Input: React.FunctionComponent<InputProps> = ({ icon, value, placeh
         aria-label={label}
         autoFocus={autoFocus ?? false}
       />
-      {value.length > 0 && <img className={styles.clear} onClick={() => onChange("")} src={crossIcon} alt="clear value" />}
+      {value.length > 0 && <ImgClose className={styles.clear} onClick={() => onChange("")} alt="clear value" />}
     </div>
   );
 };

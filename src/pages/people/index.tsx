@@ -10,7 +10,7 @@ import { useFormValue, PEOPLE_TYPES } from "../../others/contexts/form";
 import { Header } from "../../others/components/Header";
 import { NumberInput } from "../../others/components/NumberInput";
 
-import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
+import { ImgNext } from "../../medias/images/UGT_Asset_UI_ButtonNext";
 
 import styles from "./people.module.css";
 
@@ -57,7 +57,7 @@ export function People() {
         <Button
           disabled={!currentValue.people.adults && !currentValue.people.children && !currentValue.people.infants}
           onClick={handleSubmit}
-          trailingIcon={<img src={nextIcon} alt="" />}
+          trailingIcon={<ImgNext alt="" />}
           floats
         >
           {t("people_next")}

@@ -12,7 +12,7 @@ import { Card } from "../../others/components/Card";
 import { Text } from "../../others/components/Text";
 import { Toast } from "../../others/components/Toast";
 
-import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
+import { ImgNext } from "../../medias/images/UGT_Asset_UI_ButtonNext";
 
 import styles from "./review.module.css";
 
@@ -90,7 +90,7 @@ export function Review() {
           })}
         </Card>
         <Spacer size={30} flex={2} />
-        <Button onClick={handleSubmit} disabled={isLoading} trailingIcon={<img src={nextIcon} alt="" />} fullWidth floats>
+        <Button onClick={handleSubmit} disabled={isLoading} trailingIcon={<ImgNext alt="" />} fullWidth floats>
           {t("review_submit_request")}
         </Button>
       </div>

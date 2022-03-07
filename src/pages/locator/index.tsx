@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import loopIcon from "../../medias/images/UGT_Asset_UI_Search.svg";
+import { ImgSearch } from "../../medias/images/UGT_Asset_UI_Search";
 
 import { Card } from "../../others/components/Card";
 import { Input } from "../../others/components/Input";
@@ -57,7 +57,7 @@ export function Locator() {
         value={inputValue}
         onChange={setInputValue}
         placeholder={t("locator_search_your")}
-        icon={<img src={loopIcon} alt="" />}
+        icon={<ImgSearch alt="" />}
         label={t("locator_search_your")}
         autoFocus
       />
