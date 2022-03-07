@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       S3_URL: ${{ secrets.S3_URL }}
-      REACT_APP_API_DOMAIN: ${{ secrets.API_DOMAIN }}
+      REACT_APP_API_DOMAIN: ${{ secrets.API_URL }}
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
