@@ -13,6 +13,16 @@ export interface NumberInputProps {
 }
 
 export const NumberInput: React.FunctionComponent<NumberInputProps> = ({ value, label, minVal = 0, maxVal = 10, onChange }) => {
+  const handleChange = React.useCallback(
+    (event) => {
+      if (!Number.isInteger(Number(event.target.value))) {
+        return;
+      }
+
+      onChange(Math.min(maxVal, Math.max(minVal, parseInt(event.target.value) || 0)));
+    },
+    [onChange, maxVal, minVal]
+  );
   return (
     <span className={styles.wrapper}>
       <img
@@ -28,10 +38,13 @@ export const NumberInput: React.FunctionComponent<NumberInputProps> = ({ value, 
       <input
         className={styles.input}
         type="number"
-        value={value <= minVal ? "" : value}
+        value={value}
+        min={minVal}
+        max={maxVal}
+        inputMode="numeric"
         placeholder="0"
         aria-label={label}
-        onChange={(event) => onChange(Math.min(maxVal, Math.max(minVal, parseInt(event.target.value) || 0)))}
+        onChange={handleChange}
       />
       <img
         className={styles.button}
