@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
+
 import { Card } from "./Card";
 import styles from "./Modal.module.css";
-import closeIcon from "../../medias/images/UGT_Asset_UI_Close.svg";
-import { useTranslation } from "react-i18next";
+
+import { ImgClose } from "../../medias/images/UGT_Asset_UI_Close";
 
 export interface ModalProps {
   handleClose: () => void;
@@ -18,7 +20,7 @@ export const Modal: React.FunctionComponent<ModalProps> = ({ handleClose, show, 
         <Card>
           {children}
           <button className={styles.closeButton} onClick={handleClose}>
-            <img src={closeIcon} alt={t("close")} />
+            <ImgClose alt={t("close")} />
           </button>
         </Card>
       </section>

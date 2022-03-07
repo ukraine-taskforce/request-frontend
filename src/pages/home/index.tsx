@@ -4,19 +4,19 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "../../others/components/Button";
 import { Card } from "../../others/components/Card";
-
+import { Header } from "../../others/components/Header";
 import { List } from "../../others/components/List";
+import { Modal } from "../../others/components/Modal";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 import { isShareSupported, share } from "../../others/helpers/share";
 
 import styles from "./home.module.css";
-import ugtLogo from "../../medias/images/UGT_Asset_Brand.svg";
-import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
-import shareIcon from "../../medias/images/UGT_Asset_UI_Share_Icon_W.svg";
-import { Header } from "../../others/components/Header";
-import { Modal } from "../../others/components/Modal";
+
+import { ImgBrand } from "../../medias/images/UGT_Asset_Brand";
+import { ImgNext } from "../../medias/images/UGT_Asset_UI_ButtonNext";
+import { ImgShare } from "../../medias/images/UGT_Asset_UI_Share_Icon";
 
 export function Home() {
   const { t } = useTranslation();
@@ -35,7 +35,7 @@ export function Home() {
     <React.Fragment>
       <Header hasAbout handleAbout={() => setDisplayModal(true)} hasShare />
       <Spacer size={40} />
-      <img className={styles.ugtLogo} src={ugtLogo} alt="UGT Logo" />
+      <ImgBrand className={styles.ugtLogo} alt="UGT Logo" />
       <h1>{t("home_how_does_works")}</h1>
       <List>
         <li>
@@ -51,14 +51,14 @@ export function Home() {
       <Card>
         <Text alignment="center">{t("home_acknowledgement")}</Text>
         <Spacer size={22} />
-        <Button fullWidth onClick={() => navigate("/locator")} trailingIcon={<img src={nextIcon} alt="" />}>
+        <Button fullWidth onClick={() => navigate("/locator")} trailingIcon={<ImgNext alt="" />}>
           {t("home_i_understand")}
         </Button>
       </Card>
       <Modal show={displayModal} handleClose={() => setDisplayModal(false)}>
         <div style={{ display: "flex" }}>
           <Spacer flex={1} />
-          <img className={styles.ugtLogo} src={ugtLogo} alt="UGT Logo" />
+          <ImgBrand className={styles.ugtLogo} alt="UGT Logo" />
           <Spacer flex={1} />
         </div>
         <h1 style={{ textAlign: "center" }}>{t("about_head")}</h1>
@@ -69,7 +69,7 @@ export function Home() {
             fullWidth
             variant="highlight"
             onClick={handleShare}
-            trailingIcon={<img style={{ height: "15px" }} src={shareIcon} alt={t("share")} />}
+            trailingIcon={<ImgShare style={{ height: "15px" }} fill="white" alt={t("share")} />}
           >
             {t("about_share")}
           </Button>
