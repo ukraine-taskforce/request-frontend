@@ -26,7 +26,7 @@ export function useLocationsQuery() {
 
   return useQuery<Location[]>(`locationQuery${i18n.language}`, async () => {
     try {
-      const result = await fetch(`${API_DOMAIN}/live/api/v1/requests/locations?locale=${i18n.language}`)
+      const result = await fetch(`${API_DOMAIN}/locations?locale=${i18n.language}`)
         .then((res) => {
           if (!res.ok) throw new Error(res.statusText);
 
@@ -60,7 +60,7 @@ export function useSuppliesQuery() {
 
   return useQuery<Supply[]>(`suppliesQuery${i18n.language}`, async () => {
     try {
-      const result = await fetch(`${API_DOMAIN}/live/api/v1/requests/supplies?locale=${i18n.language}`)
+      const result = await fetch(`${API_DOMAIN}/supplies?locale=${i18n.language}`)
         .then((res) => {
           if (!res.ok) throw new Error(res.statusText);
 
@@ -90,7 +90,7 @@ export function useSubmitMutation() {
   return useMutation("submitMutation", async (formData: FormData) => {
     try {
       const recaptchaToken = await generateCaptchaToken("submit");
-      const result = await fetch(`${API_DOMAIN}/live/api/v1/requests?locale=${i18n.language}`, {
+      const result = await fetch(`${API_DOMAIN}/requests?locale=${i18n.language}`, {
         method: "POST",
         body: JSON.stringify({
           ...formData,
