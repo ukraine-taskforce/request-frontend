@@ -1,17 +1,22 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import UKRFlag from "../../medias/images/UGT_Asset_FlagSelector_UKR.svg";
-import ENFlag from "../../medias/images/UGT_Asset_FlagSelector_ENG.svg";
+
 import styles from "./LanguageSelector.module.css";
-import { AvailableLang, availableLangs } from "../contexts/i18n";
+
 import { HeaderCard } from "./Header";
-import dropdownIcon from "../../medias/images/UGT_Asset_UI_Dropdown.svg";
+import { AvailableLang, availableLangs } from "../contexts/i18n";
+import { ImgFlagUk } from "../../medias/images/UGT_Asset_FlagSelector_UKR";
+import { ImgFlagEn } from "../../medias/images/UGT_Asset_FlagSelector_ENG";
+import { ImgDropdown } from "../../medias/images/UGT_Asset_UI_Dropdown";
 
 export interface LanguageSelectorProps {}
 
-const flagMap = {
-  en: ENFlag,
-  uk: UKRFlag,
+const Flag = ({ lang, className }: { lang: AvailableLang; className?: string }) => {
+  if (lang === "uk") {
+    return <ImgFlagUk alt="ukrainian" className={className} />;
+  }
+
+  return <ImgFlagEn alt="english" className={className} />;
 };
 
 export const LanguageSelector: React.FunctionComponent<LanguageSelectorProps> = () => {
@@ -29,9 +34,9 @@ export const LanguageSelector: React.FunctionComponent<LanguageSelectorProps> = 
   return (
     <div className={styles.selector} onClick={() => setExpanded(!expanded)}>
       <HeaderCard>
-        <img className={styles.flagIcon} src={flagMap[currentLang]} alt="" />
+        <Flag className={styles.flagIcon} lang={currentLang} />
         <span>{currentLang.toUpperCase()}</span>
-        <img className={styles.dropdownIcon} src={dropdownIcon} alt="" />
+        <ImgDropdown className={styles.dropdownIcon} alt="" />
       </HeaderCard>
       {expanded && (
         <HeaderCard className={styles.dropdown}>
@@ -40,7 +45,7 @@ export const LanguageSelector: React.FunctionComponent<LanguageSelectorProps> = 
             .map((lang) => {
               return (
                 <div className={styles.dropdownItem} onClick={() => selectLang(lang)}>
-                  <img className={styles.flagIcon} src={flagMap[lang as AvailableLang]} alt="" />
+                  <Flag className={styles.flagIcon} lang={lang as AvailableLang} />
                   <span>{lang.toUpperCase()}</span>
                 </div>
               );

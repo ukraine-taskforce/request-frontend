@@ -12,7 +12,7 @@ import { Text } from "../../others/components/Text";
 import { useFormValue } from "../../others/contexts/form";
 import { ID, useSuppliesQuery } from "../../others/contexts/api";
 
-import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
+import { ImgNext } from "../../medias/images/UGT_Asset_UI_ButtonNext";
 
 import styles from "./supplies.module.css";
 
@@ -70,7 +70,7 @@ export function Supplies() {
         <Button
           onClick={handleSubmit}
           leadingIcon={<span className={styles.counter}>{currentValue.supplies.length}</span>}
-          trailingIcon={<img src={nextIcon} alt="" />}
+          trailingIcon={<ImgNext alt="" />}
           disabled={currentValue.supplies.length <= 0}
           fullWidth
           floats
