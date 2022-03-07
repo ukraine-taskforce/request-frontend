@@ -6,7 +6,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    needs: build
     env:
       S3_URL: ${{ secrets.S3_URL }}
     steps:
