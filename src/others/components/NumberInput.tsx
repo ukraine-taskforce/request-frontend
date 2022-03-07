@@ -21,7 +21,7 @@ export const NumberInput: React.FunctionComponent<NumberInputProps> = ({ value, 
 
       onChange(Math.min(maxVal, Math.max(minVal, parseInt(event.target.value) || 0)));
     },
-    [onChange]
+    [onChange, maxVal, minVal]
   );
   return (
     <span className={styles.wrapper}>
