@@ -10,16 +10,16 @@ import { Header } from "../../others/components/Header";
 import { Spacer } from "../../others/components/Spacer";
 import { Card } from "../../others/components/Card";
 import { Text } from "../../others/components/Text";
+import { Toast } from "../../others/components/Toast";
 
 import nextIcon from "../../medias/images/UGT_Asset_UI_ButtonIndication.svg";
 
 import styles from "./review.module.css";
-import { Toast } from "../../others/components/Toast";
 
 export function Review() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { mutate, isLoading, error } = useSubmitMutation();
+  const { mutateAsync: mutate, isLoading, error } = useSubmitMutation();
   const { currentValue } = useFormValue();
   const { supplies: supplyIds, location } = currentValue;
   // These calls read from cache.
@@ -47,12 +47,8 @@ export function Review() {
   };
 
   const handleSubmit = React.useCallback(async () => {
-    try {
-      await mutate(currentValue);
-      navigate("/success");
-    } catch (error) {
-      // Maybe display an error message
-    }
+    await mutate(currentValue);
+    navigate("/success");
   }, [mutate, currentValue, navigate]);
 
   return (
