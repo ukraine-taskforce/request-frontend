@@ -9,7 +9,7 @@ export function fuzzySearch(needle: string, elements: Location[]): Location[] {
 
       for (let index = 0; index < searchTerm.length; index++) {
         const element = searchTerm[index];
-        if (!~(n = haystack.indexOf(element, n - 1))) {
+        if (!~(n = haystack.indexOf(element, n + 1))) {
           return false;
         }
       }
