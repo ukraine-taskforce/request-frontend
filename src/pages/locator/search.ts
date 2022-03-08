@@ -3,6 +3,7 @@ import { Location } from "../../others/contexts/api";
 export function fuzzySearch(needle: string, elements: Location[]): Location[] {
   return (
     elements.filter((element) => {
+      if (element.id === "") return false;
       const haystack = element.name.toLowerCase();
       let n = -1;
       const searchTerm = needle.toLowerCase();
