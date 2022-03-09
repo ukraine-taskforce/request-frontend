@@ -3,10 +3,12 @@
   border-radius: 50%;
   width: 20px;
   height: 20px;
+  transition: all .3s ease-in-out;
 }
 
 .checked {
   border-color: var(--color-focus);
+  background-color: var(--color-focus);
 }
 
 .img {

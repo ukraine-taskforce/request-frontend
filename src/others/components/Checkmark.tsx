@@ -10,7 +10,7 @@ export interface CheckmarkProps {
 export const Checkmark: React.FunctionComponent<CheckmarkProps> = ({ checked, className }) => {
   return (
     <span className={`${styles.checkmark} ${checked ? styles.checked : ""} ${className ? className : ""}`}>
-      {checked && <ImgConfirmation alt="checkmar" className={styles.img} />}
+      {checked && <ImgConfirmation alt="checkmark" className={styles.img} background="none" fill="white" />}
     </span>
   );
 };
