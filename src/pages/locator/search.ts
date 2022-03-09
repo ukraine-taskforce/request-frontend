@@ -8,6 +8,6 @@ const DEFAULT_SEARCH_OPTIONS = {
   key: "name",
 };
 
-export function fuzzySearch(needle: string, elements: Location[]): Location[] {
-  return go(needle, elements, DEFAULT_SEARCH_OPTIONS).map((res) => res.obj);
+export function fuzzySearch(needle: string, elements: Location[]): Fuzzysort.KeyResults<Location> {
+  return go(needle, elements, DEFAULT_SEARCH_OPTIONS);
 }

@@ -71,20 +71,30 @@ export function Locator() {
         </React.Fragment>
       )}
       {searchResults?.map((result) => (
-        <LocationElement key={result.id} location={result} onClick={() => handleLocationSelection(result)} />
+        <LocationElement key={result.obj.id} location={result} onClick={() => handleLocationSelection(result.obj)} />
       ))}
     </React.Fragment>
   );
 }
 
 interface LocationElementProps extends React.AllHTMLAttributes<HTMLDivElement> {
-  location: Location;
+  location: Fuzzysort.KeyResult<Location>;
 }
 
 const LocationElement: React.FunctionComponent<LocationElementProps> = ({ location, ...props }) => {
+  let toDisplay: any[] = [];
+
+  for (let i = 0; i < location.obj.name.length; i++) {
+    if (location.indexes.includes(i)) {
+      toDisplay.push(<b>{location.obj.name[i]}</b>);
+    } else {
+      toDisplay.push(location.obj.name[i]);
+    }
+  }
+
   return (
     <Card {...props} className={styles.wrapper}>
-      <Text>{location.name}</Text>
+      <p style={{ fontWeight: "normal" }}>{toDisplay}</p>
     </Card>
   );
 };
