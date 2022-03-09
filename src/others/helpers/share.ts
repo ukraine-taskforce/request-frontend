@@ -12,7 +12,7 @@ export function useShare() {
         url: window.location.origin,
       });
     }
-  }, []);
+  }, [t]);
 
   return { share };
 }
