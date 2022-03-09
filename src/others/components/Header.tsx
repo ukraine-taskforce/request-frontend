@@ -10,7 +10,7 @@ import { Text } from "./Text";
 import { ImgBack } from "../../medias/images/UGT_Asset_UI_Back";
 import { ImgShare } from "../../medias/images/UGT_Asset_UI_Share_Icon";
 
-import { isShareSupported, share } from "../helpers/share";
+import { isShareSupported, useShare } from "../helpers/share";
 
 export interface HeaderProps {
   backLink?: string;
@@ -33,10 +33,7 @@ export const HeaderCard: React.FunctionComponent<HeaderCardProps> = ({ children,
 export const Header: React.FunctionComponent<HeaderProps> = ({ backLink, hasAbout = false, hasShare = false, handleAbout }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-
-  const handleShare = React.useCallback(() => {
-    share(t("ugt"));
-  }, [t]);
+  const { share } = useShare();
 
   return (
     <nav className={styles.wrapper}>
@@ -54,7 +51,7 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ backLink, hasAbou
       <Spacer flex={1} />
       <LanguageSelector />
       {hasShare && isShareSupported() && (
-        <HeaderCard onClick={handleShare}>
+        <HeaderCard onClick={share}>
           <ImgShare className={styles.shareIcon} alt={t("share")} />
         </HeaderCard>
       )}
