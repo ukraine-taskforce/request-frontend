@@ -34,7 +34,7 @@ export function useLocationsQuery() {
         })
         .then((res) => res.json());
 
-      return result.locations;
+      return result.locations.filter((location: Location) => Boolean(location.name));
     } catch (error) {
       if (process.env.NODE_ENV !== "production") {
         return [
@@ -68,7 +68,7 @@ export function useSuppliesQuery() {
         })
         .then((res) => res.json());
 
-      return result.supplies;
+      return result.supplies.filter((supply: Supply) => Boolean(supply.name));
     } catch (error) {
       if (process.env.NODE_ENV !== "production") {
         return [
