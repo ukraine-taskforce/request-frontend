@@ -1,11 +1,13 @@
-import { distance } from "fastest-levenshtein";
+import { go } from "fuzzysort";
 
 import { Location } from "../../others/contexts/api";
 
-export function fuzzySearch(needle: string, elements: Location[]): Location[] {
-  const MAX_DISTANCE = 4;
+const DEFAULT_SEARCH_OPTIONS = {
+  limit: 30,
+  threshold: -10000,
+  key: "name",
+};
 
-  return elements
-    .filter((element) => distance(needle, element.name) <= MAX_DISTANCE)
-    .sort((a, b) => distance(needle, a.name) - distance(needle, b.name));
+export function fuzzySearch(needle: string, elements: Location[]): Location[] {
+  return go(needle, elements, DEFAULT_SEARCH_OPTIONS).map((res) => res.obj);
 }
