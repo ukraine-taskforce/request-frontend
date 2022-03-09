@@ -7,7 +7,7 @@ import { List } from "../../others/components/List";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { useFormValue } from "../../others/contexts/form";
-import { isShareSupported, share } from "../../others/helpers/share";
+import { isShareSupported, useShare } from "../../others/helpers/share";
 
 import { ImgConfirmation } from "../../medias/images/UGT_Asset_UI_Confirmation";
 import { ImgShare } from "../../medias/images/UGT_Asset_UI_Share_Icon";
@@ -17,14 +17,11 @@ import styles from "./success.module.css";
 export function Success() {
   const { t } = useTranslation();
   const { clearStore } = useFormValue();
+  const { share } = useShare();
 
   React.useEffect(() => {
     clearStore();
   }, [clearStore]);
-
-  const handleShare = React.useCallback(() => {
-    share(t("ugt"));
-  }, [t]);
 
   return (
     <div className={styles.wrapper}>
@@ -46,7 +43,7 @@ export function Success() {
         </List>
         {isShareSupported() && (
           <Button
-            onClick={handleShare}
+            onClick={share}
             trailingIcon={<ImgShare fill="white" alt="" className={styles.nextArrow} />}
             fullWidth
             variant="highlight"

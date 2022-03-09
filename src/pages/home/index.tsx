@@ -10,7 +10,7 @@ import { Modal } from "../../others/components/Modal";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
-import { isShareSupported, share } from "../../others/helpers/share";
+import { isShareSupported, useShare } from "../../others/helpers/share";
 
 import styles from "./home.module.css";
 
@@ -21,15 +21,12 @@ import { ImgShare } from "../../medias/images/UGT_Asset_UI_Share_Icon";
 export function Home() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { share } = useShare();
   const [displayModal, setDisplayModal] = React.useState(false);
 
   // For caching purposes
   useSuppliesQuery();
   useLocationsQuery();
-
-  const handleShare = React.useCallback(() => {
-    share(t("ugt"));
-  }, [t]);
 
   return (
     <React.Fragment>
@@ -68,7 +65,7 @@ export function Home() {
           <Button
             fullWidth
             variant="highlight"
-            onClick={handleShare}
+            onClick={share}
             trailingIcon={<ImgShare style={{ height: "15px" }} fill="white" alt={t("share")} />}
           >
             {t("about_share")}
