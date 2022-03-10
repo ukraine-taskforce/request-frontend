@@ -71,30 +71,45 @@ export function Locator() {
         </React.Fragment>
       )}
       {searchResults?.map((result) => (
-        <LocationElement key={result.obj.id} location={result} onClick={() => handleLocationSelection(result.obj)} />
+        <LocationElement key={result.obj.id} locationMatch={result} onClick={() => handleLocationSelection(result.obj)} />
       ))}
     </React.Fragment>
   );
 }
 
 interface LocationElementProps extends React.AllHTMLAttributes<HTMLDivElement> {
-  location: Fuzzysort.KeyResult<Location>;
+  locationMatch: Fuzzysort.KeyResult<Location>;
 }
 
-const LocationElement: React.FunctionComponent<LocationElementProps> = ({ location, ...props }) => {
-  let toDisplay: any[] = [];
+const LocationElement: React.FunctionComponent<LocationElementProps> = ({ locationMatch, ...props }) => {
+  let highlightedText: any[] = [];
 
-  for (let i = 0; i < location.obj.name.length; i++) {
-    if (location.indexes.includes(i)) {
-      toDisplay.push(<b>{location.obj.name[i]}</b>);
+  function commit(list: any[], content: string, isHighlighted: boolean) {
+    if (isHighlighted) {
+      list.push(<span style={{ color: "var(--color-focus)" }}>{content}</span>);
     } else {
-      toDisplay.push(location.obj.name[i]);
+      list.push(content);
     }
+  }
+
+  // keep number of spans as small as possible
+  let prevIsHighlighted = false;
+  let group = "";
+  for (let i = 0; i < locationMatch.obj.name.length; i++) {
+    const isHighlighted = locationMatch.indexes.includes(i);
+
+    if (!(prevIsHighlighted === isHighlighted) && group.length) {
+      commit(highlightedText, group, prevIsHighlighted);
+      group = "";
+    }
+    group += locationMatch.obj.name[i];
+    prevIsHighlighted = isHighlighted;
+    if (i === locationMatch.obj.name.length - 1) commit(highlightedText, group, isHighlighted);
   }
 
   return (
     <Card {...props} className={styles.wrapper}>
-      <p style={{ fontWeight: "normal" }}>{toDisplay}</p>
+      <Text>{highlightedText}</Text>
     </Card>
   );
 };
