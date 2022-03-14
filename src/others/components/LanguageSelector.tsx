@@ -62,7 +62,6 @@ export const LanguageSelector: React.FunctionComponent<LanguageSelectorProps> = 
     <div ref={ref} className={styles.selector} onClick={() => setExpanded(!expanded)}>
       <HeaderCard>
         <Flag className={styles.flagIcon} lang={currentLang} />
-        <span>{currentLang.toUpperCase()}</span>
         <ImgDropdown className={styles.dropdownIcon} alt="" />
       </HeaderCard>
       {expanded && (
