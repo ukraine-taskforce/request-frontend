@@ -13,9 +13,20 @@ export interface LanguageSelectorProps {}
 
 const Flag = ({ lang, className }: { lang: AvailableLang; className?: string }) => {
   if (lang === "uk") {
-    return <ImgFlagUk alt="ukrainian" className={className} />;
+    return (
+      <React.Fragment>
+        <ImgFlagUk alt="ukrainian" className={className} />
+        <span>UA</span>
+      </React.Fragment>
+    );
   }
-  return <ImgFlagEn alt="english" className={className} />;
+
+  return (
+    <React.Fragment>
+      <ImgFlagEn alt="english" className={className} />
+      <span>EN</span>
+    </React.Fragment>
+  );
 };
 
 function useOutsideClick(ref: React.RefObject<HTMLElement>, onClick: () => void) {
@@ -62,7 +73,6 @@ export const LanguageSelector: React.FunctionComponent<LanguageSelectorProps> = 
               return (
                 <div key={lang} className={styles.dropdownItem} onClick={() => selectLang(lang)}>
                   <Flag className={styles.flagIcon} lang={lang as AvailableLang} />
-                  <span>{lang.toUpperCase()}</span>
                 </div>
               );
             })}
