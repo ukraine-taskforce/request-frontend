@@ -15,7 +15,7 @@ export const availableLangs = Object.keys(resources).sort();
 
 function getInitLang() {
   const browserLang = navigator.language.split("-")[0].toLowerCase();
-  return availableLangs.includes(browserLang) ? browserLang : "en";
+  return availableLangs.includes(browserLang) ? browserLang : "uk";
 }
 
 i18n
