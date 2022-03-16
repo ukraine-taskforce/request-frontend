@@ -16,7 +16,7 @@ const languagePriority: AvailableLang[] = ["uk", "en"];
 export const availableLangs = Object.keys(resources).sort();
 
 function getInitLang(): AvailableLang {
-  let choice: AvailableLang | undefined = undefined;
+  let choice: AvailableLang = "uk";
   const prevSession = localStorage.getItem("languageSetting");
   if (prevSession != null && availableLangs.includes(prevSession)) {
     // use language from previous session
@@ -30,14 +30,11 @@ function getInitLang(): AvailableLang {
       if (browserLangs.includes(lang)) choice = lang;
     }
   }
-  // default to uk
-  choice = choice || "uk";
   storeLanguage(choice);
   return choice;
 }
 
 export function storeLanguage(language: AvailableLang) {
-  if (!availableLangs.includes(language)) return;
   localStorage.setItem("languageSetting", language);
 }
 
