@@ -27,7 +27,10 @@ function getInitLang(): AvailableLang {
     // This is done because the majority of users is ukrainian and there seem to
     // be users with their browser settings pointing to en while preferring uk.
     for (let lang of languagePriority) {
-      if (browserLangs.includes(lang)) choice = lang;
+      if (browserLangs.includes(lang)) {
+        choice = lang;
+        break;
+      }
     }
   }
   storeLanguage(choice);
