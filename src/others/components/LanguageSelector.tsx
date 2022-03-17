@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./LanguageSelector.module.css";
 
 import { HeaderCard } from "./Header";
-import { AvailableLang, availableLangs } from "../contexts/i18n";
+import { AvailableLang, availableLangs, storeLanguage } from "../contexts/i18n";
 import { ImgFlagUk } from "../../medias/images/UGT_Asset_FlagSelector_UKR";
 import { ImgFlagEn } from "../../medias/images/UGT_Asset_FlagSelector_ENG";
 import { ImgDropdown } from "../../medias/images/UGT_Asset_UI_Dropdown";
@@ -55,6 +55,7 @@ export const LanguageSelector: React.FunctionComponent<LanguageSelectorProps> = 
 
   const selectLang = (lang: string) => {
     i18n.changeLanguage(lang);
+    storeLanguage(lang as AvailableLang);
     setExpanded(false);
   };
 
