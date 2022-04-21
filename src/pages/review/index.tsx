@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { ID, useSubmitMutation } from "../../others/contexts/api";
-import { useFormValue, PEOPLE_TYPES } from "../../others/contexts/form";
+import { useFormValue } from "../../others/contexts/form";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 import { Button } from "../../others/components/Button";
 import { Header } from "../../others/components/Header";
@@ -60,23 +60,6 @@ export function Review() {
         <Card className={styles.card}>
           <Text className={styles.cardTitle}>{t("review_where")}</Text>
           <Text className={styles.cardContent}>{getCityName(location)}</Text>
-        </Card>
-        <Spacer size={8} />
-        <Card className={styles.card}>
-          <Text className={styles.cardTitle}>{t("review_who")}</Text>
-          {PEOPLE_TYPES.map(({ key }) => {
-            let amount = currentValue.people[key];
-            if (amount > 0) {
-              return (
-                <React.Fragment key={key}>
-                  <Text className={styles.cardContent}>
-                    {amount} {t(key)}
-                  </Text>
-                </React.Fragment>
-              );
-            }
-            return <React.Fragment key={key} />;
-          })}
         </Card>
         <Spacer size={8} />
         <Card className={styles.card}>

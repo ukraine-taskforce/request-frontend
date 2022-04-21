@@ -26,7 +26,7 @@ export function Locator() {
   const handleLocationSelection = React.useCallback(
     (location: Location) => {
       updateValue({ location: location.id });
-      navigate("/people");
+      navigate("/supplies");
     },
     [navigate, updateValue]
   );
