@@ -4,8 +4,10 @@
   --color-white: #fff;
   --color-focus: #159bff;
   --color-gray: #bdc0c2;
+  --color-light-grey: #f1f1f1;
   --color-error: #f79a9a;
   --color-dark-error: #4d0707;
+  --color-red: #CF2A20;
   /* general */
   --color-global-bg: #ecf0f3;
 

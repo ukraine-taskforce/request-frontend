@@ -1,0 +1,13 @@
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.extend {
+  flex-grow: 1;
+}
+
+.errorMessage {
+  color: var(--color-red);
+  font-size: 85%;
+}

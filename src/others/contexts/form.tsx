@@ -9,6 +9,8 @@ export interface FormData {
   };
   location?: ID;
   supplies: ID[];
+  name: string;
+  phoneNumber: string;
 }
 
 export interface FormContextValue {
@@ -38,6 +40,8 @@ const defaultValue: FormData = {
     children: 0,
     infants: 0,
   },
+  name: '',
+  phoneNumber: '',
   supplies: [],
 };
 
