@@ -9,7 +9,6 @@ import reportWebVitals from "./reportWebVitals";
 
 import { Home } from "./pages/home";
 import { Locator } from "./pages/locator";
-import { People } from "./pages/people";
 import { Review } from "./pages/review";
 import { Success } from "./pages/success";
 import { Supplies } from "./pages/supplies";
@@ -25,7 +24,6 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/locator" element={<Locator />} />
-            <Route path="/people" element={<People />} />
             <Route path="/review" element={<Review />} />
             <Route path="/success" element={<Success />} />
             <Route path="/supplies" element={<Supplies />} />
