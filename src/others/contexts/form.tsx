@@ -2,11 +2,6 @@ import React from "react";
 import { ID } from "./api";
 
 export interface FormData {
-  people: {
-    adults: number;
-    children: number;
-    infants: number;
-  };
   location?: ID;
   supplies: ID[];
   name: string;
@@ -19,27 +14,7 @@ export interface FormContextValue {
   clearStore: () => void;
 }
 
-export const PEOPLE_TYPES: { key: "adults" | "children" | "infants"; explanation_key: string }[] = [
-  {
-    key: "adults",
-    explanation_key: "adults_details",
-  },
-  {
-    key: "children",
-    explanation_key: "children_details",
-  },
-  {
-    key: "infants",
-    explanation_key: "infants_details",
-  },
-];
-
 const defaultValue: FormData = {
-  people: {
-    adults: 0,
-    children: 0,
-    infants: 0,
-  },
   name: '',
   phoneNumber: '',
   supplies: [],
@@ -63,10 +38,6 @@ export const FormContextProvider: React.FunctionComponent = ({ children }) => {
       setCurrentValue({
         ...currentValue,
         ...values,
-        people: {
-          ...currentValue.people,
-          ...values.people,
-        },
       });
     },
     [currentValue, setCurrentValue]
