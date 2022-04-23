@@ -12,6 +12,7 @@ import { Locator } from "./pages/locator";
 import { Review } from "./pages/review";
 import { Success } from "./pages/success";
 import { Supplies } from "./pages/supplies";
+import { Contact } from "./pages/contact";
 import { FormContextProvider } from "./others/contexts/form";
 import { queryClient } from "./others/contexts/api";
 import { NotFound } from "./pages/notFound";
@@ -27,6 +28,7 @@ ReactDOM.render(
             <Route path="/review" element={<Review />} />
             <Route path="/success" element={<Success />} />
             <Route path="/supplies" element={<Supplies />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -4,6 +4,8 @@ import { ID } from "./api";
 export interface FormData {
   location?: ID;
   supplies: ID[];
+  name: string;
+  phoneNumber: string;
 }
 
 export interface FormContextValue {
@@ -13,6 +15,8 @@ export interface FormContextValue {
 }
 
 const defaultValue: FormData = {
+  name: '',
+  phoneNumber: '',
   supplies: [],
 };
 

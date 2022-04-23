@@ -17,7 +17,7 @@
   "success_delivery": "Delivery of necessary items to your community is improved based on demand",
   "review_request": "Review Request",
   "review_submit_request": "Submit Request",
-  "review_where": "Where",
+  "review_contact_info": "Your information",
   "review_who": "Who",
   "review_needs": "Needs",
   "review_error": "An error has occured and your request was not registered, please check you connectivity and retry",
@@ -32,5 +32,17 @@
   "page_not_exist": "This page does not exist",
   "go_to_homepage": "Go to the homepage",
   "share_title": "Ukraine Global Task Force - Minimize the impact of the war on Ukrainian",
-  "share_text": "Tell us what you needed to help the authorities to improve the delivery of supplies to your community"
+  "share_text": "Tell us what you needed to help the authorities to improve the delivery of supplies to your community",
+  "contact_description": "Please tell us more about yourself.",
+  "name_placeholder": "Aleksandra Bodarenko",
+  "contact_next": "Next",
+  "countries_list": "{}",
+  "phone_number_field": "Phone number",
+  "phone_number_placeholder": "Phone number",
+  "name_field": "Your name",
+  "phone_number_error_TOO_SHORT": "Phone number is too short.",
+  "phone_number_error_REQUIRED": "Phone number is required.",
+  "phone_number_error_INVALID": "Phone number is invalid.",
+  "phone_number_error_TOO_LONG": "Phone number is too long.",
+  "phone_number_error_INVALID_COUNTRY": "Invalid country prefix."
 }
