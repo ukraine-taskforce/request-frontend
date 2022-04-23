@@ -48,7 +48,7 @@ export function Home() {
       <Card>
         <Text alignment="center">{t("home_acknowledgement")}</Text>
         <Spacer size={22} />
-        <Button fullWidth onClick={() => navigate("/locator")} trailingIcon={<ImgNext alt="" />}>
+        <Button fullWidth onClick={() => navigate("/contact")} trailingIcon={<ImgNext alt="" />}>
           {t("home_i_understand")}
         </Button>
       </Card>

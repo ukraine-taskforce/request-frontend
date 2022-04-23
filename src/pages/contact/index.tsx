@@ -23,7 +23,7 @@ export function Contact() {
   const [phoneNumberError, setPhoneNumberError] = useState<string | undefined>();
 
   const handleSubmit = React.useCallback(() => {
-    navigate("/supplies");
+    navigate("/locator");
   }, [navigate]);
 
   const setName = (newValue: string) => updateValue({ name: newValue });
@@ -40,7 +40,7 @@ export function Contact() {
 
   return (
     <React.Fragment>
-      <Header backLink="/locator" />
+      <Header backLink="/" />
 
       <h1>{t("contact_description")}</h1>
 

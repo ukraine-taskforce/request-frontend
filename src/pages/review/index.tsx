@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import parsePhoneNumber from "libphonenumber-js";
 
 import { ID, useSubmitMutation } from "../../others/contexts/api";
 import { useFormValue } from "../../others/contexts/form";
@@ -21,7 +22,7 @@ export function Review() {
   const navigate = useNavigate();
   const { mutateAsync: mutate, isLoading, error } = useSubmitMutation();
   const { currentValue } = useFormValue();
-  const { supplies: supplyIds, location } = currentValue;
+  const { supplies: supplyIds, location, name, phoneNumber } = currentValue;
   // These calls read from cache.
   const { data: cities } = useLocationsQuery();
   const { data: supplies } = useSuppliesQuery();
@@ -58,8 +59,12 @@ export function Review() {
       <Spacer size={24} />
       <div className={styles.flex}>
         <Card className={styles.card}>
-          <Text className={styles.cardTitle}>{t("review_where")}</Text>
-          <Text className={styles.cardContent}>{getCityName(location)}</Text>
+          <Text className={styles.cardTitle}>{t("review_contact_info")}</Text>
+          <Text className={styles.cardContent}>
+            {name ? `${name}, ` : ""}
+            {getCityName(location)}
+          </Text>
+          <Text className={styles.secondaryCardContent}>{parsePhoneNumber(phoneNumber)?.formatInternational()}</Text>
         </Card>
         <Spacer size={8} />
         <Card className={styles.card}>
