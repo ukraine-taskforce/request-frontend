@@ -6,6 +6,7 @@ export interface FormData {
   supplies: ID[];
   name: string;
   phoneNumber: string;
+  comments: string;
 }
 
 export interface FormContextValue {
@@ -18,6 +19,7 @@ const defaultValue: FormData = {
   name: '',
   phoneNumber: '',
   supplies: [],
+  comments: '',
 };
 
 const FormContext = React.createContext<FormContextValue>({

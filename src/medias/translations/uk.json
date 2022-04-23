@@ -44,5 +44,7 @@
   "phone_number_error_REQUIRED": "",
   "phone_number_error_INVALID": "",
   "phone_number_error_TOO_LONG": "",
-  "phone_number_error_INVALID_COUNTRY": ""
+  "phone_number_error_INVALID_COUNTRY": "",
+  "add_comment": "Add a comment (Optional)",
+  "comment_placeholder": "Write down any additional information you'd like to share"
 }

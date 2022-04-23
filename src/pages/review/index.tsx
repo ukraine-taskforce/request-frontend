@@ -8,10 +8,12 @@ import { useFormValue } from "../../others/contexts/form";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 import { Button } from "../../others/components/Button";
 import { Header } from "../../others/components/Header";
+import { Label } from "../../others/components/Label";
 import { Spacer } from "../../others/components/Spacer";
 import { Card } from "../../others/components/Card";
 import { Text } from "../../others/components/Text";
 import { Toast } from "../../others/components/Toast";
+import { Input } from "../../others/components/Input";
 
 import { ImgNext } from "../../medias/images/UGT_Asset_UI_ButtonNext";
 
@@ -21,11 +23,13 @@ export function Review() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { mutateAsync: mutate, isLoading, error } = useSubmitMutation();
-  const { currentValue } = useFormValue();
+  const { currentValue, updateValue } = useFormValue();
   const { supplies: supplyIds, location, name, phoneNumber } = currentValue;
   // These calls read from cache.
   const { data: cities } = useLocationsQuery();
   const { data: supplies } = useSuppliesQuery();
+
+  const setComment = (newValue: string) => updateValue({ comments: newValue });
 
   React.useEffect(() => {
     if (location === undefined || supplyIds.length === 0) {
@@ -77,6 +81,13 @@ export function Review() {
             );
           })}
         </Card>
+
+        <Spacer size={30} flex={2} />
+
+        <Label>{t("add_comment")}</Label>
+        <Spacer size={10} />
+        <Input value={currentValue.comments} label="comments_field" placeholder={t('comment_placeholder')} onChange={setComment} />
+
         <Spacer size={30} flex={2} />
         <Button onClick={handleSubmit} disabled={isLoading} trailingIcon={<ImgNext alt="" />} fullWidth floats>
           {t("review_submit_request")}

@@ -44,5 +44,7 @@
   "phone_number_error_REQUIRED": "Phone number is required.",
   "phone_number_error_INVALID": "Phone number is invalid.",
   "phone_number_error_TOO_LONG": "Phone number is too long.",
-  "phone_number_error_INVALID_COUNTRY": "Invalid country prefix."
+  "phone_number_error_INVALID_COUNTRY": "Invalid country prefix.",
+  "add_comment": "Add a comment (Optional)",
+  "comment_placeholder": "Write down any additional information you'd like to share"
 }
