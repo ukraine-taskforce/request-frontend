@@ -15,6 +15,7 @@ import {Contact} from "./pages/contact";
 import {Home} from "./pages/home";
 import {Locator} from "./pages/locator";
 import {Login} from "./pages/login";
+import {Orders} from "./pages/orders";
 import {NotFound} from "./pages/notFound";
 import {Review} from "./pages/review";
 import {Success} from "./pages/success";
@@ -40,10 +41,9 @@ ReactDOM.render(
           <Route path="/success" element={<Success/>}/>
           <Route path="/supplies" element={<Supplies/>}/>
           <Route path="/contact" element={<Contact/>}/>
-
-          <Route element={
-            <AuthWrapper/>}>{/*  Insert password protected page here */}</Route>
-
+          <Route element={<AuthWrapper />}>
+            <Route path="/orders" element={<Orders />} />
+          </Route>
           <Route path="/login" element={<Login/>}/>
           <Route path="/reset-password" element={<ResetPassword/>}/>
           <Route path="*" element={<NotFound/>}/>
