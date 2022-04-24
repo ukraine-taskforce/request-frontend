@@ -84,9 +84,9 @@ interface LocationElementProps extends React.AllHTMLAttributes<HTMLDivElement> {
 const LocationElement: React.FunctionComponent<LocationElementProps> = ({ locationMatch, ...props }) => {
   let highlightedText: any[] = [];
 
-  function commit(list: any[], content: string, isHighlighted: boolean) {
+  function commit(list: any[], content: string, isHighlighted: boolean, key: string) {
     if (isHighlighted) {
-      list.push(<span style={{ color: "var(--color-focus)" }}>{content}</span>);
+      list.push(<span key={key} style={{ color: "var(--color-focus)" }}>{content}</span>);
     } else {
       list.push(content);
     }
@@ -99,12 +99,12 @@ const LocationElement: React.FunctionComponent<LocationElementProps> = ({ locati
     const isHighlighted = locationMatch.indexes.includes(i);
 
     if (!(prevIsHighlighted === isHighlighted) && group.length) {
-      commit(highlightedText, group, prevIsHighlighted);
+      commit(highlightedText, group, prevIsHighlighted, i.toString());
       group = "";
     }
     group += locationMatch.obj.name[i];
     prevIsHighlighted = isHighlighted;
-    if (i === locationMatch.obj.name.length - 1) commit(highlightedText, group, isHighlighted);
+    if (i === locationMatch.obj.name.length - 1) commit(highlightedText, group, isHighlighted, i.toString());
   }
 
   return (
