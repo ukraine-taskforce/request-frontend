@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga4";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Spacer } from "../../others/components/Spacer";
@@ -7,6 +8,12 @@ import { Header } from "../../others/components/Header";
 
 export function NotFound() {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    document.title = t("notfound_page_title");
+    ReactGA.initialize(process.env.REACT_APP_GA4_ID as string);
+    ReactGA.send("pageview");
+  }, [t]);
 
   return (
     <React.Fragment>

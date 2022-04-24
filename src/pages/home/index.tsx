@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga4";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -24,6 +25,12 @@ export function Home() {
   const navigate = useNavigate();
   const { share } = useShare();
   const [displayModal, setDisplayModal] = React.useState(false);
+
+  useEffect(() => {
+    document.title = t("home_page_title");
+    ReactGA.initialize(process.env.REACT_APP_GA4_ID as string);
+    ReactGA.send("pageview");
+  }, [t]);
 
   // For caching purposes
   useSuppliesQuery();
