@@ -50,7 +50,7 @@ export function Locator() {
 
   return (
     <React.Fragment>
-      <Header backLink="/contact" />
+      <Header backLink="/contact" hasLangSelector />
       <h1>{t("locator_where_are_you")}?</h1>
       <Spacer size={24} />
       <Input

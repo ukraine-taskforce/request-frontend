@@ -10,7 +10,7 @@ export function NotFound() {
 
   return (
     <React.Fragment>
-      <Header />
+      <Header hasHeadline hasLangSelector />
       <Spacer size={100} />
       <h1>404</h1>
       <Spacer size={24} />
