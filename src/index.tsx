@@ -1,39 +1,55 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { QueryClientProvider } from "react-query";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {QueryClientProvider} from "react-query";
 
 import "./index.css";
 import "./others/contexts/i18n";
 import reportWebVitals from "./reportWebVitals";
 
-import { Home } from "./pages/home";
-import { Locator } from "./pages/locator";
-import { Review } from "./pages/review";
-import { Success } from "./pages/success";
-import { Supplies } from "./pages/supplies";
-import { Contact } from "./pages/contact";
-import { FormContextProvider } from "./others/contexts/form";
-import { queryClient } from "./others/contexts/api";
-import { NotFound } from "./pages/notFound";
+import {AuthWrapper} from "./others/components/AuthWrapper";
+import {queryClient} from "./others/contexts/api";
+import {AuthProvider} from "./others/contexts/auth";
+import {FormContextProvider} from "./others/contexts/form";
+import {Contact} from "./pages/contact";
+import {Home} from "./pages/home";
+import {Locator} from "./pages/locator";
+import {Login} from "./pages/login";
+import {NotFound} from "./pages/notFound";
+import {Review} from "./pages/review";
+import {Success} from "./pages/success";
+import {Supplies} from "./pages/supplies";
+import {ResetPassword} from "./pages/resetPassword";
+
+const Providers: React.FunctionComponent = ({children}) => (
+  <AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <FormContextProvider>{children}</FormContextProvider>
+    </QueryClientProvider>
+  </AuthProvider>
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <FormContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/locator" element={<Locator />} />
-            <Route path="/review" element={<Review />} />
-            <Route path="/success" element={<Success />} />
-            <Route path="/supplies" element={<Supplies />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </FormContextProvider>
-    </QueryClientProvider>
+    <Providers>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/locator" element={<Locator/>}/>
+          <Route path="/review" element={<Review/>}/>
+          <Route path="/success" element={<Success/>}/>
+          <Route path="/supplies" element={<Supplies/>}/>
+          <Route path="/contact" element={<Contact/>}/>
+
+          <Route element={
+            <AuthWrapper/>}>{/*  Insert password protected page here */}</Route>
+
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/reset-password" element={<ResetPassword/>}/>
+          <Route path="*" element={<NotFound/>}/>
+        </Routes>
+      </BrowserRouter>
+    </Providers>
   </React.StrictMode>,
   document.getElementById("root")
 );

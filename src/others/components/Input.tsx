@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./Input.module.css";
 
-import { ImgClose } from "../../medias/images/UGT_Asset_UI_Close";
+import {ImgClose} from "../../medias/images/UGT_Asset_UI_Close";
 
-export interface InputProps {
+
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   icon?: React.ReactChild;
   value: string;
   label: string;
@@ -12,19 +13,27 @@ export interface InputProps {
   onChange: (value: string) => void;
 }
 
-export const Input: React.FunctionComponent<InputProps> = ({ icon, value, placeholder, autoFocus, label, onChange }) => {
+export const Input: React.FunctionComponent<InputProps> = ({
+                                                             icon,
+                                                             value,
+                                                             autoFocus,
+                                                             label,
+                                                             onChange,
+                                                             ...rest
+                                                           }) => {
   return (
     <div className={styles.wrapper}>
       {Boolean(icon) && <span className={styles.icon}>{icon}</span>}
       <input
         className={styles.input}
-        value={value}
         onChange={(event) => onChange(event.target.value)}
-        placeholder={placeholder}
         aria-label={label}
         autoFocus={autoFocus ?? false}
+        {...rest}
       />
-      {value.length > 0 && <ImgClose className={styles.clear} onClick={() => onChange("")} alt="clear value" />}
+      {value.length > 0 &&
+        <ImgClose className={styles.clear} onClick={() => onChange("")}
+                  alt="clear value"/>}
     </div>
   );
 };

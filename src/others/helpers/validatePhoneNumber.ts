@@ -1,4 +1,3 @@
-
 import { CountryCode, validatePhoneNumberLength } from "libphonenumber-js";
 
 export const isNullOrEmpty = (str: string) => !str || str?.trim().length === 0;

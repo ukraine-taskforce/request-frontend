@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -32,9 +32,9 @@ export function Contact() {
     setPhoneNumberError(undefined);
     updateValue({ phoneNumber: newValue });
 
-    const validationResult =  validatePhoneNumber(newValue, countryCode);
+    const validationResult = validatePhoneNumber(newValue, countryCode);
     if (validationResult.isInvalid) setPhoneNumberError(validationResult.error);
-  }
+  };
 
   const isFormValid = currentValue.phoneNumber && currentValue.phoneNumber.trim().length > 4 && !phoneNumberError;
 
@@ -47,29 +47,26 @@ export function Contact() {
       <Spacer size={24} />
 
       <div className={styles.flex}>
-        <Label required>{t('phone_number_field')}</Label>
+        <Label required>{t("phone_number_field")}</Label>
         <Spacer size={10} />
-        <PhoneInput country={'ua'}
+        <PhoneInput
+          country={"ua"}
           value={currentValue.phoneNumber}
-          placeholder={t('phone_number_placeholder')}
+          placeholder={t("phone_number_placeholder")}
           isValid={!phoneNumberError}
-          onChange={(value: string, countryCode: string) => setPhoneNumber(value, countryCode)} />
+          onChange={(value: string, countryCode: string) => setPhoneNumber(value, countryCode)}
+        />
         {phoneNumberError && <Text className={styles.errorMessage}>{t(`phone_number_error_${phoneNumberError}`)}</Text>}
 
         <Spacer size={30} flex={2} />
 
-        <Label>{t('name_field')}</Label>
+        <Label>{t("name_field")}</Label>
         <Spacer size={10} />
-        <Input value={currentValue.name || ''} label={t('name_field')} placeholder={t('name_placeholder')} onChange={setName} />
+        <Input value={currentValue.name || ""} label={t("name_field")} placeholder={t("name_placeholder")} onChange={setName} />
 
         <Spacer size={30} flex={2} />
 
-        <Button
-          disabled={!isFormValid}
-          onClick={handleSubmit}
-          trailingIcon={<ImgNext alt={t("context_next") } />}
-          floats
-        >
+        <Button disabled={!isFormValid} onClick={handleSubmit} trailingIcon={<ImgNext alt={t("context_next")} />} floats>
           {t("contact_next")}
         </Button>
       </div>
