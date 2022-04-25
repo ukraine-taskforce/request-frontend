@@ -73,10 +73,10 @@ export function Review() {
         <Spacer size={8} />
         <Card className={styles.card}>
           <Text className={styles.cardTitle}>{t("review_needs")}</Text>
-          {supplyIds.map((supplyId) => {
+          {supplyIds.map((supply) => {
             return (
-              <Text key={supplyId.toString()} className={styles.cardContent}>
-                {getSupplyName(supplyId)}
+              <Text key={supply.id} className={styles.cardContent}>
+                {getSupplyName(supply.id)}: {supply.amount}
               </Text>
             );
           })}

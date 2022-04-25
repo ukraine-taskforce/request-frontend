@@ -10,7 +10,7 @@ import { Loader } from "../../others/components/Loader";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { useFormValue } from "../../others/contexts/form";
-import { ID, useSuppliesQuery } from "../../others/contexts/api";
+import { useSuppliesQuery } from "../../others/contexts/api";
 
 import { ImgNext } from "../../medias/images/UGT_Asset_UI_ButtonNext";
 
@@ -27,12 +27,12 @@ export function Supplies() {
   }, [navigate]);
 
   const toggleSupply = React.useCallback(
-    (supplyId: ID) => {
+    (supplyId: string) => {
       const array = currentValue.supplies;
-      const index = array.indexOf(supplyId);
+      const index = array.findIndex(element => element.id === supplyId);
 
       if (index === -1) {
-        array.push(supplyId);
+        array.push({id: supplyId, amount: 1});
       } else {
         array.splice(index, 1);
       }
@@ -61,7 +61,7 @@ export function Supplies() {
           <React.Fragment key={supply.name}>
             <Card className={styles.card} onClick={() => toggleSupply(supply.id)}>
               <Text variant="bold">{supply.name}</Text>
-              <Checkmark checked={currentValue.supplies.includes(supply.id)} />
+              <Checkmark checked={currentValue.supplies.some(element => element.id === supply.id)} />
             </Card>
             <Spacer size={6} />
           </React.Fragment>
