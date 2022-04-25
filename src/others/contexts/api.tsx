@@ -115,7 +115,6 @@ export function useSuppliesQuery() {
 }
 
 export function useSubmitMutation() {
-  const {i18n} = useTranslation();
   const {query} = useFetch();
 
   return useMutation("submitMutation", async (formData: FormData) => {
