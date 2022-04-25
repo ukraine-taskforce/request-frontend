@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga4";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -24,6 +25,12 @@ export function ResetPassword() {
   const [newPassword, setNewPassword] = React.useState("");
   const [code, setCode] = React.useState("");
   const [step, setStep] = React.useState<FormStep>(FormStep.Username);
+
+  useEffect(() => {
+    document.title = t("reset_password_page_title");
+    ReactGA.initialize(process.env.REACT_APP_GA4_ID as string);
+    ReactGA.send("pageview");
+  }, [t]);
 
   const handleSubmit = React.useCallback(
     async (event) => {

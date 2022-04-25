@@ -63,5 +63,8 @@
   "locator_page_title": "Location",
   "supplies_page_title": "Supplies",
   "review_page_title": "Request review",
-  "success_page_title": "Request received"
+  "success_page_title": "Request received",
+  "reset_password_page_title": "Reset your password",
+  "login_page_title": "Login",
+  "orders_page_title": "Orders"
 }

@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga4";
+import { useTranslation } from "react-i18next";
 import { Header } from "../../others/components/Header";
 import { useAuth } from "../../others/contexts/auth";
 import OutputIcon from "@mui/icons-material/Output";
 import { Tooltip } from "@mui/material";
 
 export function Orders() {
+  const { t } = useTranslation();
   const { logout } = useAuth();
+
+  useEffect(() => {
+    document.title = t("orders_page_title");
+    ReactGA.initialize(process.env.REACT_APP_GA4_ID as string);
+    ReactGA.send("pageview");
+  }, [t]);
+ 
   return (
     <React.Fragment>
       <Header hasHeadline hasLangSelector />
