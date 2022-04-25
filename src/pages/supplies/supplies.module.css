@@ -18,3 +18,8 @@
   font-size: 20px;
   padding: 7px;
 }
+
+.title {
+  font-size: 150%;
+  color: var(--color-secondary);
+}
