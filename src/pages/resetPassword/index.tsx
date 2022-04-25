@@ -2,10 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "../../others/components/Button";
 import { useAuth } from "../../others/contexts/auth";
-import { Text } from "../../others/components/Text";
-import { Input } from "../../others/components/Input";
+import { Header } from "../../others/components/Header";
+import Container from "@mui/material/Container";
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
 enum FormStep {
   Username,
@@ -50,44 +54,72 @@ export function ResetPassword() {
   );
 
   return (
-    <React.Fragment>
-      <Text>{t("ugt")}</Text>
-      <Text>{t("request_new_password_label")}</Text>
-      {step === FormStep.Confirmation && <div>{t("code_sent")}</div>}
+    <Container maxWidth="sm">
+      <Header hasHeadline hasLangSelector />
+      <Typography variant="h5" component="h1" gutterBottom sx={{ my: 4 }}>
+        {t("request_new_password_label")}
+      </Typography>
+      {step === FormStep.Confirmation && (
+        <Alert color="info" severity="info" sx={{ mb: 2 }}>
+          {t("code_sent")}
+        </Alert>
+      )}
       {step === FormStep.Done && (
         <React.Fragment>
-          <div>{t("password_change_success")}</div>
+          <Alert color="success" severity="success" sx={{ mb: 2 }}>
+            {t("password_change_success")}
+          </Alert>
           <Link to="/login">
-            <Text>{t("go_to_login")}</Text>
+            <Typography variant="h6" component="h1" gutterBottom sx={{ my: 2 }}>
+              {t("go_to_login")}
+            </Typography>
           </Link>
         </React.Fragment>
       )}
       <form onSubmit={handleSubmit}>
-        <Input
-          label={t("login")}
-          placeholder="username"
-          autoComplete="login"
-          value={username}
-          onChange={setUsername}
-          disabled={step !== FormStep.Username}
-        />
-        {step === FormStep.Confirmation && (
-          <React.Fragment>
-            <Input label={t("code")} placeholder="123456" value={code} onChange={setCode} />
-            <Input
-              label={t("password")}
-              placeholder="password"
-              type="password"
-              autoComplete="password"
-              value={newPassword}
-              onChange={setNewPassword}
-            />
-          </React.Fragment>
-        )}
-        <Button type="submit" disabled={disabledStatus}>
-          {t("reset_password")}
-        </Button>
+        <Box sx={{ mb: 10, display: "flex", flexDirection: "column" }}>
+          <TextField
+            sx={{ mb: 2 }}
+            label={t("login")}
+            placeholder="username"
+            inputProps={{ "aria-label": t("login") }}
+            autoComplete="login"
+            variant="filled"
+            value={username}
+            onChange={(event) => setUsername(event.currentTarget.value)}
+            disabled={step !== FormStep.Username}
+          />
+          {step === FormStep.Confirmation && (
+            <React.Fragment>
+              <TextField
+                sx={{ mb: 2 }}
+                label={t("code")}
+                placeholder="123456"
+                inputProps={{ "aria-label": t("code") }}
+                variant="filled"
+                value={code}
+                onChange={(event) => setCode(event.currentTarget.value)}
+              />
+              <TextField
+                sx={{ mb: 2 }}
+                label={t("password")}
+                placeholder="password"
+                type="password"
+                autoComplete="password"
+                inputProps={{ "aria-label": t("password") }}
+                variant="filled"
+                value={newPassword}
+                onChange={(event) => setNewPassword(event.currentTarget.value)}
+              />
+            </React.Fragment>
+          )}
+        </Box>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Button type="submit" sx={{ mb: 2 }} variant="contained" disabled={disabledStatus}>
+            {t("reset_password")}
+          </Button>
+        </Box>
       </form>
-    </React.Fragment>
+    </Container>
   );
 }

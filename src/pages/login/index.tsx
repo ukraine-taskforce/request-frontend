@@ -4,8 +4,11 @@ import {useTranslation} from "react-i18next";
 
 import {AuthStatus, useAuth} from "../../others/contexts/auth";
 
-import {Button} from "../../others/components/Button";
-import {Input} from "../../others/components/Input";
+import {Header} from "../../others/components/Header";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
 
 export function Login() {
   const {t} = useTranslation();
@@ -24,32 +27,50 @@ export function Login() {
 
   React.useEffect(() => {
     if (status === AuthStatus.SignedIn) {
-      navigate("/");
+      navigate("/orders");
     }
   }, [status, navigate]);
 
   return (
     <>
+    <Header hasHeadline hasLangSelector />
+    <Container maxWidth="sm">
+      <Box sx={{ my: 20, display: "flex" }}>
+      </Box>
       <form onSubmit={handleSubmit}>
-        <Input label={t("login")} placeholder="username" autoComplete="login"
-               value={username} onChange={setUsername}/>
-        <Input
-          label={t("password")}
-          placeholder="password"
-          type="password"
-          autoComplete="password"
-          value={password}
-          onChange={setPassword}
-        />
-        <Button type="submit"
-                disabled={!username || !password || status === AuthStatus.Loading}>
-          {t("login2")}
-        </Button>
-        <Button disabled={status === AuthStatus.Loading}
-                onClick={() => navigate("/reset-password")}>
-          {t("request_new_password")}
-        </Button>
+        <Box sx={{ mb: 10, display: "flex", flexDirection: "column" }}>
+          <TextField
+            sx={{ mb: 2 }}
+            label={t("login")}
+            placeholder="username"
+            autoComplete="login"
+            inputProps={{ "aria-label": t("email") }}
+            variant="filled"
+            value={username}
+            onChange={(event) => setUsername(event.currentTarget.value)}
+          />
+          <TextField
+            sx={{ mb: 2 }}
+            label={t("password")}
+            placeholder="password"
+            type="password"
+            autoComplete="password"
+            inputProps={{ "aria-label": t("password") }}
+            variant="filled"
+            value={password}
+            onChange={(event) => setPassword(event.currentTarget.value)}
+          />
+        </Box>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Button sx={{ mb: 2 }} variant="contained" type="submit" disabled={!username || !password || status === AuthStatus.Loading}>
+            {t("login2")}
+          </Button>
+          <Button sx={{ mb: 2 }} variant="outlined" disabled={status === AuthStatus.Loading} onClick={() => navigate("/reset-password")}>
+            {t("request_new_password")}
+          </Button>
+        </Box>
       </form>
+    </Container>
     </>
   );
 }
