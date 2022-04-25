@@ -1,16 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
+import { useAuth } from "../../others/contexts/auth";
+import { Header } from "../../others/components/Header";
+import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-
-import { useAuth } from "../../others/contexts/auth";
-
-import { ImgBrand } from "../../medias/images/UGT_Asset_Brand";
 
 enum FormStep {
   Username,
@@ -56,12 +55,7 @@ export function ResetPassword() {
 
   return (
     <Container maxWidth="sm">
-      <Box sx={{ my: 20, display: "flex" }}>
-        <ImgBrand alt="UGT Logo" />
-        <Typography variant="h4" component="h1" gutterBottom sx={{ margin: "auto" }}>
-          {t("ugt")}
-        </Typography>
-      </Box>
+      <Header hasHeadline hasLangSelector />
       <Typography variant="h5" component="h1" gutterBottom sx={{ my: 4 }}>
         {t("request_new_password_label")}
       </Typography>

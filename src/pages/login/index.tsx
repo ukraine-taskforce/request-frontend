@@ -1,21 +1,22 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+
+import {AuthStatus, useAuth} from "../../others/contexts/auth";
+
+import {Input} from "../../others/components/Input";
+import {Header} from "../../others/components/Header";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-import { AuthStatus, useAuth } from "../../others/contexts/auth";
-
-import { ImgBrand } from "../../medias/images/UGT_Asset_Brand";
-import { LanguageSelector } from "../../others/components/LanguageSelector";
 
 export function Login() {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const navigate = useNavigate();
-  const { login, status } = useAuth();
+  const {login, status} = useAuth();
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -35,15 +36,9 @@ export function Login() {
 
   return (
     <>
-    <Box sx={{ marginTop: 5, marginLeft: 5 }}>
-      <LanguageSelector />
-    </Box>
+    <Header hasHeadline hasLangSelector />
     <Container maxWidth="sm">
       <Box sx={{ my: 20, display: "flex" }}>
-        <ImgBrand alt="UGT Logo" />
-        <Typography variant="h4" component="h1" gutterBottom sx={{ margin: "auto" }}>
-          {t("ugt")}
-        </Typography>
       </Box>
       <form onSubmit={handleSubmit}>
         <Box sx={{ mb: 10, display: "flex", flexDirection: "column" }}>
