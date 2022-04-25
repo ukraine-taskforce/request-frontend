@@ -86,7 +86,11 @@ const LocationElement: React.FunctionComponent<LocationElementProps> = ({ locati
 
   function commit(list: any[], content: string, isHighlighted: boolean, key: string) {
     if (isHighlighted) {
-      list.push(<span key={key} style={{ color: "var(--color-focus)" }}>{content}</span>);
+      list.push(
+        <span key={key} style={{ color: "var(--color-focus)" }}>
+          {content}
+        </span>
+      );
     } else {
       list.push(content);
     }

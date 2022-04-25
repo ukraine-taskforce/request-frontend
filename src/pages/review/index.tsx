@@ -86,7 +86,7 @@ export function Review() {
 
         <Label>{t("add_comment")}</Label>
         <Spacer size={10} />
-        <Input value={currentValue.comments} label="comments_field" placeholder={t('comment_placeholder')} onChange={setComment} />
+        <Input value={currentValue.comments} label="comments_field" placeholder={t("comment_placeholder")} onChange={setComment} />
 
         <Spacer size={30} flex={2} />
         <Button onClick={handleSubmit} disabled={isLoading} trailingIcon={<ImgNext alt="" />} fullWidth floats>

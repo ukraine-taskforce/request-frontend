@@ -16,10 +16,10 @@ export interface FormContextValue {
 }
 
 const defaultValue: FormData = {
-  name: '',
-  phoneNumber: '',
+  name: "",
+  phoneNumber: "",
   supplies: [],
-  comments: '',
+  comments: "",
 };
 
 const FormContext = React.createContext<FormContextValue>({
