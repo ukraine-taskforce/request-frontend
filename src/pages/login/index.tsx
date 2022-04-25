@@ -4,14 +4,11 @@ import {useTranslation} from "react-i18next";
 
 import {AuthStatus, useAuth} from "../../others/contexts/auth";
 
-import {Input} from "../../others/components/Input";
 import {Header} from "../../others/components/Header";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-
 
 export function Login() {
   const {t} = useTranslation();
