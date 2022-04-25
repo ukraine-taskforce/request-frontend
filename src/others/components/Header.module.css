@@ -1,36 +1,48 @@
-.wrapper {
+.navWrapper {
+  position: relative;
+}
+
+.elementsWrapper {
+  --padding-top: 18px;
   display: flex;
-  height: var(--header-height);
+  height: calc(var(--header-height) - var(--padding-top));
   justify-content: space-between;
-  align-items: stretch;
+  align-items: center;
+  padding-top: var(--padding-top);
+  padding-left: var(--padding-content);
+  padding-right: var(--padding-content);
+}
+
+.colorAccent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+}
+
+.nameSVG {
+  display: block;
+}
+
+.nameLink {
+  display: block;
+  color: var(--color-secondary);
+  margin-top: -4px;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .backIcon {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   margin-right: 6px;
   vertical-align: bottom;
-}
-
-.shareIcon {
-  height: 15px;
 }
 
 .headerItem {
   cursor: pointer;
   padding: 10px 0px;
-}
-
-.headerCard {
-  cursor: pointer;
-  border-radius: 20px;
-  padding: 10px 15px;
-  background-color: var(--color-white);
-}
-
-/* for better alignment */
-.headerCard p {
-  line-height: 1em;
+  color: var(--color-secondary);
 }
 
 .wrapper > *:not(:last-child) {

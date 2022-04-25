@@ -30,7 +30,7 @@ export function Home() {
 
   return (
     <React.Fragment>
-      <Header hasAbout handleAbout={() => setDisplayModal(true)} hasShare />
+      <Header hasHeadline hasLangSelector />
       <Spacer size={40} />
       <ImgBrand className={styles.ugtLogo} alt="UGT Logo" />
       <h1>{t("home_how_does_works")}</h1>

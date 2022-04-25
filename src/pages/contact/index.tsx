@@ -40,7 +40,7 @@ export function Contact() {
 
   return (
     <React.Fragment>
-      <Header backLink="/" />
+      <Header backLink="/" hasLangSelector />
 
       <h1>{t("contact_description")}</h1>
 
