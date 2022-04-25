@@ -13,6 +13,8 @@ jobs:
     env:
       S3_URL: ${{ secrets.S3_URL }}
       REACT_APP_API_DOMAIN: ${{ secrets.API_URL }}
+      REACT_APP_CLIENT_ID: ${{ secrets.AUTH_CLIENT_ID }}
+      REACT_APP_USERPOOL_ID: ${{ secrets.AUTH_USERPOOL_ID }}
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
