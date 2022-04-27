@@ -1,14 +1,7 @@
 .bodyWrapper {
     padding: var(--padding-content);
-    position: relative;
-    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-@media (min-width: 600px) {
-    .bodyWrapper {
-        height: 600px;
-    }
-}
