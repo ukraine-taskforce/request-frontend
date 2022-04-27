@@ -23,7 +23,6 @@ export function Success() {
 
   useEffect(() => {
     document.title = t("success_page_title");
-    ReactGA.initialize(process.env.REACT_APP_GA4_ID as string);
     ReactGA.send("pageview");
   }, [t]);
 

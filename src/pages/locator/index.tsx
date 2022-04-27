@@ -27,7 +27,6 @@ export function Locator() {
 
   useEffect(() => {
     document.title = t("locator_page_title");
-    ReactGA.initialize(process.env.REACT_APP_GA4_ID as string);
     ReactGA.send("pageview");
   }, [t]);
 

@@ -26,7 +26,6 @@ export function Supplies() {
  
   useEffect(() => {
     document.title = t("supplies_page_title");
-    ReactGA.initialize(process.env.REACT_APP_GA4_ID as string);
     ReactGA.send("pageview");
   }, [t]);
 

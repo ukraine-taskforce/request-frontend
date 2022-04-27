@@ -28,7 +28,6 @@ export function Home() {
 
   useEffect(() => {
     document.title = t("home_page_title");
-    ReactGA.initialize(process.env.REACT_APP_GA4_ID as string);
     ReactGA.send("pageview");
   }, [t]);
 
