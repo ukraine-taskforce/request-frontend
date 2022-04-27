@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "../../others/components/Button";
+import { Content } from "../../others/components/Content";
 import { Spacer } from "../../others/components/Spacer";
 import { Label } from "../../others/components/Label";
 import { useFormValue } from "../../others/contexts/form";
@@ -41,35 +42,34 @@ export function Contact() {
   return (
     <React.Fragment>
       <Header backLink="/" hasLangSelector />
+      <Content>
+        <h1 className={styles.title}>{t("contact_description")}</h1>
+        <Spacer size={24} />
+        <div className={styles.flex}>
+          <Label required>{t("phone_number_field")}</Label>
+          <Spacer size={10} />
+          <PhoneInput
+            country={"ua"}
+            value={currentValue.phoneNumber}
+            placeholder={t("phone_number_placeholder")}
+            isValid={!phoneNumberError}
+            onChange={(value: string, countryCode: string) => setPhoneNumber(value, countryCode)}
+          />
+          {phoneNumberError && <Text className={styles.errorMessage}>{t(`phone_number_error_${phoneNumberError}`)}</Text>}
 
-      <h1>{t("contact_description")}</h1>
+          <Spacer size={30} flex={2} />
 
-      <Spacer size={24} />
+          <Label>{t("name_field")}</Label>
+          <Spacer size={10} />
+          <Input value={currentValue.name || ""} label={t("name_field")} placeholder={t("name_placeholder")} onChange={setName} />
 
-      <div className={styles.flex}>
-        <Label required>{t("phone_number_field")}</Label>
-        <Spacer size={10} />
-        <PhoneInput
-          country={"ua"}
-          value={currentValue.phoneNumber}
-          placeholder={t("phone_number_placeholder")}
-          isValid={!phoneNumberError}
-          onChange={(value: string, countryCode: string) => setPhoneNumber(value, countryCode)}
-        />
-        {phoneNumberError && <Text className={styles.errorMessage}>{t(`phone_number_error_${phoneNumberError}`)}</Text>}
+          <Spacer size={30} flex={2} />
 
-        <Spacer size={30} flex={2} />
-
-        <Label>{t("name_field")}</Label>
-        <Spacer size={10} />
-        <Input value={currentValue.name || ""} label={t("name_field")} placeholder={t("name_placeholder")} onChange={setName} />
-
-        <Spacer size={30} flex={2} />
-
-        <Button disabled={!isFormValid} onClick={handleSubmit} trailingIcon={<ImgNext alt={t("context_next")} />} floats>
-          {t("contact_next")}
-        </Button>
-      </div>
+          <Button disabled={!isFormValid} onClick={handleSubmit} trailingIcon={<ImgNext alt={t("context_next")} />} floats>
+            {t("contact_next")}
+          </Button>
+        </div>
+      </Content>
     </React.Fragment>
   );
 }
