@@ -56,7 +56,7 @@ export function Supplies() {
     <React.Fragment>
       <Header backLink="/locator" hasLangSelector />
       <Content>
-        <Text className={styles.title}>{t("supplies_what_is_needed")}?</Text>
+        <h1 className={styles.title}>{t("supplies_what_is_needed")}?</h1>
         <Spacer size={24} />
         <div className={styles.flex}>
           {supplies.map((supply) => (
