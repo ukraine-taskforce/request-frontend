@@ -1,9 +1,14 @@
 import React from "react";
 import { ID } from "./api";
 
+export type SupplyWithAmount = {
+  id: string;
+  amount: number;
+};
+
 export interface FormData {
   location?: ID;
-  supplies: ID[];
+  supplies: SupplyWithAmount[];
   name: string;
   phoneNumber: string;
   comments: string;

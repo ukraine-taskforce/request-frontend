@@ -25,6 +25,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
     <div className={styles.wrapper}>
       {Boolean(icon) && <span className={styles.icon}>{icon}</span>}
       <input
+        value={value}
         className={styles.input}
         onChange={(event) => onChange(event.target.value)}
         aria-label={label}

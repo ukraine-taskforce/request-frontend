@@ -55,5 +55,6 @@
   "request_new_password_label": "You will receive a confirmation code on your email",
   "password_change_success": "Your password was modified successfully",
   "code_sent": "We sent a confirmation code to your email",
-  "login2": "Login"
+  "login2": "Login",
+  "supplies2_how_much": "How much do you need of each item?"
 }

@@ -20,6 +20,7 @@ import {NotFound} from "./pages/notFound";
 import {Review} from "./pages/review";
 import {Success} from "./pages/success";
 import {Supplies} from "./pages/supplies";
+import {Supplies2} from "./pages/supplies2";
 import {ResetPassword} from "./pages/resetPassword";
 
 const Providers: React.FunctionComponent = ({children}) => (
@@ -40,6 +41,7 @@ ReactDOM.render(
           <Route path="/review" element={<Review/>}/>
           <Route path="/success" element={<Success/>}/>
           <Route path="/supplies" element={<Supplies/>}/>
+          <Route path="/supplies2" element={<Supplies2/>}/>
           <Route path="/contact" element={<Contact/>}/>
           <Route element={<AuthWrapper />}>
             <Route path="/orders" element={<Orders />} />

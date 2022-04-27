@@ -25,3 +25,8 @@
 .secondaryCardContent {
   font-size: 14px;
 }
+
+.title {
+  font-size: 150%;
+  color: var(--color-secondary);
+}
