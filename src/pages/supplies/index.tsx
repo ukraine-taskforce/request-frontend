@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga4";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -22,6 +23,11 @@ export function Supplies() {
   const navigate = useNavigate();
   const { currentValue, updateValue } = useFormValue();
   const { data: supplies } = useSuppliesQuery();
+ 
+  useEffect(() => {
+    document.title = t("supplies_page_title");
+    ReactGA.send("pageview");
+  }, [t]);
 
   const handleSubmit = React.useCallback(() => {
     navigate("/supplies2");

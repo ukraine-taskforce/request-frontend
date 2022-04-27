@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect} from "react";
+import ReactGA from "react-ga4";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
@@ -16,6 +17,11 @@ export function Login() {
   const {login, status} = useAuth();
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+  useEffect(() => {
+    document.title = t("login_page_title");
+    ReactGA.send("pageview");
+  }, [t]);
 
   const handleSubmit = React.useCallback(
     async (event) => {

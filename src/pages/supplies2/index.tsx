@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga4";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Content } from "../../others/components/Content";
@@ -18,6 +19,11 @@ export function Supplies2() {
   const navigate = useNavigate();
   const { currentValue, updateValue } = useFormValue();
   const { data: supplies } = useSuppliesQuery();
+ 
+  useEffect(() => {
+    document.title = t("supplies2_page_title");
+    ReactGA.send("pageview");
+  }, [t]);
 
   const getSupplyName = (supplyId: string) => {
     if (supplies !== undefined) {

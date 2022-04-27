@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga4";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {QueryClientProvider} from "react-query";
@@ -31,26 +32,36 @@ const Providers: React.FunctionComponent = ({children}) => (
   </AuthProvider>
 );
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Providers>
+const AppWithRouter: React.FunctionComponent = () => {
+  useEffect(() => {
+    ReactGA.initialize(process.env.REACT_APP_GA4_ID as string);
+  }, []);
+
+  return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/locator" element={<Locator/>}/>
-          <Route path="/review" element={<Review/>}/>
-          <Route path="/success" element={<Success/>}/>
-          <Route path="/supplies" element={<Supplies/>}/>
-          <Route path="/supplies2" element={<Supplies2/>}/>
-          <Route path="/contact" element={<Contact/>}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/locator" element={<Locator />} />
+          <Route path="/review" element={<Review />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/supplies" element={<Supplies />} />
+          <Route path="/supplies2" element={<Supplies2 />} />
+          <Route path="/contact" element={<Contact />} />
           <Route element={<AuthWrapper />}>
             <Route path="/orders" element={<Orders />} />
           </Route>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/reset-password" element={<ResetPassword/>}/>
-          <Route path="*" element={<NotFound/>}/>
+          <Route path="/login" element={<Login />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+  )
+};
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Providers>
+      <AppWithRouter />
     </Providers>
   </React.StrictMode>,
   document.getElementById("root")

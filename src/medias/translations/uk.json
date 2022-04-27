@@ -56,5 +56,15 @@
   "code_sent": "Ми відправили код підтвердження на ваш email",
   "reset_password": "Відновити пароль",
   "password_change_success": "Ваш пароль був успішно змінений",
-  "code": "Код"
+  "code": "Код",
+  "notfound_page_title": "Page not found",
+  "home_page_title": "UGT Requests",
+  "contact_page_title": "Contact details",
+  "locator_page_title": "Location",
+  "supplies_page_title": "Supplies",
+  "review_page_title": "Request review",
+  "success_page_title": "Request received",
+  "reset_password_page_title": "Reset your password",
+  "login_page_title": "Login",
+  "orders_page_title": "Orders"
 }

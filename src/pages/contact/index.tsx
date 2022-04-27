@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import ReactGA from "react-ga4";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -22,6 +23,11 @@ export function Contact() {
   const navigate = useNavigate();
   const { currentValue, updateValue } = useFormValue();
   const [phoneNumberError, setPhoneNumberError] = useState<string | undefined>();
+
+  useEffect(() => {
+    document.title = t("contact_page_title");
+    ReactGA.send("pageview");
+  }, [t]);
 
   const handleSubmit = React.useCallback(() => {
     navigate("/locator");

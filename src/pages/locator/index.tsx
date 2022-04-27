@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga4";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -23,6 +24,11 @@ export function Locator() {
   const { data: cities } = useLocationsQuery();
   const { updateValue } = useFormValue();
   const [inputValue, setInputValue] = React.useState("");
+
+  useEffect(() => {
+    document.title = t("locator_page_title");
+    ReactGA.send("pageview");
+  }, [t]);
 
   const handleLocationSelection = React.useCallback(
     (location: Location) => {
