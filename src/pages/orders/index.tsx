@@ -16,7 +16,7 @@ import styles from "./orders.module.css";
 export function Orders() {
   const { t } = useTranslation();
   const { logout } = useAuth();
-  const [visibleRequestId, setVisibleRequestId] = useState(0);
+  const [visibleRequestId, setVisibleRequestId] = useState<number | undefined>(undefined);
   const { data: cities } = useLocationsQuery();
   const { data: supplies } = useSuppliesQuery();
 
