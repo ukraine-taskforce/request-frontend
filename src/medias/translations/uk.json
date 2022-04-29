@@ -66,5 +66,8 @@
   "success_page_title": "Request received",
   "reset_password_page_title": "Reset your password",
   "login_page_title": "Login",
-  "orders_page_title": "Orders"
+  "orders_page_title": "Orders",
+  "about_dialog_head": "Про Ukraine Global Taskforce",
+  "about_dialog_detailed": "Ціль UGT - об’єднатися (незалежно від походження) та працювати над різними проектами, щоб загалом мінімізувати вплив війни та, що найголовніше озброїти/допомогти/підтримати нашу велику родину українців.",
+  "contact_us_at": "Зв’яжіться з нами за адресою"
 }
