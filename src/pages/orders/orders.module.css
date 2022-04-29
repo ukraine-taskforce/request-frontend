@@ -1,20 +1,15 @@
-.flex {
-  display: flex;
-  flex-direction: column;
+.descriptionList {
+  margin: 0;
 }
 
-.card {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 22px;
-  border-radius: 12px;
-  cursor: pointer;
+.descriptionList dt {
+  font-weight: 500;
+  margin-bottom: 5px;
 }
 
-.counter {
-  color: var(--color-white);
-  background-color: var(--color-focus);
-  border-radius: 50%;
-  font-size: 20px;
-  padding: 7px;
+.descriptionList dd {
+  margin-left: 0;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #111E6A;
 }
