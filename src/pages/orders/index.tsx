@@ -18,7 +18,7 @@ import styles from "./orders.module.css";
 export function Orders() {
   const { t } = useTranslation();
   const { logout } = useAuth();
-  const [expandedRequest, setExpandedRequest] = useState<string | false>(false);
+  const [expandedRequestPanel, setExpandedRequestPanel] = useState<string | false>(false);
   const { data: cities } = useLocationsQuery();
   const { data: supplies } = useSuppliesQuery();
 
@@ -26,8 +26,8 @@ export function Orders() {
   const cityLookup = cities ? Object.assign({}, ...cities.map((city) => ({ [city.id]: city }))) : {};
   const supplyLookup = supplies ? Object.assign({}, ...supplies.map((supply) => ({ [supply.id]: supply }))) : {};
 
-  const handleChange = (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
-    setExpandedRequest(newExpanded ? panel : false);
+  const toggleRequestPanel = (panel: string) => (event: React.SyntheticEvent, newExpandedPanel: boolean) => {
+    setExpandedRequestPanel(newExpandedPanel ? panel : false);
   };
 
   useEffect(() => {
@@ -57,8 +57,8 @@ export function Orders() {
               disableGutters
               elevation={0}
               square
-              expanded={expandedRequest === `panel-${request.id}`}
-              onChange={handleChange(`panel-${request.id}`)}
+              expanded={expandedRequestPanel === `panel-${request.id}`}
+              onChange={toggleRequestPanel(`panel-${request.id}`)}
               key={request.id}
               sx={{
                 borderRadius: "8px",
