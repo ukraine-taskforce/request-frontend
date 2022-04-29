@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ReactGA from "react-ga4";
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionProps,
-  AccordionSummaryProps,
-  AccordionDetails,
-  Typography,
-  Box,
-  Stack,
-} from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Stack } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { styled } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { Header } from "../../others/components/Header";
-import { Card } from "../../others/components/Card";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { Content } from "../../others/components/Content";
@@ -25,33 +14,6 @@ import { Tooltip } from "@mui/material";
 import { RequestStatus, fakeRequests } from "../../others/helpers/requests";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 import styles from "./orders.module.css";
-
-const CustomAccordion = styled((props: AccordionProps) => <Accordion disableGutters elevation={0} square {...props} />)(({ theme }) => ({
-  borderRadius: "8px",
-  marginBottom: "20px",
-  boxShadow: "0px 1px 8px 2px #14141414",
-  "&:before": {
-    display: "none",
-  },
-}));
-
-const CustomAccordionSummary = styled((props: AccordionSummaryProps) => <AccordionSummary expandIcon={<ExpandMoreIcon />} {...props} />)(
-  ({ theme }) => ({
-    flexDirection: "row-reverse",
-    padding: "10px 16px",
-    "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-      transform: "rotate(180deg)",
-    },
-    "& .MuiAccordionSummary-content": {
-      marginLeft: theme.spacing(1),
-    },
-  })
-);
-
-const CustomAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
-  borderTop: "1px solid rgba(0, 0, 0, .125)",
-}));
 
 export function Orders() {
   const { t } = useTranslation();
@@ -91,23 +53,54 @@ export function Orders() {
 
         <div>
           {fakeRequests.map((request) => (
-            <CustomAccordion
+            <Accordion
+              disableGutters
+              elevation={0}
+              square
               expanded={expandedRequest === `panel-${request.id}`}
               onChange={handleChange(`panel-${request.id}`)}
               key={request.id}
+              sx={{
+                borderRadius: "8px",
+                marginBottom: "20px",
+                boxShadow: "0px 1px 8px 2px #14141414",
+                "&:before": {
+                  display: "none",
+                },
+              }}
             >
-              <CustomAccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={`panel-${request.id}-content`}
+                id={`panel-${request.id}-header`}
+                sx={{
+                  flexDirection: "row-reverse",
+                  padding: "10px 16px",
+                  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+                    transform: "rotate(180deg)",
+                  },
+                  "& .MuiAccordionSummary-content": {
+                    marginLeft: "10px",
+                  },
+                }}
+              >
                 <Text variant="bold">Request #{request.id}</Text>
-              </CustomAccordionSummary>
-              <CustomAccordionDetails>
-                <Stack spacing={2}>
-                  <Text className={styles.contactListItem}>{cityLookup[request.city_id].name}</Text>
-                  <Text className={styles.contactListItem}>{request.userName}</Text>
-                  <Text className={styles.contactListItem}>{request.userPhoneNumber}</Text>
+              </AccordionSummary>
+              <AccordionDetails
+                sx={{
+                  padding: "20px",
+                }}
+              >
+                <Stack spacing={0}>
+                  <Typography>{cityLookup[request.city_id].name}</Typography>
+                  <Typography>{request.userName}</Typography>
+                  <Typography>{request.userPhoneNumber}</Typography>
                 </Stack>
 
-                <Stack spacing={2}>
-                  <dl>
+                <Spacer size={24} />
+
+                <Stack spacing={1}>
+                  <dl className={styles.descriptionList}>
                     {request.supplies.map((supply) => (
                       <React.Fragment key={supply.id}>
                         <dt>{supplyLookup[supply.id].name}</dt>
@@ -117,16 +110,18 @@ export function Orders() {
                   </dl>
                 </Stack>
 
-                <Stack spacing={2}>
-                  <dl>
+                <Spacer size={20} />
+
+                <Stack spacing={1}>
+                  <dl className={styles.descriptionList}>
                     <dt>Date</dt>
                     <dd>{request.date.toLocaleString()}</dd>
                     <dt>Status</dt>
                     <dd>{RequestStatus[request.status]}</dd>
                   </dl>
                 </Stack>
-              </CustomAccordionDetails>
-            </CustomAccordion>
+              </AccordionDetails>
+            </Accordion>
           ))}
         </div>
       </Content>
