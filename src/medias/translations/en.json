@@ -66,5 +66,8 @@
   "success_page_title": "Request received",
   "reset_password_page_title": "Reset your password",
   "login_page_title": "Login",
-  "orders_page_title": "Orders"
+  "orders_page_title": "Orders",
+  "contact_us_at": "Contact us at",
+  "about_dialog_head": "About Ukraine Global Taskforce",
+  "about_dialog_detailed": "The goal of Ukraine Global Taskforce is to come together and work on various projects to altogether minimize the impact of the war and most importantly, equip/help/support our extended family of ukrainians."
 }
