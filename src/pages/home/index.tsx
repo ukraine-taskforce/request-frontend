@@ -8,23 +8,17 @@ import { Card } from "../../others/components/Card";
 import { Content } from "../../others/components/Content";
 import { Header } from "../../others/components/Header";
 import { List } from "../../others/components/List";
-import { Modal } from "../../others/components/Modal";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
-import { isShareSupported, useShare } from "../../others/helpers/share";
 
 import styles from "./home.module.css";
 
-import { ImgBrand } from "../../medias/images/UGT_Asset_Brand";
 import { ImgNext } from "../../medias/images/UGT_Asset_UI_ButtonNext";
-import { ImgShare } from "../../medias/images/UGT_Asset_UI_Share_Icon";
 
 export function Home() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { share } = useShare();
-  const [displayModal, setDisplayModal] = React.useState(false);
 
   useEffect(() => {
     document.title = t("home_page_title");
@@ -58,26 +52,6 @@ export function Home() {
             {t("home_i_understand")}
           </Button>
         </Card>
-        <Modal show={displayModal} handleClose={() => setDisplayModal(false)}>
-          <div style={{ display: "flex" }}>
-            <Spacer flex={1} />
-            <ImgBrand className={styles.ugtLogo} alt="UGT Logo" />
-            <Spacer flex={1} />
-          </div>
-          <h1 style={{ textAlign: "center" }}>{t("about_head")}</h1>
-          <Text alignment="center">{t("about_detailed")}</Text>
-          <Spacer size={22} />
-          {isShareSupported() && (
-            <Button
-              fullWidth
-              variant="highlight"
-              onClick={share}
-              trailingIcon={<ImgShare style={{ height: "15px" }} fill="white" alt={t("share")} />}
-            >
-              {t("about_share")}
-            </Button>
-          )}
-        </Modal>
       </Content>
     </React.Fragment>
   );
