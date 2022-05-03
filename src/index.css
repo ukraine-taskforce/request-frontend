@@ -37,4 +37,9 @@ p {
   visibility: hidden;
 }
 
+.title {
+  font-size: 150%;
+  color: var(--color-secondary);
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200..900&display=swap");

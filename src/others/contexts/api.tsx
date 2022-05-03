@@ -80,7 +80,7 @@ export function useLocationsQuery() {
 }
 
 export interface Supply {
-  id: ID;
+  id: string;
   name: string;
 }
 
