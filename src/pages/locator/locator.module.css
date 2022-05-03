@@ -9,3 +9,8 @@
 .wrapper:hover {
   border-color: var(--color-black);
 }
+
+.title {
+  font-size: 150%;
+  color: var(--color-secondary);
+}

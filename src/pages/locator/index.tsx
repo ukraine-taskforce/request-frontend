@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga4";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { ImgSearch } from "../../medias/images/UGT_Asset_UI_Search";
 
 import { Card } from "../../others/components/Card";
+import { Content } from "../../others/components/Content";
 import { Input } from "../../others/components/Input";
 import { Loader } from "../../others/components/Loader";
 import { Spacer } from "../../others/components/Spacer";
@@ -22,6 +24,11 @@ export function Locator() {
   const { data: cities } = useLocationsQuery();
   const { updateValue } = useFormValue();
   const [inputValue, setInputValue] = React.useState("");
+
+  useEffect(() => {
+    document.title = t("locator_page_title");
+    ReactGA.send("pageview");
+  }, [t]);
 
   const handleLocationSelection = React.useCallback(
     (location: Location) => {
@@ -51,28 +58,30 @@ export function Locator() {
   return (
     <React.Fragment>
       <Header backLink="/contact" hasLangSelector />
-      <h1>{t("locator_where_are_you")}?</h1>
-      <Spacer size={24} />
-      <Input
-        value={inputValue}
-        onChange={setInputValue}
-        placeholder={t("locator_search_your")}
-        icon={<ImgSearch alt="" />}
-        label={t("locator_search_your")}
-        autoFocus
-      />
-      <Spacer size={12} />
-      {Boolean(searchResults?.length) && (
-        <React.Fragment>
-          <Text variant="light">
-            {searchResults?.length} {t("locator_results")}
-          </Text>
-          <Spacer />
-        </React.Fragment>
-      )}
-      {searchResults?.map((result) => (
-        <LocationElement key={result.obj.id} locationMatch={result} onClick={() => handleLocationSelection(result.obj)} />
-      ))}
+      <Content>
+        <h1 className={styles.title}>{t("locator_where_are_you")}?</h1>
+        <Spacer size={24} />
+        <Input
+          value={inputValue}
+          onChange={setInputValue}
+          placeholder={t("locator_search_your")}
+          icon={<ImgSearch alt="" />}
+          label={t("locator_search_your")}
+          autoFocus
+        />
+        <Spacer size={12} />
+        {Boolean(searchResults?.length) && (
+          <React.Fragment>
+            <Text variant="light">
+              {searchResults?.length} {t("locator_results")}
+            </Text>
+            <Spacer />
+          </React.Fragment>
+        )}
+        {searchResults?.map((result) => (
+          <LocationElement key={result.obj.id} locationMatch={result} onClick={() => handleLocationSelection(result.obj)} />
+        ))}
+      </Content>
     </React.Fragment>
   );
 }

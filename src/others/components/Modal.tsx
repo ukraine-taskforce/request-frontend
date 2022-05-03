@@ -27,7 +27,7 @@ export const Modal: React.FunctionComponent<ModalProps> = ({ handleClose, show, 
         <Card>
           {children}
           <button className={styles.closeButton} onClick={handleClose}>
-            <ImgClose alt={t("close")} />
+            <ImgClose alt={t("close")} fill="var(--color-action)"/>
           </button>
         </Card>
       </section>

@@ -11,3 +11,8 @@
   color: var(--color-red);
   font-size: 85%;
 }
+
+.title {
+  font-size: 150%;
+  color: var(--color-secondary);
+}

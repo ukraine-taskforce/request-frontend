@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga4";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "../../others/components/Button";
@@ -19,6 +20,11 @@ export function Success() {
   const { t } = useTranslation();
   const { clearStore } = useFormValue();
   const { share } = useShare();
+
+  useEffect(() => {
+    document.title = t("success_page_title");
+    ReactGA.send("pageview");
+  }, [t]);
 
   React.useEffect(() => {
     clearStore();
