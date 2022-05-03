@@ -115,13 +115,12 @@ export function useSuppliesQuery() {
 }
 
 export function useSubmitMutation() {
-  const {i18n} = useTranslation();
   const {query} = useFetch();
 
   return useMutation("submitMutation", async (formData: FormData) => {
     try {
       const recaptchaToken = await generateCaptchaToken("submit");
-      return await query(`${API_DOMAIN}?locale=${i18n.language}`, {
+      return await query(API_DOMAIN, {
         method: "POST",
         body: JSON.stringify({
           ...formData,
