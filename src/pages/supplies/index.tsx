@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import ReactGA from "react-ga4";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import { Header } from "../../others/components/Header";
 import { Loader } from "../../others/components/Loader";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
-import { useFormValue } from "../../others/contexts/form";
+import { useFormValue, SupplyWithAmount } from "../../others/contexts/form";
 import { useSuppliesQuery } from "../../others/contexts/api";
 
 import { ImgNext } from "../../medias/images/UGT_Asset_UI_ButtonNext";
@@ -24,6 +24,13 @@ export function Supplies() {
   const navigate = useNavigate();
   const { currentValue, updateValue } = useFormValue();
   const { data: supplies } = useSuppliesQuery();
+
+  const suppliesLookup = useMemo(() => {
+    if (!supplies) {
+      return {};
+    }
+    return Object.assign({}, ...supplies.map((supply) => ({[supply.id]: supply})));
+  }, [supplies]);
 
   useEffect(() => {
     document.title = t("supplies_page_title");
@@ -49,6 +56,24 @@ export function Supplies() {
     },
     [currentValue, updateValue]
   );
+  
+  const suppliesGrouped = groupBy(supplies, "parent");
+
+  const getNumberOfMatches = React.useCallback(
+     (parent: string) => {
+       if (!currentValue.supplies) {
+        return (<></>);
+       }
+       const num = currentValue.supplies.filter((obj: SupplyWithAmount) => {
+         return suppliesLookup[obj.id].parent === parent;
+       }).length;
+       if (num === 0) {
+         return (<></>);
+       }
+       return (<span className={styles.counter_small}>{num}</span>);
+     },
+     [currentValue, suppliesLookup]
+  );
 
   if (!supplies) {
     return (
@@ -59,16 +84,6 @@ export function Supplies() {
     );
   }
 
-
-  const supplies2 = supplies.map((supply) => {
-    return {
-      id: supply.id,
-      parent: supply.name.substr(0, 1),
-      name: supply.name,
-    };
-  });
-  const suppliesGrouped = groupBy(supplies2, "parent");
- 
   return (
     <React.Fragment>
       <Header backLink="/locator" hasLangSelector />
@@ -92,6 +107,7 @@ export function Supplies() {
                }}>
                <AccordionSummary>
                  <Text variant="bold">{parent}</Text>
+                 {getNumberOfMatches(parent)}
                </AccordionSummary>
                <AccordionDetails>
                  {categories.map((supply) => (
