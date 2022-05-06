@@ -3,7 +3,8 @@ import ReactGA from "react-ga4";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { map, groupBy } from "lodash";
+import map from "lodash/map";
+import groupBy from "lodash/groupBy";
 import { Button } from "../../others/components/Button";
 import { Card } from "../../others/components/Card";
 import { Content } from "../../others/components/Content";
@@ -61,16 +62,12 @@ export function Supplies() {
 
   const getNumberOfMatches = React.useCallback(
      (parent: string) => {
-       if (!currentValue.supplies) {
-        return (<></>);
-       }
        const num = currentValue.supplies.filter((obj: SupplyWithAmount) => {
          return suppliesLookup[obj.id].parent === parent;
        }).length;
-       if (num === 0) {
-         return (<></>);
+       if (num > 0) {
+         return (<span className={styles.counter_small}>{num}</span>);
        }
-       return (<span className={styles.counter_small}>{num}</span>);
      },
      [currentValue, suppliesLookup]
   );
