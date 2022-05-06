@@ -19,6 +19,14 @@
   padding: 7px;
 }
 
+.counter_small {
+  color: var(--color-white);
+  background-color: orange;  
+  border-radius: 50%;
+  font-size: 20px;
+  padding: 7px;
+}
+
 .title {
   font-size: 150%;
   color: var(--color-secondary);

@@ -81,6 +81,7 @@ export function useLocationsQuery() {
 
 export interface Supply {
   id: string;
+  parent: string;
   name: string;
 }
 
