@@ -1,33 +1,16 @@
-.flex {
-  display: flex;
-  flex-direction: column;
-}
-
-.card {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 22px;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-.counter {
-  color: var(--color-white);
-  background-color: var(--color-focus);
-  border-radius: 50%;
-  font-size: 20px;
-  padding: 7px;
-}
-
-.counter_small {
-  color: var(--color-white);
-  background-color: orange;  
-  border-radius: 50%;
-  font-size: 20px;
-  padding: 7px;
-}
-
 .title {
   font-size: 150%;
   color: var(--color-secondary);
 }
+
+.counter {
+  color: var(--color-black);
+  background-color: var(--color-orange);
+  border-radius: 50%;
+  font-size: 16px;
+  padding: 4px 10px;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+

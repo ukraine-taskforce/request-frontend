@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo } from "react";
 import ReactGA from "react-ga4";
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails, Box, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import map from "lodash/map";
 import groupBy from "lodash/groupBy";
+
 import { Button } from "../../others/components/Button";
-import { Card } from "../../others/components/Card";
 import { Content } from "../../others/components/Content";
-import { Checkmark } from "../../others/components/Checkmark";
 import { Header } from "../../others/components/Header";
 import { Loader } from "../../others/components/Loader";
 import { Spacer } from "../../others/components/Spacer";
@@ -30,7 +30,7 @@ export function Supplies() {
     if (!supplies) {
       return {};
     }
-    return Object.assign({}, ...supplies.map((supply) => ({[supply.id]: supply})));
+    return Object.assign({}, ...supplies.map((supply) => ({ [supply.id]: supply })));
   }, [supplies]);
 
   useEffect(() => {
@@ -45,10 +45,10 @@ export function Supplies() {
   const toggleSupply = React.useCallback(
     (supplyId: string) => {
       const array = currentValue.supplies;
-      const index = array.findIndex(element => element.id === supplyId);
+      const index = array.findIndex((element) => element.id === supplyId);
 
       if (index === -1) {
-        array.push({id: supplyId, amount: 1});
+        array.push({ id: supplyId, amount: 1 });
       } else {
         array.splice(index, 1);
       }
@@ -57,19 +57,19 @@ export function Supplies() {
     },
     [currentValue, updateValue]
   );
-  
+
   const suppliesGrouped = groupBy(supplies, "parent");
 
   const getNumberOfMatches = React.useCallback(
-     (parent: string) => {
-       const num = currentValue.supplies.filter((obj: SupplyWithAmount) => {
-         return suppliesLookup[obj.id].parent === parent;
-       }).length;
-       if (num > 0) {
-         return (<span className={styles.counter_small}>{num}</span>);
-       }
-     },
-     [currentValue, suppliesLookup]
+    (parent: string) => {
+      const num = currentValue.supplies.filter((obj: SupplyWithAmount) => {
+        return suppliesLookup[obj.id].parent === parent;
+      }).length;
+      if (num > 0) {
+        return <span className={styles.counter}>{num}</span>;
+      }
+    },
+    [currentValue, suppliesLookup]
   );
 
   if (!supplies) {
@@ -89,45 +89,87 @@ export function Supplies() {
         <Spacer size={24} />
         <div className={styles.flex}>
           {map(suppliesGrouped, (categories, parent) => (
-             <Accordion
-               disableGutters
-               elevation={0}
-               square
-               key={parent}
-               sx={{
-                 borderRadius: "8px",
-                 marginBottom: "20px",
-                 boxShadow: "0px 1px 8px 2px #14141414",
-                 "&:before": {
-                   display: "none",
-                 },
-               }}>
-               <AccordionSummary>
-                 <Text variant="bold">{parent}</Text>
-                 {getNumberOfMatches(parent)}
-               </AccordionSummary>
-               <AccordionDetails>
-                 {categories.map((supply) => (
-                   <React.Fragment key={supply.name}>
-                     <Card className={styles.card} onClick={() => toggleSupply(supply.id)}>
-                       <Text variant="bold">{supply.name}</Text>
-                       <Checkmark checked={currentValue.supplies.some(element => element.id === supply.id)} />
-                     </Card>
-                     <Spacer size={6} />
-                   </React.Fragment>
-                 ))}
-               </AccordionDetails>
-             </Accordion>
+            <Accordion
+              key={parent}
+              sx={{
+                boxShadow: "none",
+                "&:before": {
+                  display: "none",
+                },
+              }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                sx={{
+                  flexDirection: "row-reverse",
+                  background: "#F9F9F9",
+                  marginBottom: "5px",
+                  borderRadius: "8px",
+                  "&.Mui-expanded": {
+                    minHeight: "48px",
+                  },
+                  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+                    transform: "rotate(180deg)",
+                  },
+                  "& .MuiAccordionSummary-content.Mui-expanded": {
+                    margin: 0,
+                  },
+                }}
+              >
+                <Box display="flex" justifyContent="space-between" flexGrow="inherit">
+                  <Box
+                    sx={{
+                      marginLeft: "20px",
+                    }}
+                  >
+                    <Text>{parent}</Text>
+                  </Box>
+                  <Box marginLeft="20px">{getNumberOfMatches(parent)}</Box>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails
+                sx={{
+                  background: "var(--color-global-bg)",
+                  padding: 0,
+                }}
+              >
+                {categories.map((supply) => (
+                  <React.Fragment key={supply.name}>
+                    <Box
+                      sx={{
+                        marginLeft: 0,
+                        marginBottom: "5px",
+                        background: "#F9F9F9",
+                        paddingLeft: "30px",
+                      }}
+                    >
+                      <FormGroup>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              onClick={() => toggleSupply(supply.id)}
+                              checked={currentValue.supplies.some((element) => element.id === supply.id)}
+                            />
+                          }
+                          label={supply.name}
+                        />
+                      </FormGroup>
+                      <Spacer size={6} />
+                    </Box>
+                  </React.Fragment>
+                ))}
+              </AccordionDetails>
+            </Accordion>
           ))}
           <Spacer size={30} flex={2} />
           <Button
             onClick={handleSubmit}
-            leadingIcon={<span className={styles.counter}>{currentValue.supplies.length}</span>}
             trailingIcon={<ImgNext alt="" />}
             disabled={currentValue.supplies.length <= 0}
             fullWidth
             floats
           >
+            <span className={styles.counter}>{currentValue.supplies.length}</span>
             {t("supplies_next")}
           </Button>
         </div>

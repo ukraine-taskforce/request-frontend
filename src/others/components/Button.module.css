@@ -1,10 +1,10 @@
 .button {
-  background-color: var(--color-black);
+  background-color: #1337B8;
   color: var(--color-white);
   border: none;
   margin: 0;
   padding: 10px;
-  border-radius: 28px;
+  border-radius: 8px;
   min-height: 60px;
   width: auto;
   overflow: visible;
@@ -14,7 +14,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .buttonDefault {
