@@ -33,11 +33,11 @@ export const fakeRequests: Request[] = [
     userPhoneNumber: "911",
     supplies: [
       {
-        id: "water",
+        id: "Cookies",
         amount: 13,
       },
       {
-        id: "food",
+        id: "Cereal",
         amount: 7
       }
     ],
@@ -53,11 +53,11 @@ export const fakeRequests: Request[] = [
     userPhoneNumber: "911",
     supplies: [
       {
-        id: "water",
+        id: "Granola",
         amount: 26,
       },
       {
-        id: "food",
+        id: "Dish Soap",
         amount: 9
       }
     ],

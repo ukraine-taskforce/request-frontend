@@ -39,7 +39,6 @@ export function Orders() {
   if (!cities || !supplies) {
     return null;
   }
-
   return (
     <React.Fragment>
       <Header hasHeadline hasLangSelector />
@@ -103,7 +102,7 @@ export function Orders() {
                   <dl className={styles.descriptionList}>
                     {request.supplies.map((supply) => (
                       <React.Fragment key={supply.id}>
-                        <dt>{supplyLookup[supply.id].name}</dt>
+                        <dt>{supplyLookup[supply.id].parent}: {supplyLookup[supply.id].name}</dt>
                         <dd>{supply.amount}</dd>
                       </React.Fragment>
                     ))}
