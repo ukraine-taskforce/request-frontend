@@ -53,7 +53,11 @@ export function Review() {
 
   const getSupplyName = (supplyId: ID) => {
     if (supplies !== undefined) {
-      return supplies.find((supply) => supply.id === supplyId)?.name || "";
+      const supply = supplies.find((supply) => supply.id === supplyId);
+      if (supply) {
+        return `${supply.parent}: ${supply.name}`;
+      }
+      return "";
     }
     return "";
   };
@@ -80,19 +84,23 @@ export function Review() {
           </Card>
           <Spacer size={8} />
           <Card className={styles.card}>
-            <Text className={styles.cardTitle}>{t("review_needs")}</Text>
             {supplyIds.map((supply) => {
               return (
-                <Text key={supply.id} className={styles.cardContent}>
-                  {getSupplyName(supply.id)}: {supply.amount}
-                </Text>
+                <React.Fragment key={supply.id}>
+                  <Text key="name" className={styles.categoryName}>
+                    {getSupplyName(supply.id)}
+                  </Text>
+                  <Text key="amount" className={styles.categoryAmount}>
+                    {supply.amount}
+                  </Text>
+                </React.Fragment>
               );
             })}
           </Card>
   
           <Spacer size={30} flex={2} />
   
-          <Label>{t("add_comment")}</Label>
+          <Label className={styles.addComment}>{t("add_comment")}</Label>
           <Spacer size={10} />
           <Input value={currentValue.comments} label="comments_field" placeholder={t("comment_placeholder")} onChange={setComment} />
 
