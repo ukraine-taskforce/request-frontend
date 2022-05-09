@@ -4,29 +4,55 @@
 }
 
 .card {
-  display: block;
-  justify-content: space-between;
-  padding: 10px 22px;
-  border-radius: 12px;
-  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0px 1px 8px 2px #14141414;
 }
 
 .cardTitle {
+  margin: 0px;
+  font-weight: 500;
   font-size: 16px;
-  margin: 6px 0px;
+  line-height: 16px;
+  color: var(--color-secondary);
 }
 
 .cardContent {
-  font-weight: bold;
+  font-weight: 500;
   font-size: 18px;
-  margin: 8px 0px;
+  line-height: 24px;
+  color: #0D1234;
 }
 
 .secondaryCardContent {
+  font-weight: 500;
   font-size: 14px;
+  line-height: 20px;
+  color: #0D1234;
 }
 
 .title {
-  font-size: 150%;
+  font-size: 150%; 
+  color: var(--color-secondary);
+}
+
+.categoryName {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0D1234;
+}
+
+.categoryAmount {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-secondary);
+}
+
+.addComment {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
   color: var(--color-secondary);
 }
