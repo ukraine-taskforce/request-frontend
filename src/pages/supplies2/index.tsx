@@ -38,10 +38,15 @@ export function Supplies2() {
       const currentSupplies = currentValue.supplies;
       const index = currentSupplies.findIndex((element) => element.id === id);
       if (index !== -1) {
-        // TODO Need to have some better error handling here:
-        // - wrap parseInt in a try/catch
-        // - prevent negative numbers
-        currentSupplies[index].amount = amount === "" ? 0 : parseInt(amount);
+        let parsedAmount = 1;
+        try {
+          const tmp = parseInt(amount);
+          if (tmp >= 1) {
+            parsedAmount = tmp;
+          }
+        } finally {
+          currentSupplies[index].amount = parsedAmount;
+        }
       }
       updateValue({ supplies: currentSupplies });
     },
@@ -103,6 +108,7 @@ export function Supplies2() {
                             sx={{
                               color: "#1337B8",
                             }}
+                            disabled={supply.amount <= 1}
                             aria-label="remove supplies"
                             onClick={() => handleCounterChange(supply.id, "substract")}
                             edge="start"
