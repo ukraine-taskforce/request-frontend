@@ -3,7 +3,6 @@ import ReactGA from "react-ga4";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Content } from "../../others/components/Content";
-import { Card } from "../../others/components/Card";
 import { Text } from "../../others/components/Text";
 import { Header } from "../../others/components/Header";
 import { Spacer } from "../../others/components/Spacer";
@@ -12,14 +11,16 @@ import { ImgNext } from "../../medias/images/UGT_Asset_UI_ButtonNext";
 import { Button } from "../../others/components/Button";
 import { useFormValue } from "../../others/contexts/form";
 import { useSuppliesQuery } from "../../others/contexts/api";
-import { Input } from "../../others/components/Input";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { FormControl, OutlinedInput, InputAdornment, IconButton, Box } from "@mui/material";
 
 export function Supplies2() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { currentValue, updateValue } = useFormValue();
   const { data: supplies } = useSuppliesQuery();
- 
+
   useEffect(() => {
     document.title = t("supplies2_page_title");
     ReactGA.send("pageview");
@@ -32,20 +33,38 @@ export function Supplies2() {
     return "";
   };
 
-  const changeAmount = React.useCallback(
+  const handleInputChange = React.useCallback(
     (id: string, amount: string) => {
-      const array = currentValue.supplies;
-      const index = array.findIndex(element => element.id === id);
-      if (index !== -1 ) {
-        array[index].amount = parseInt(amount);
+      const currentSupplies = currentValue.supplies;
+      const index = currentSupplies.findIndex((element) => element.id === id);
+      if (index !== -1) {
+        // TODO Need to have some better error handling here:
+        // - wrap parseInt in a try/catch
+        // - prevent negative numbers
+        currentSupplies[index].amount = amount === "" ? 0 : parseInt(amount);
       }
-      updateValue({ supplies: array });
-    }, [currentValue, updateValue]
+      updateValue({ supplies: currentSupplies });
+    },
+    [currentValue, updateValue]
+  );
+
+  const handleCounterChange = React.useCallback(
+    (id: string, counterType: "add" | "substract") => {
+      const currentSupplies = currentValue.supplies;
+      const index = currentSupplies.findIndex((element) => element.id === id);
+      if (index !== -1) {
+        const currentAmount = currentSupplies[index].amount;
+        currentSupplies[index].amount = counterType === "add" ? currentAmount + 1 : currentAmount - 1;
+      }
+      updateValue({ supplies: currentSupplies });
+    },
+    [currentValue, updateValue]
   );
 
   const handleSubmit = React.useCallback(() => {
     navigate("/review");
   }, [navigate]);
+
   return (
     <React.Fragment>
       <Header backLink="/supplies" hasLangSelector />
@@ -53,26 +72,75 @@ export function Supplies2() {
       <Content>
         <h1 className={styles.title}>{t("supplies2_how_much")}</h1>
         <Spacer size={24} />
-        <div className={styles.flex}>
+        <Box display="flex" flexDirection="column">
           {currentValue.supplies.map((supply) => (
             <React.Fragment key={supply.id}>
-              <Card className={styles.card}>
-                <Text>{getSupplyName(supply.id)}</Text>
-                <Input value={supply.amount.toString()} label={"amount_" + supply.id} placeholder={t("enter_amount")} onChange={(value) => changeAmount(supply.id, value)} />
-              </Card>
-              <Spacer size={6} />
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Box>
+                  <Text>{getSupplyName(supply.id)}</Text>
+                </Box>
+
+                <Box>
+                  <FormControl variant="outlined">
+                    <OutlinedInput
+                      id="supplies-count"
+                      type="input"
+                      value={supply.amount === 0 ? "" : supply.amount}
+                      onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+                        handleInputChange(supply.id, event.target.value)
+                      }
+                      notched={false}
+                      sx={{
+                        maxWidth: "140px",
+                        borderRadius: "25px",
+                        "& input": {
+                          padding: "10px",
+                        },
+                      }}
+                      startAdornment={
+                        <InputAdornment position="start">
+                          <IconButton
+                            sx={{
+                              color: "#1337B8",
+                            }}
+                            aria-label="remove supplies"
+                            onClick={() => handleCounterChange(supply.id, "substract")}
+                            edge="start"
+                          >
+                            <RemoveCircleIcon />
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            sx={{
+                              color: "#1337B8",
+                            }}
+                            aria-label="add supplies"
+                            onClick={() => handleCounterChange(supply.id, "add")}
+                            edge="end"
+                          >
+                            <AddCircleIcon />
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      label="Supplies count"
+                    />
+                  </FormControl>
+                </Box>
+              </Box>
+
+              <Spacer size={10} />
             </React.Fragment>
           ))}
+
           <Spacer size={30} flex={2} />
-          <Button
-            onClick={handleSubmit}
-            trailingIcon={<ImgNext alt="" />}
-            fullWidth
-            floats
-          >
+
+          <Button onClick={handleSubmit} trailingIcon={<ImgNext alt="" />} fullWidth floats>
             {t("supplies_next")}
           </Button>
-        </div>
+        </Box>
       </Content>
     </React.Fragment>
   );
