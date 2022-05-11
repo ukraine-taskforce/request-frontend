@@ -1,5 +1,6 @@
 import React from "react";
 import { ID } from "./api";
+import { RequestStatus } from "../helpers/requests";
 
 export type SupplyWithAmount = {
   id: string;
@@ -12,6 +13,7 @@ export interface FormData {
   name: string;
   phoneNumber: string;
   comments: string;
+  status: RequestStatus;
 }
 
 export interface FormContextValue {
@@ -25,6 +27,7 @@ const defaultValue: FormData = {
   phoneNumber: "",
   supplies: [],
   comments: "",
+  status: RequestStatus.New,
 };
 
 const FormContext = React.createContext<FormContextValue>({
