@@ -45,6 +45,9 @@ export function Supplies2() {
             parsedAmount = tmp;
           }
         } finally {
+          if (amount === "") {
+            parsedAmount = 0;
+          }
           currentSupplies[index].amount = parsedAmount;
         }
       }
