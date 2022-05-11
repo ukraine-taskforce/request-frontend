@@ -146,7 +146,11 @@ export function Supplies2() {
 
           <Spacer size={30} flex={2} />
 
-          <Button onClick={handleSubmit} trailingIcon={<ImgNext alt="" />} fullWidth floats>
+          <Button
+            disabled={currentValue.supplies.filter((element) => (element.amount === 0)).length > 0}
+            onClick={handleSubmit}
+            trailingIcon={<ImgNext alt="" />}
+            fullWidth floats>
             {t("supplies_next")}
           </Button>
         </Box>
