@@ -11,9 +11,15 @@ import { Content } from "../../others/components/Content";
 import { useAuth } from "../../others/contexts/auth";
 import OutputIcon from "@mui/icons-material/Output";
 import { Tooltip } from "@mui/material";
-import { RequestStatus, fakeRequests } from "../../others/helpers/requests";
+import { Request, RequestStatus, fakeRequests } from "../../others/helpers/requests";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 import styles from "./orders.module.css";
+import Dialog from "@mui/material/Dialog";
+import Grow from "@mui/material/Grow";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import Avatar from "@mui/material/Avatar";
+import Chip from "@mui/material/Chip";
+import { ImgBack } from "../../medias/images/UGT_Asset_UI_Back";
 
 export function Orders() {
   const { t } = useTranslation();
@@ -21,6 +27,8 @@ export function Orders() {
   const [expandedRequestPanel, setExpandedRequestPanel] = useState<string | false>(false);
   const { data: cities } = useLocationsQuery();
   const { data: supplies } = useSuppliesQuery();
+  const [filterOpen, setFilterOpen] = React.useState(false);
+  const [ignoreStatus, setIgnoreStatus] = React.useState<number[]>([]);
 
   // TODO: If we don't replace it with a better mechanism at least use useMemo.
   const cityLookup = cities ? Object.assign({}, ...cities.map((city) => ({ [city.id]: city }))) : {};
@@ -29,6 +37,25 @@ export function Orders() {
   const toggleRequestPanel = (panel: string) => (event: React.SyntheticEvent, newExpandedPanel: boolean) => {
     setExpandedRequestPanel(newExpandedPanel ? panel : false);
   };
+
+  const toggleRequestStatus = React.useCallback(
+    (status: RequestStatus) => {
+      const array = [...ignoreStatus];
+      const index = array.indexOf(status);
+      if (index === -1) {
+        array.push(status);
+      } else {
+        array.splice(index, 1);
+      }
+      setIgnoreStatus(array);
+    },
+    [ignoreStatus]
+  );
+
+  const handleClose = () => {
+    setFilterOpen(false);
+  };
+  const showFilters = () => { setFilterOpen(true); };
 
   useEffect(() => {
     document.title = t("orders_page_title");
@@ -39,19 +66,24 @@ export function Orders() {
   if (!cities || !supplies) {
     return null;
   }
+
+  const filteredRequests = fakeRequests.filter((request: Request) => (!ignoreStatus.includes(request.status)));
+
   return (
     <React.Fragment>
       <Header hasHeadline hasLangSelector />
       <Content>
         <h1 className="title">Orders</h1>
         <Tooltip title="Logout" arrow>
-          <OutputIcon onClick={logout} sx={{ width: 30, height: 30, marginLeft: "auto", cursor: "pointer" }} />
+          <OutputIcon onClick={logout} sx={{  marginLeft: "auto", cursor: "pointer" }} />
         </Tooltip>
-
+        <Avatar sx={{ backgroundColor: "#274FDB", cursor: "pointer" }}>
+          <FilterListIcon onClick={showFilters} sx={{ color: "white" }} />
+        </Avatar>
         <Spacer size={24} />
 
         <div>
-          {fakeRequests.map((request) => (
+          {filteredRequests.map((request) => (
             <Accordion
               disableGutters
               elevation={0}
@@ -123,6 +155,31 @@ export function Orders() {
             </Accordion>
           ))}
         </div>
+        <Dialog
+          fullScreen
+          open={filterOpen}
+          onClose={handleClose}
+          TransitionComponent={Grow as React.ComponentType}
+        >
+          <div className="dialog_body">
+            <div className="dialog_body_root">
+              <div onClick={handleClose} className={styles.headerItem} >
+                <ImgBack alt="Back" className={styles.backIcon} />
+                <span>Back</span>
+              </div>
+              <Spacer size={20} />
+              <Text className={styles.filterTitle}>Status</Text>
+              <Spacer size={10} />
+              <Stack direction="row" spacing={1} >
+                <Chip label="New" classes={{ label: styles.filterChip }} color={ignoreStatus.indexOf(RequestStatus.New) !== -1 ? "default" : "primary"} onClick={() => toggleRequestStatus(RequestStatus.New)} />
+                <Chip label="In transit" classes={{ label: styles.filterChip }} color={ignoreStatus.indexOf(RequestStatus.InTransit) !== -1 ? "default" : "primary"} onClick={() => toggleRequestStatus(RequestStatus.InTransit)} />
+                <Chip label="Delivered" classes={{ label: styles.filterChip }} color={ignoreStatus.indexOf(RequestStatus.Delivered) !== -1 ? "default" : "primary"} onClick={() => toggleRequestStatus(RequestStatus.Delivered)}  />
+                <Chip label="Invalid" classes={{ label: styles.filterChip }} color={ignoreStatus.indexOf(RequestStatus.Invalid) !== -1 ? "default" : "primary"} onClick={() => toggleRequestStatus(RequestStatus.Invalid)} />
+                <Chip label="Expired" classes={{ label: styles.filterChip }} color={ignoreStatus.indexOf(RequestStatus.Expired) !== -1 ? "default" : "primary"} onClick={() => toggleRequestStatus(RequestStatus.Expired)} />
+              </Stack>
+            </div>
+          </div>
+        </Dialog>
       </Content>
     </React.Fragment>
   );
