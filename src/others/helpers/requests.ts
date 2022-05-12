@@ -14,13 +14,14 @@ export enum RequestStatus {
 
 export type Request = {
   id: number;
+  internal_id: string;
   city_id: number;
   userName: string;
   userPhoneNumber: string;
   userComments: string;
   supplies: SupplyWithAmount[];
   status: RequestStatus;
-  date: Date;
+  timestamp: number;
   deliveryDate: Date | undefined;
 };
 
@@ -28,6 +29,7 @@ export type Request = {
 export const fakeRequests: Request[] = [
   {
     id: 1,
+    internal_id: "test1",
     city_id: 13,
     userName: "Anton",
     userPhoneNumber: "911",
@@ -43,11 +45,12 @@ export const fakeRequests: Request[] = [
     ],
     status: RequestStatus.New,
     userComments: "really really need it",
-    date: new Date(2022, 4, 27),
+    timestamp: 1652380921660,
     deliveryDate: undefined,
   },
   {
     id: 2,
+    internal_id: "test2",
     city_id: 23,
     userName: "Anton",
     userPhoneNumber: "911",
@@ -63,7 +66,7 @@ export const fakeRequests: Request[] = [
     ],
     status: RequestStatus.New,
     userComments: "can wait a few days",
-    date: new Date(2022, 4, 27),
+    timestamp: 1652380921660,
     deliveryDate: undefined,
   },
 ];
