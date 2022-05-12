@@ -1,6 +1,6 @@
 @import "./vars.css";
 
-body {
+body, .dialog_body {
   margin: 0;
   font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -11,12 +11,12 @@ body {
 }
 
 @media (min-width: 800px) {
-  body {
+  body, .dialog_body {
     padding: 48px 24px;
   }
 }
 
-#root {
+#root, .dialog_body_root {
   max-width: var(--global-width-limit);
   margin: 0 auto;
 }
