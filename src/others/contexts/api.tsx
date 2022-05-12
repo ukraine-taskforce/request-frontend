@@ -5,6 +5,7 @@ import {QueryClient, useMutation, useQuery} from "react-query";
 import {FormData} from "./form";
 import {generateCaptchaToken} from "./recaptcha";
 import {useAuth} from "./auth";
+import { Request } from "../helpers/requests";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -141,5 +142,36 @@ export function useSubmitMutation() {
 
       throw error;
     }
+  });
+}
+
+export function useListRequests() {
+  const {query} = useFetch();
+
+  return useQuery<Request[]>("listRequests", async () => {
+    const result = await query(API_DOMAIN)
+      .then((res) => {
+        if (!res.ok) throw new Error(res.statusText);
+         return res;
+      })
+      .then((res) => res.json())
+      .then((res) => {
+        const items = res.items;
+        const requests = items.map((data: any) => {
+          return {
+            id: -1,
+            internal_id: data.id,
+            city_id: data.body.location,
+            userName: data.body.name,
+            userPhoneNumber: data.body.phoneNumber,
+            userComments: data.body.comments,
+            supplies: data.body.supplies,
+            timestamp: data.timestamp,
+            status: "status" in data.body ? data.body.status : 1,
+          };
+        });
+        return requests;
+      });
+    return result;
   });
 }

@@ -8,8 +8,8 @@ import { Header } from "../../others/components/Header";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { Content } from "../../others/components/Content";
-import { Request, RequestStatus, fakeRequests } from "../../others/helpers/requests";
-import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
+import { Request, RequestStatus } from "../../others/helpers/requests";
+import { useLocationsQuery, useSuppliesQuery, useListRequests } from "../../others/contexts/api";
 import styles from "./orders.module.css";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { ImgBack } from "../../medias/images/UGT_Asset_UI_Back";
@@ -27,6 +27,7 @@ export function Orders() {
   const [expandedRequestPanel, setExpandedRequestPanel] = useState<string | false>(false);
   const { data: cities } = useLocationsQuery();
   const { data: supplies } = useSuppliesQuery();
+  const { data: requests } = useListRequests();
   const [filterOpen, setFilterOpen] = React.useState(false);
   const [ignoreStatus, setIgnoreStatus] = React.useState<number[]>([]);
 
@@ -63,11 +64,11 @@ export function Orders() {
   }, [t]);
 
   // TODO need to properly handle error and loading states
-  if (!cities || !supplies) {
+  if (!cities || !supplies || !requests) {
     return null;
   }
 
-  const filteredRequests = fakeRequests.filter((request: Request) => (!ignoreStatus.includes(request.status)));
+  const filteredRequests = requests.filter((request: Request) => (!ignoreStatus.includes(request.status)));
 
   return (
     <React.Fragment>
@@ -150,7 +151,7 @@ export function Orders() {
                 <Stack spacing={1}>
                   <dl className={styles.descriptionList}>
                     <dt>Date</dt>
-                    <dd>{request.date.toLocaleString()}</dd>
+                    <dd>{new Date(request.timestamp).toLocaleString()}</dd>
                     <dt>Status</dt>
                     <dd>{RequestStatus[request.status]}</dd>
                   </dl>
