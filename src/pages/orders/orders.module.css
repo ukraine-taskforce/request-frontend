@@ -41,3 +41,11 @@
   font-size: 16px;
   line-height: 16px;
 }
+
+.circle {
+  width: 32px;
+  height: 32px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  border-radius: 16px;
+}
