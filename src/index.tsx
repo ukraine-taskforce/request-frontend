@@ -22,6 +22,7 @@ import {Review} from "./pages/review";
 import {Success} from "./pages/success";
 import {Supplies} from "./pages/supplies";
 import {Supplies2} from "./pages/supplies2";
+import {Logout} from "./pages/logout";
 import {ResetPassword} from "./pages/resetPassword";
 
 const Providers: React.FunctionComponent = ({children}) => (
@@ -49,6 +50,7 @@ const AppWithRouter: React.FunctionComponent = () => {
           <Route path="/contact" element={<Contact />} />
           <Route element={<AuthWrapper />}>
             <Route path="/orders" element={<Orders />} />
+            <Route path="/logout" element={<Logout />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
