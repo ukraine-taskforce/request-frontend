@@ -8,9 +8,6 @@ import { Header } from "../../others/components/Header";
 import { Spacer } from "../../others/components/Spacer";
 import { Text } from "../../others/components/Text";
 import { Content } from "../../others/components/Content";
-import { useAuth } from "../../others/contexts/auth";
-import OutputIcon from "@mui/icons-material/Output";
-import { Tooltip } from "@mui/material";
 import { Request, RequestStatus, fakeRequests } from "../../others/helpers/requests";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 import styles from "./orders.module.css";
@@ -23,7 +20,6 @@ import { ImgBack } from "../../medias/images/UGT_Asset_UI_Back";
 
 export function Orders() {
   const { t } = useTranslation();
-  const { logout } = useAuth();
   const [expandedRequestPanel, setExpandedRequestPanel] = useState<string | false>(false);
   const { data: cities } = useLocationsQuery();
   const { data: supplies } = useSuppliesQuery();
@@ -74,9 +70,6 @@ export function Orders() {
       <Header hasHeadline hasLangSelector />
       <Content>
         <h1 className="title">Orders</h1>
-        <Tooltip title="Logout" arrow>
-          <OutputIcon onClick={logout} sx={{  marginLeft: "auto", cursor: "pointer" }} />
-        </Tooltip>
         <Avatar sx={{ backgroundColor: "#274FDB", cursor: "pointer" }}>
           <FilterListIcon onClick={showFilters} sx={{ color: "white" }} />
         </Avatar>
