@@ -5,11 +5,11 @@ export type SupplyWithAmount = {
 };
 
 export enum RequestStatus {
-  New = 0,
-  InTransit = 1,
-  Delivered = 2,
-  Invalid = 3,
-  Expired = 4,
+  New,
+  InTransit,
+  Delivered,
+  Invalid,
+  Expired,
 };
 
 export type Request = {
