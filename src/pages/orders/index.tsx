@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactGA from "react-ga4";
-import { Accordion, AccordionSummary, AccordionDetails, Typography, Stack } from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Stack, Dialog, Grow, Avatar, Chip, Box } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { useTranslation } from "react-i18next";
@@ -11,12 +11,16 @@ import { Content } from "../../others/components/Content";
 import { Request, RequestStatus, fakeRequests } from "../../others/helpers/requests";
 import { useLocationsQuery, useSuppliesQuery } from "../../others/contexts/api";
 import styles from "./orders.module.css";
-import Dialog from "@mui/material/Dialog";
-import Grow from "@mui/material/Grow";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import Avatar from "@mui/material/Avatar";
-import Chip from "@mui/material/Chip";
 import { ImgBack } from "../../medias/images/UGT_Asset_UI_Back";
+
+const statusToColor = {
+  [RequestStatus.New]: "blue",
+  [RequestStatus.InTransit]: "#FFD400",
+  [RequestStatus.Invalid]: "#CF2A20",
+  [RequestStatus.Delivered]: "#00B17C",
+  [RequestStatus.Expired]: "#0D1234"
+};
 
 export function Orders() {
   const { t } = useTranslation();
@@ -108,7 +112,14 @@ export function Orders() {
                   },
                 }}
               >
-                <Text variant="bold">Request #{request.id}</Text>
+                <Box display="flex" justifyContent="space-between" flexGrow="inherit">
+                  <Box sx={{ marginLeft: "0px", paddingTop: "5px" }}>
+                    <Text variant="bold">Request #{request.id}</Text>
+                  </Box>
+                  <Box marginLeft="20px" className={styles.circle}
+                    sx={{ backgroundColor: statusToColor[request.status] }}
+                  />
+                </Box>
               </AccordionSummary>
               <AccordionDetails
                 sx={{
