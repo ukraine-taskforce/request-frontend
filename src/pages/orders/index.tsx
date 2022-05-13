@@ -30,7 +30,7 @@ export function Orders() {
   const { data: cities } = useLocationsQuery();
   const { data: supplies } = useSuppliesQuery();
   const { data: requests } = useListRequests();
-  const { mutateAsync: mutate, isLoading, error } = useRequestUpdateMutation();
+  const { mutateAsync: mutate, isLoading } = useRequestUpdateMutation();
   const [filterOpen, setFilterOpen] = React.useState(false);
   const [ignoreStatus, setIgnoreStatus] = React.useState<number[]>([]);
 
