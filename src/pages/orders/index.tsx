@@ -6,10 +6,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTranslation } from "react-i18next";
 import { Header } from "../../others/components/Header";
 import { Spacer } from "../../others/components/Spacer";
+import { Button } from "../../others/components/Button";
 import { Text } from "../../others/components/Text";
 import { Content } from "../../others/components/Content";
+import { FormData } from "../../others/contexts/form";
 import { Request, RequestStatus } from "../../others/helpers/requests";
-import { useLocationsQuery, useSuppliesQuery, useListRequests } from "../../others/contexts/api";
+import { RequestUpdateParams, useRequestUpdateMutation, useLocationsQuery, useSuppliesQuery, useListRequests } from "../../others/contexts/api";
 import styles from "./orders.module.css";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { ImgBack } from "../../medias/images/UGT_Asset_UI_Back";
@@ -28,6 +30,7 @@ export function Orders() {
   const { data: cities } = useLocationsQuery();
   const { data: supplies } = useSuppliesQuery();
   const { data: requests } = useListRequests();
+  const { mutateAsync: mutate, isLoading } = useRequestUpdateMutation();
   const [filterOpen, setFilterOpen] = React.useState(false);
   const [ignoreStatus, setIgnoreStatus] = React.useState<number[]>([]);
 
@@ -51,6 +54,24 @@ export function Orders() {
       setIgnoreStatus(array);
     },
     [ignoreStatus]
+  );
+
+  const markAsInvalid = React.useCallback(
+    async (request: Request) => {
+      const formData: FormData = {
+        location: request.city_id,
+        name: request.userName,
+        phoneNumber: request.userPhoneNumber,
+        comments: request.userComments,
+        status: RequestStatus.Invalid,
+        supplies: request.supplies
+      };
+      const updateData: RequestUpdateParams = {
+        formData: formData,
+        id: request.internal_id
+      };
+      await mutate(updateData);
+    }, [mutate]
   );
 
   const handleClose = () => {
@@ -156,6 +177,16 @@ export function Orders() {
                     <dd>{RequestStatus[request.status]}</dd>
                   </dl>
                 </Stack>
+
+                <Spacer size={20} />
+
+                {request.status !== RequestStatus.Invalid &&
+                 <Button fullWidth
+                   disabled={isLoading}
+                   onClick={() => markAsInvalid(request)}>
+                   Mark as invalid
+                 </Button>}
+
               </AccordionDetails>
             </Accordion>
           ))}

@@ -175,3 +175,38 @@ export function useListRequests() {
     return result;
   });
 }
+
+export type RequestUpdateParams = {
+  formData: FormData;
+  id: string;
+};
+
+export function useRequestUpdateMutation() {
+  const {query} = useFetch();
+
+  return useMutation("updateMutation", async (data: RequestUpdateParams) => {
+    try {
+      const recaptchaToken = await generateCaptchaToken("submit");
+      return await query(`${API_DOMAIN}/${data.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          ...data.formData,
+          recaptchaToken,
+        }),
+      })
+        .then((res) => {
+        console.log(res);
+          if (!res.ok) throw new Error(res.statusText);
+
+          return res;
+        })
+        .then((res) => res.json());
+    } catch (error) {
+      if (process.env.NODE_ENV !== "production") {
+        return null;
+      }
+
+      throw error;
+    }
+  });
+}
