@@ -3,7 +3,6 @@ import {useTranslation} from "react-i18next";
 import {QueryClient, useMutation, useQuery} from "react-query";
 
 import {FormData} from "./form";
-import {generateCaptchaToken} from "./recaptcha";
 import {useAuth} from "./auth";
 import { Request } from "../helpers/requests";
 
@@ -121,12 +120,10 @@ export function useSubmitMutation() {
 
   return useMutation("submitMutation", async (formData: FormData) => {
     try {
-      const recaptchaToken = await generateCaptchaToken("submit");
       return await query(API_DOMAIN, {
         method: "POST",
         body: JSON.stringify({
           ...formData,
-          recaptchaToken,
         }),
       })
         .then((res) => {
@@ -186,16 +183,13 @@ export function useRequestUpdateMutation() {
 
   return useMutation("updateMutation", async (data: RequestUpdateParams) => {
     try {
-      const recaptchaToken = await generateCaptchaToken("submit");
       return await query(`${API_DOMAIN}/${data.id}`, {
         method: "PUT",
         body: JSON.stringify({
           ...data.formData,
-          recaptchaToken,
         }),
       })
         .then((res) => {
-        console.log(res);
           if (!res.ok) throw new Error(res.statusText);
 
           return res;

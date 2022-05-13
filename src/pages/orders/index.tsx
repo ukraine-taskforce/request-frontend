@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
 import ReactGA from "react-ga4";
 import { Accordion, AccordionSummary, AccordionDetails, Typography, Stack, Dialog, Grow, Avatar, Chip, Box } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
+import RefreshIcon from "@mui/icons-material/Refresh";
 import { useTranslation } from "react-i18next";
 import { Header } from "../../others/components/Header";
 import { Spacer } from "../../others/components/Spacer";
@@ -25,6 +26,7 @@ const statusToColor = {
 };
 
 export function Orders() {
+  const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [expandedRequestPanel, setExpandedRequestPanel] = useState<string | false>(false);
   const { data: cities } = useLocationsQuery();
@@ -56,14 +58,14 @@ export function Orders() {
     [ignoreStatus]
   );
 
-  const markAsInvalid = React.useCallback(
-    async (request: Request) => {
+  const changeStatus = React.useCallback(
+    async (request: Request, status: RequestStatus) => {
       const formData: FormData = {
         location: request.city_id,
         name: request.userName,
         phoneNumber: request.userPhoneNumber,
         comments: request.userComments,
-        status: RequestStatus.Invalid,
+        status: status,
         supplies: request.supplies
       };
       const updateData: RequestUpdateParams = {
@@ -71,13 +73,15 @@ export function Orders() {
         id: request.internal_id
       };
       await mutate(updateData);
-    }, [mutate]
+      await queryClient.refetchQueries(["listRequests"]);
+    }, [mutate, queryClient]
   );
 
   const handleClose = () => {
     setFilterOpen(false);
   };
   const showFilters = () => { setFilterOpen(true); };
+  const refreshData = async () => { await queryClient.refetchQueries(["listRequests"]); };
 
   useEffect(() => {
     document.title = t("orders_page_title");
@@ -96,9 +100,14 @@ export function Orders() {
       <Header hasHeadline hasLangSelector />
       <Content>
         <h1 className="title">Orders</h1>
-        <Avatar sx={{ backgroundColor: "#274FDB", cursor: "pointer" }}>
-          <FilterListIcon onClick={showFilters} sx={{ color: "white" }} />
-        </Avatar>
+        <Stack spacing={1} direction="row">
+          <Avatar sx={{ backgroundColor: "#274FDB", cursor: "pointer" }}>
+            <FilterListIcon onClick={showFilters} sx={{ color: "white" }} />
+          </Avatar>
+          <Avatar sx={{ backgroundColor: "#274FDB", cursor: "pointer" }}>
+            <RefreshIcon onClick={refreshData} sx={{ color: "white" }} />
+          </Avatar>
+        </Stack>
         <Spacer size={24} />
 
         <div>
@@ -178,14 +187,56 @@ export function Orders() {
                   </dl>
                 </Stack>
 
-                <Spacer size={20} />
+                {request.status !== RequestStatus.New &&
+                 <>
+                   <Spacer size={20} />
+                   <Button fullWidth
+                     disabled={isLoading}
+                     onClick={() => changeStatus(request, RequestStatus.New)}>
+                     Mark as New
+                   </Button>
+                 </>}
 
                 {request.status !== RequestStatus.Invalid &&
-                 <Button fullWidth
-                   disabled={isLoading}
-                   onClick={() => markAsInvalid(request)}>
-                   Mark as invalid
-                 </Button>}
+                 <>
+                   <Spacer size={20} />
+                   <Button fullWidth
+                     disabled={isLoading}
+                     onClick={() => changeStatus(request, RequestStatus.Invalid)}>
+                     Mark as Invalid
+                   </Button>
+                 </>}
+
+                {request.status === RequestStatus.New &&
+                 <>
+                   <Spacer size={20} />
+                   <Button fullWidth
+                     disabled={isLoading}
+                     onClick={() => changeStatus(request, RequestStatus.InTransit)}>
+                     Mark as In Transit
+                   </Button>
+                 </>}
+
+                {request.status === RequestStatus.InTransit &&
+                 <>
+                   <Spacer size={20} />
+                   <Button fullWidth
+                     disabled={isLoading}
+                     onClick={() => changeStatus(request, RequestStatus.Delivered)}>
+                     Mark as Delivered
+                   </Button>
+                 </>}
+
+                {(request.status !== RequestStatus.Expired && request.status !== RequestStatus.Invalid) &&
+                 <>
+                   <Spacer size={20} />
+                   <Button fullWidth
+                     disabled={isLoading}
+                     onClick={() => changeStatus(request, RequestStatus.Expired)}>
+                     Mark as Expired
+                   </Button>
+                 </>}
+
 
               </AccordionDetails>
             </Accordion>
