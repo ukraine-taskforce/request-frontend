@@ -86,9 +86,9 @@ export function Orders() {
               disableGutters
               elevation={0}
               square
-              expanded={expandedRequestPanel === `panel-${request.id}`}
-              onChange={toggleRequestPanel(`panel-${request.id}`)}
-              key={request.id}
+              expanded={expandedRequestPanel === `panel-${request.internal_id}`}
+              onChange={toggleRequestPanel(`panel-${request.internal_id}`)}
+              key={request.internal_id}
               sx={{
                 borderRadius: "8px",
                 marginBottom: "20px",
@@ -100,8 +100,8 @@ export function Orders() {
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls={`panel-${request.id}-content`}
-                id={`panel-${request.id}-header`}
+                aria-controls={`panel-${request.internal_id}-content`}
+                id={`panel-${request.internal_id}-header`}
                 sx={{
                   flexDirection: "row-reverse",
                   padding: "10px 16px",
@@ -115,7 +115,7 @@ export function Orders() {
               >
                 <Box display="flex" justifyContent="space-between" flexGrow="inherit">
                   <Box sx={{ marginLeft: "0px", paddingTop: "5px" }}>
-                    <Text variant="bold">Request #{request.id}</Text>
+                    <Text variant="bold">Request #{request.internal_id.substr(0, 8)}</Text>
                   </Box>
                   <Box marginLeft="20px" className={styles.circle}
                     sx={{ backgroundColor: statusToColor[request.status] }}
