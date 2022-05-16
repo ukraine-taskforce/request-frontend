@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import ReactGA from "react-ga4";
-import { Accordion, AccordionSummary, AccordionDetails, Typography, Stack, Dialog, Grow, Avatar, Chip, Box } from "@mui/material";
+import { DialogTitle, DialogActions, DialogContent, Button as MUIButton, Accordion, AccordionSummary, AccordionDetails, Typography, Stack, Dialog, Grow, Avatar, Chip, Box } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { useTranslation } from "react-i18next";
@@ -25,6 +25,11 @@ const statusToColor = {
   [RequestStatus.Expired]: "#0D1234"
 };
 
+type ConfirmDialogConfig = {
+  status: RequestStatus;
+  request: Request;
+};
+
 export function Orders() {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
@@ -35,6 +40,7 @@ export function Orders() {
   const { mutateAsync: mutate, isLoading } = useRequestUpdateMutation();
   const [filterOpen, setFilterOpen] = React.useState(false);
   const [ignoreStatus, setIgnoreStatus] = React.useState<number[]>([]);
+  const [confirmDialogConfig, setConfirmDialogConfig] = React.useState<undefined | ConfirmDialogConfig>(undefined);
 
   // TODO: If we don't replace it with a better mechanism at least use useMemo.
   const cityLookup = cities ? Object.assign({}, ...cities.map((city) => ({ [city.id]: city }))) : {};
@@ -193,7 +199,7 @@ export function Orders() {
                    <Spacer size={20} />
                    <Button fullWidth
                      disabled={isLoading}
-                     onClick={() => changeStatus(request, RequestStatus.New)}>
+                     onClick={() => setConfirmDialogConfig({status: RequestStatus.New, request: request})}>
                      Mark as New
                    </Button>
                  </>}
@@ -203,7 +209,7 @@ export function Orders() {
                    <Spacer size={20} />
                    <Button fullWidth
                      disabled={isLoading}
-                     onClick={() => changeStatus(request, RequestStatus.Invalid)}>
+                     onClick={() => setConfirmDialogConfig({request: request, status: RequestStatus.Invalid})}>
                      Mark as Invalid
                    </Button>
                  </>}
@@ -213,7 +219,7 @@ export function Orders() {
                    <Spacer size={20} />
                    <Button fullWidth
                      disabled={isLoading}
-                     onClick={() => changeStatus(request, RequestStatus.InTransit)}>
+                     onClick={() => setConfirmDialogConfig({request: request, status: RequestStatus.InTransit})}>
                      Mark as In Transit
                    </Button>
                  </>}
@@ -223,7 +229,7 @@ export function Orders() {
                    <Spacer size={20} />
                    <Button fullWidth
                      disabled={isLoading}
-                     onClick={() => changeStatus(request, RequestStatus.Delivered)}>
+                     onClick={() => setConfirmDialogConfig({request: request, status: RequestStatus.Delivered})}>
                      Mark as Delivered
                    </Button>
                  </>}
@@ -233,7 +239,7 @@ export function Orders() {
                    <Spacer size={20} />
                    <Button fullWidth
                      disabled={isLoading}
-                     onClick={() => changeStatus(request, RequestStatus.Expired)}>
+                     onClick={() => setConfirmDialogConfig({request: request, status: RequestStatus.Expired})}>
                      Mark as Expired
                    </Button>
                  </>}
@@ -243,6 +249,21 @@ export function Orders() {
             </Accordion>
           ))}
         </div>
+        {confirmDialogConfig && <Dialog
+          open={true}>
+          <DialogTitle>Mark #{confirmDialogConfig.request.internal_id.substr(0, 8)} as {RequestStatus[confirmDialogConfig.status]}</DialogTitle>
+          <DialogContent>
+           You are about to change the status of this request.
+          </DialogContent>
+          <DialogActions>
+            <MUIButton autoFocus onClick={() => setConfirmDialogConfig(undefined)}>
+              Cancel
+            </MUIButton>
+            <MUIButton onClick={() => {changeStatus(confirmDialogConfig.request, confirmDialogConfig.status); setConfirmDialogConfig(undefined);}}>
+              Confirm
+            </MUIButton>
+          </DialogActions>
+        </Dialog>}
         <Dialog
           fullScreen
           open={filterOpen}
