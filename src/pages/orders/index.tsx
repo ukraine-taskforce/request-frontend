@@ -74,6 +74,7 @@ export function Orders() {
       };
       await mutate(updateData);
       await queryClient.refetchQueries(["listRequests"]);
+      setExpandedRequestPanel(false);
     }, [mutate, queryClient]
   );
 
