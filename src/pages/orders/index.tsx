@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import ReactGA from "react-ga4";
-import { DialogTitle, DialogActions, DialogContent, Button as MUIButton, Accordion, AccordionSummary, AccordionDetails, Typography, Stack, Dialog, Grow, Avatar, Chip, Box } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { FormControl, OutlinedInput, InputAdornment, IconButton, DialogTitle, DialogActions, DialogContent, Button as MUIButton, Accordion, AccordionSummary, AccordionDetails, Typography, Stack, Dialog, Grow, Avatar, Chip, Box } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { useTranslation } from "react-i18next";
@@ -12,10 +14,11 @@ import { Text } from "../../others/components/Text";
 import { Content } from "../../others/components/Content";
 import { FormData } from "../../others/contexts/form";
 import { Request, RequestStatus } from "../../others/helpers/requests";
-import { RequestUpdateParams, useRequestUpdateMutation, useLocationsQuery, useSuppliesQuery, useListRequests } from "../../others/contexts/api";
+import { RequestUpdateParams, useRequestUpdateMutation, useLocationsQuery, useSuppliesQuery, useListRequests, useSubmitMutation } from "../../others/contexts/api";
 import styles from "./orders.module.css";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { ImgBack } from "../../medias/images/UGT_Asset_UI_Back";
+import { SupplyWithAmount } from "../../others/helpers/requests";
 
 const statusToColor = {
   [RequestStatus.New]: "blue",
@@ -30,6 +33,11 @@ type ConfirmDialogConfig = {
   request: Request;
 };
 
+type PartialDispatchConfig = {
+  request: Request;
+  new_supplies: SupplyWithAmount[];
+};
+
 export function Orders() {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
@@ -38,13 +46,64 @@ export function Orders() {
   const { data: supplies } = useSuppliesQuery();
   const { data: requests } = useListRequests();
   const { mutateAsync: mutate, isLoading } = useRequestUpdateMutation();
+  const { mutateAsync: mutateAdd, isLoading: isLoadingAdd } = useSubmitMutation();
   const [filterOpen, setFilterOpen] = React.useState(false);
   const [ignoreStatus, setIgnoreStatus] = React.useState<number[]>([]);
   const [confirmDialogConfig, setConfirmDialogConfig] = React.useState<undefined | ConfirmDialogConfig>(undefined);
+  const [partialDispatchRequest, setPartialDispatchRequest] = React.useState<undefined | PartialDispatchConfig>(undefined);
 
   // TODO: If we don't replace it with a better mechanism at least use useMemo.
   const cityLookup = cities ? Object.assign({}, ...cities.map((city) => ({ [city.id]: city }))) : {};
   const supplyLookup = supplies ? Object.assign({}, ...supplies.map((supply) => ({ [supply.id]: supply }))) : {};
+
+  const getSupplyName = (supplyId: string) => {
+    if (supplies !== undefined) {
+      return supplies.find((supply) => supply.id === supplyId)?.name || "";
+    }
+    return "";
+  };
+
+  const handleInputChange = React.useCallback(
+    (id: string, amount: string) => {
+      if (!partialDispatchRequest) {
+        return;
+      }
+      const currentSupplies = partialDispatchRequest.new_supplies;
+      const index = currentSupplies.findIndex((element) => element.id === id);
+      if (index !== -1) {
+        let parsedAmount = 1;
+        try {
+          const tmp = parseInt(amount);
+          if (tmp >= 1) {
+            parsedAmount = tmp;
+          }
+        } finally {
+          if (amount === "") {
+            parsedAmount = 0;
+          }
+          currentSupplies[index].amount = parsedAmount;
+        }
+      }
+      setPartialDispatchRequest({request: partialDispatchRequest.request, new_supplies: currentSupplies});
+    },
+    [partialDispatchRequest, setPartialDispatchRequest]
+  );
+
+  const handleCounterChange = React.useCallback(
+    (id: string, counterType: "add" | "substract") => {
+      if (!partialDispatchRequest) {
+        return;
+      }
+      const currentSupplies = partialDispatchRequest.new_supplies;
+      const index = currentSupplies.findIndex((element) => element.id === id);
+      if (index !== -1) {
+        const currentAmount = currentSupplies[index].amount;
+        currentSupplies[index].amount = counterType === "add" ? currentAmount + 1 : currentAmount - 1;
+      }
+      setPartialDispatchRequest({request: partialDispatchRequest.request, new_supplies: currentSupplies });
+    },
+    [partialDispatchRequest, setPartialDispatchRequest]
+  );
 
   const toggleRequestPanel = (panel: string) => (event: React.SyntheticEvent, newExpandedPanel: boolean) => {
     setExpandedRequestPanel(newExpandedPanel ? panel : false);
@@ -82,6 +141,31 @@ export function Orders() {
       await queryClient.refetchQueries(["listRequests"]);
       setExpandedRequestPanel(false);
     }, [mutate, queryClient]
+  );
+
+  const splitRequest = React.useCallback(
+    async (data: PartialDispatchConfig) => {
+      const request = data.request;
+      const remaining_supplies = request.supplies.map((supply) => {
+        const i_supply = data.new_supplies.find((inner_supply) => inner_supply.id === supply.id);
+        if (i_supply) {
+          return {id: supply.id, amount: supply.amount - i_supply.amount};
+        }
+        return supply;
+      });
+
+      const formData: FormData = {
+        location: request.city_id,
+        name: request.userName,
+        phoneNumber: request.userPhoneNumber,
+        comments: request.userComments,
+        status: RequestStatus.New,
+        supplies: remaining_supplies
+      };
+      await mutateAdd(formData);
+      request.supplies = data.new_supplies;
+      changeStatus(request, RequestStatus.InTransit);
+    }, [mutateAdd, changeStatus]
   );
 
   const handleClose = () => {
@@ -204,6 +288,15 @@ export function Orders() {
                    </Button>
                  </>}
 
+                {request.status === RequestStatus.New &&
+                 <>
+                   <Spacer size={20} />
+                   <Button fullWidth
+                     disabled={isLoading}
+                     onClick={() => setPartialDispatchRequest({request: request, new_supplies: request.supplies.map(x => Object.assign({}, x))})}>
+                     Partially dispatch
+                   </Button>
+                 </>}
                 {request.status !== RequestStatus.Invalid &&
                  <>
                    <Spacer size={20} />
@@ -261,6 +354,83 @@ export function Orders() {
             </MUIButton>
             <MUIButton onClick={() => {changeStatus(confirmDialogConfig.request, confirmDialogConfig.status); setConfirmDialogConfig(undefined);}}>
               Confirm
+            </MUIButton>
+          </DialogActions>
+        </Dialog>}
+        {partialDispatchRequest && <Dialog open={true}>
+          <DialogTitle>Dispatch #{partialDispatchRequest.request.internal_id.substr(0, 8)} partially</DialogTitle>
+          <DialogContent>
+            <Box display="flex" flexDirection="column">
+            {partialDispatchRequest.new_supplies.map((supply) => (
+              <React.Fragment key={supply.id}>
+                <Box display="flex" justifyContent="space-between" alignItems="center">
+                  <Box>
+                    <Text>{getSupplyName(supply.id)}</Text>
+                  </Box>
+  
+                  <Box>
+                    <FormControl variant="outlined">
+                      <OutlinedInput
+                        id="supplies-count"
+                        type="input"
+                        value={supply.amount === 0 ? "" : supply.amount}
+                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+                          handleInputChange(supply.id, event.target.value)
+                        }
+                        notched={false}
+                        sx={{
+                          maxWidth: "140px",
+                          borderRadius: "25px",
+                          "& input": {
+                            padding: "10px",
+                          },
+                        }}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <IconButton
+                              sx={{
+                                color: "#1337B8",
+                              }}
+                              disabled={supply.amount <= 1}
+                              aria-label="remove supplies"
+                              onClick={() => handleCounterChange(supply.id, "substract")}
+                              edge="start"
+                            >
+                              <RemoveCircleIcon />
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              sx={{
+                                color: "#1337B8",
+                              }}
+                              aria-label="add supplies"
+                              onClick={() => handleCounterChange(supply.id, "add")}
+                              edge="end"
+                            >
+                              <AddCircleIcon />
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        label="Supplies count"
+                      />
+                    </FormControl>
+                  </Box>
+                </Box>
+
+                <Spacer size={10} />
+              </React.Fragment>
+            ))}
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <MUIButton onClick={() => setPartialDispatchRequest(undefined)}>
+              Cancel
+            </MUIButton>
+            <MUIButton onClick={() => {splitRequest(partialDispatchRequest); setPartialDispatchRequest(undefined);}} disabled={isLoadingAdd}>
+              Mark this part as InTransit
             </MUIButton>
           </DialogActions>
         </Dialog>}
